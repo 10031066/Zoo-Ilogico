@@ -1,6 +1,7 @@
 package javaapplication2zoooologico;
 public class Animales {
-    int nombre;//para definir el animal 1 a 14
+    int indice;//para definir el animal 1 a 14
+    String nombre; 
     boolean salvaje; //si o no
     int salud; // funciona como indicador de hambre
         //si en un animal salvaje, baja a cero empezara a atacar
@@ -14,7 +15,8 @@ public class Animales {
     boolean pescado;
     boolean carne;
     
-    private void crear(int nombre, boolean salvaje, int salud, int ataque, int precio, boolean heno, boolean fruta, boolean pescado, boolean carne) {
+    private void crear(int indice,String nombre ,boolean salvaje, int salud, int ataque, int precio, boolean heno, boolean fruta, boolean pescado, boolean carne) {
+        this.indice = indice;
         this.nombre = nombre;
         this.salvaje = salvaje;
         this.salud = salud;
@@ -26,36 +28,49 @@ public class Animales {
         this.carne = carne;
     }
     
-    public Animales(int nombre){
-        switch (nombre){
+    public Animales(int indice){
+        switch (indice){
             case 1: //chango
-                crear(nombre,false,60,0,250,false,true,false,true);
+                crear(indice,"Chango",false,60,0,250,false,true,false,true);
                 break;
-            case 2:
+            case 2://elefante
+                crear(indice,"Elefante",false,250,0,750,true,true,false,false);
                 break;
-            case 3:
+            case 3://jirafa
+                crear(indice,"Jirafa",false,200,0,650,true,true,false,false);
                 break;
-            case 4:
+            case 4: // pingüino
+                crear(indice,"Pingüino",false,100,0,400,false,true,true,false);
                 break;
-            case 5:
+            case 5: //cebra
+                crear(indice,"Cebra",false,130,0,500,true,true,false,false);
                 break;
-            case 6:
+            case 6: //camello
+                crear(indice,"Camello",false,180,0,600,true,true,false,false);
                 break;
-            case 7:
+            case 7: //Foca
+                crear(indice,"Foca",false,110,0,450,false,true,true,false);
                 break;
-            case 8:
+            case 8: //tigre
+                crear(indice,"Tigre",true,300,20,1000,false,false,true,true);
                 break;
-            case 9:
+            case 9: //Oso
+                crear(indice,"Oso",true,250,15,900,false,false,true,true);
                 break;
-            case 10:
+            case 10: //leon
+                crear(indice,"Leon",true,250,20,900,false,false,true,true);
                 break;
-            case 11:
+            case 11: //Avestruz
+                crear(indice,"Avestruz",true,250,10,750,true,true,false,false);
                 break;
-            case 12:
+            case 12: //Panda
+                crear(indice,"Panda",true,210,15,800,false,true,false,true);
                 break;
-            case 13:
+            case 13: //Cocodrilo
+                crear(indice,"Cocodrilo",true,230,20,850,false,false,true,true);
                 break;
-            case 14:
+            case 14: //Rinoceronte
+                crear(indice,"Rinoceronte",true,350,30,1100,true,true,false,false);
                 break;
             default:
                 
