@@ -10,12 +10,11 @@ public class Salvaje extends Animales{
     public void run() {
         try {
             Thread.sleep(5000);
-            
+            setSalud(getSalud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
             
         } catch (InterruptedException ex) {
             Logger.getLogger(Salvaje.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     public Salvaje(int indice) {
