@@ -1,10 +1,14 @@
 package javaapplication2zoooologico;
-abstract public class Animales extends Thread{  
+abstract public class Animales extends Thread{
+
+    public int getMaxSalud() {
+        return MaxSalud;
+    }
     private int indice;//para definir el animal 1 a 14
     private String nombre; 
     private boolean salvaje; //si o no
     private int salud; // funciona como indicador de hambre
-
+    private int MaxSalud;
     public void setSalud(int salud) {
         this.salud = salud;
     }
@@ -16,6 +20,10 @@ abstract public class Animales extends Thread{
         //si es un animal docil baja a cero muere
         //si baja a un 10% del total bota una alarma o cambia de color la linea para avisar
     private int ataque;
+
+    public int getAtaque() {
+        return ataque;
+    }
         //daño que los animales salvajes
     private int precio; //costo del animal
     private boolean heno; //come heno?
@@ -27,13 +35,14 @@ abstract public class Animales extends Thread{
         this.indice = indice;
         this.nombre = nombre;
         this.salvaje = salvaje;
-        this.salud = salud;
+        this.MaxSalud = salud;
         this.ataque = ataque;
         this.precio = precio;
         this.heno = heno;
         this.fruta = fruta;
         this.pescado = pescado;
         this.carne = carne;
+        this.salud=salud;
     }
     
     

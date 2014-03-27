@@ -6,15 +6,40 @@ import java.util.logging.Logger;
 
 public class Salvaje extends Animales{
     Jaula origen;
+    boolean atacar=false;
     @Override
     public void run() {
         try {
-            Thread.sleep(5000);
-            setSalud(getSalud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
+            while(true){
+                Thread.sleep(5000);
+                setSalud(getSalud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
+                if(getSalud()<=0){
+                    setSalud(0);
+                    atacar=true;
+                    while(getSalud()<getMaxSalud()*40){
+                        if(origen.getResistencia()>0){
+                            origen.setResistencia(origen.getResistencia()-getAtaque());
+                        }else{
+                            atacando();
+                        }
+                        
+                    }
+                }
+               
+            }
+            
             
         } catch (InterruptedException ex) {
             Logger.getLogger(Salvaje.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    void atacando(){
+        //buscara al ser docil o humano mas cercando y atacara hasta que muera, o el estres(salud) mejore
+        boolean seguir=true;
+        while(seguir){
+            
+        }
+        
     }
     
     public Salvaje(int indice) {
