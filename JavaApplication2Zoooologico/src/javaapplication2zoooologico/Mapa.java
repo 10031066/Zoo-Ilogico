@@ -25,7 +25,6 @@ public class Mapa {
                 }
             }
         }
-        
     }
     
     void Modifica(int i,int j,int poss){//poss 1.- Arriba 2.-Derecha 3.-Abajo 4.-Izquierda
