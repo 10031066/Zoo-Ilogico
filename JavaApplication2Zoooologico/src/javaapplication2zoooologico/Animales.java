@@ -4,6 +4,7 @@ abstract public class Animales extends Thread{
     public int getMaxSalud() {
         return MaxSalud;
     }
+    protected int posX,posY;//Posiciones del animal
     private int indice;//para definir el animal 1 a 14
     private String nombre; 
     private boolean salvaje; //si o no
@@ -12,14 +13,14 @@ abstract public class Animales extends Thread{
     public void setSalud(int salud) {
         this.salud = salud;
     }
-
+    protected Mapa zona;
     public int getSalud() {
         return salud;
     }
         //si en un animal salvaje, baja a cero empezara a atacar
         //si es un animal docil baja a cero muere
         //si baja a un 10% del total bota una alarma o cambia de color la linea para avisar
-    private int ataque;
+    protected int ataque;
 
     public int getAtaque() {
         return ataque;

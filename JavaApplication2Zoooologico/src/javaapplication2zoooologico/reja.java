@@ -6,6 +6,8 @@ public class reja {
     int ResistenciaMax;
     int iniI,iniJ;
     int finI,finJ;
+    int estado;
+    double unico;
     
     public reja(int tipo, int iniI, int iniJ, int finI, int finJ) {
         this.tipo = tipo;
@@ -21,5 +23,6 @@ public class reja {
         }
         this.Resistencia= res;
         this.ResistenciaMax=res;
+        unico = Math.random();
     }
 }

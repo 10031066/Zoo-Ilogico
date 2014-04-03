@@ -3,10 +3,10 @@ package javaapplication2zoooologico;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class Salvaje extends Animales{
     Jaula origen;
-    boolean atacar=false;
+    boolean atacar=false;    
+    
     @Override
     public void run() {
         try {
@@ -16,23 +16,54 @@ public class Salvaje extends Animales{
                 if(getSalud()<=0){
                     setSalud(0);
                     atacar=true;
-                    while(getSalud()<getMaxSalud()*40){
-                        if(origen.getResistencia()>0){
-                            origen.setResistencia(origen.getResistencia()-getAtaque());
-                        }else{
-                            atacando();
-                        }
-                        
+                    while(getSalud()<getMaxSalud()*40){//empieza a atacar!!!
+                       if(origen.jaulaRota){//si la jaula esta rota
+                           //es libre!!! ahora busca comida...
+                           //debe buscar al comestible mas cercano e ir tras el
+                           int indiceComida;
+                           double distanciaMenor=999;
+                           double distancia;
+                           int comidaX,comidaY;
+                           
+                           /**for(int i=0;i<)
+                           
+                           
+                           while(getSalud()<getMaxSalud()*40){ //mientras su salud mantenga el margen de atacante
+                               ASasasdasd 
+                               
+                           }*/
+                       }else{//a dañar la jaula
+                           //busca la reja mas cercana
+                           int indiceReja=0;
+                           double distanciaMenor=999;
+                           double distancia;
+                           int jaulaX,jaulaY;//posiciones de la jaula
+                           for(int i=0;i<origen.getDiametro();i++){
+                               jaulaX=origen.rejas[i].iniI;
+                               jaulaY=origen.rejas[i].iniJ;
+                               distancia = Math.sqrt(Math.pow(posX-jaulaX,2)+Math.pow(posY-jaulaY,2));
+                               if(distancia<distanciaMenor){
+                                   distanciaMenor=distancia;
+                                   indiceReja=i;
+                               }
+                           }
+                           //ya teniendo la reja mas cercana, se debera mover hacia ella y empezar a atacar
+                           
+                           
+                           while(getSalud()<getMaxSalud()*40){ //mientras su salud mantenga el margen de atacante
+                               //atacando la reja
+                               origen.rejas[indiceReja].Resistencia-=ataque;
+                               Thread.sleep(1000);
+                           }
+                       }
                     }
                 }
-               
             }
-            
-            
         } catch (InterruptedException ex) {
             Logger.getLogger(Salvaje.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     void atacando(){
         //buscara al ser docil o humano mas cercando y atacara hasta que muera, o el estres(salud) mejore
         boolean seguir=true;
@@ -42,7 +73,8 @@ public class Salvaje extends Animales{
         
     }
     
-    public Salvaje(int indice) {
+    public Salvaje(int indice, Mapa zona) {
+        this.zona=zona;
         switch (indice){
             case 8: //tigre
                 crear(indice,"Tigre",true,300,20,1000,false,false,true,true);
