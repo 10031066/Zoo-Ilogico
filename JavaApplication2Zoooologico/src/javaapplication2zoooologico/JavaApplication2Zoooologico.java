@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class JavaApplication2Zoooologico {
@@ -21,7 +22,6 @@ public class JavaApplication2Zoooologico {
             setLayout(new GridLayout(1,1));
                         
             Zona= new Mapa(7, 7);
-            Zona.addMouseListener(new clickArea());
             Zona.repaint();
             
             
@@ -34,14 +34,5 @@ public class JavaApplication2Zoooologico {
         }
     }
 
-    private static class clickArea extends MouseAdapter {
-
-        public clickArea() {
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println(e.getX()+"  "+e.getY());
-        }
-    }
+    
 }

@@ -45,6 +45,4 @@ abstract public class Animales extends Thread{
         this.carne = carne;
         this.salud=salud;
     }
-    
-    
 }

@@ -1,7 +1,11 @@
 package javaapplication2zoooologico;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 
 public class Mapa extends Canvas{
     int largo;
@@ -12,11 +16,14 @@ public class Mapa extends Canvas{
     
     @Override
     public void paint(Graphics g) {
-        /**for(int i=0;i<largo;i++){
+        g.setColor(Color.BLACK);
+        for(int i=0;i<largo;i++){
             for(int j=0;j<ancho;j++){
-                                
+                g.drawRect(i*50, j*50, 50, 50);
+                
             }
-        }*/
+        }
+        g.setColor(Color.red);
         dibujaJaulas(g);
     }
     
@@ -25,12 +32,13 @@ public class Mapa extends Canvas{
             g.drawRect(ListaJaulas[i].possX*50, ListaJaulas[i].possY*50, ListaJaulas[i].ancho*50, ListaJaulas[i].largo*50);
         }
     }
-    Jaula esJaula(int i,int j){//metodo que se usara antes de crear una jaula, para ver si en el menu se desplegara la opcion de crear jaula
+    
+    reja[] esJaula(int i,int j){//metodo que se usara antes de crear una jaula, para ver si en el menu se desplegara la opcion de crear jaula
         //los indices son de la posicion del cuadro no de los pixeles
         reja ListaDeRejas[] = null;
         int indice=0;
-        int tamI;
-        int tamJ;
+        int tamX=1;
+        int tamY=1;
         //empezara a bsucar el borde superior de la jaula, osea, una reja
         
         while(!Area[i][j].getArriba()){
@@ -45,6 +53,7 @@ public class Mapa extends Canvas{
             if(j>=largo)//si el indice j sale del area del mapa sale
                return null;
             if(!Area[i][j].getArriba()){ //si el cuadro de la derecha, tiene norte continua recorriendose
+                tamX++;
                 ListaDeRejas[indice]=Area[i][j].norte(); 
                 indice++;
             }else{
@@ -53,11 +62,12 @@ public class Mapa extends Canvas{
         }
         ListaDeRejas[indice]=Area[i][j].oeste();
         
-        while(!Area[i][j].getAbajo()){
+        while(!Area[i][j].getAbajo()){//agrega las rejas de la Derecha de ña jaula
             i++;
             if(i>ancho)
                 return null;
             if(!Area[i][j].getDerecha()){
+                tamY++;
                 ListaDeRejas[indice]=Area[i][j].oeste();
                 indice++;
             }else{
@@ -65,24 +75,41 @@ public class Mapa extends Canvas{
             }
         }
         ListaDeRejas[indice]=Area[i][j].sur();
-        tamI=i;
+        tamX=i;
         
-        while(!Area[i][j].getIzquierda()){
+        while(!Area[i][j].getIzquierda()){ //agrega las rejas Abajo de la jaula
             j--;
-            if(j<largo ||j)
+            if(j<largo)
                 return null;
             if(!Area[i][j].getAbajo()){
+                
                 ListaDeRejas[indice]=Area[i][j].sur();
                 indice++;
             }else{
                 return null;
             }
         }
+        ListaDeRejas[indice]=Area[i][j].este();
         
+        if(j<tamX)//asi sabremos si minimo recorrio lo que recorrio al principio
+            return null;
         
+        for(int k=0;k<tamY;k++){//Subira hasta donde inicio la jaula
+            if(!Area[i][j].getIzquierda()){
+                ListaDeRejas[indice]=Area[i][j].este();
+                indice++;
+                i--;
+            }else{
+                return null;
+            }
+        }
         
-        
-        return true;
+        while(!Area[i][j].getArriba() && Area[i][j].norte().unico!=ListaDeRejas[0].unico ){
+            ListaDeRejas[indice]=Area[i][j].este();
+            indice++;
+            j++;
+        }
+        return ListaDeRejas;
     }
     
     
@@ -96,6 +123,7 @@ public class Mapa extends Canvas{
         this.largo = largo;
         this.ancho = ancho;
         Area = new cuadro[largo][ancho];
+        addMouseListener(new clickArea());
         
         for(int i=0;i<largo;i++){
             for(int j=0;j<ancho;j++){
@@ -182,4 +210,23 @@ public class Mapa extends Canvas{
         }
         
     }
+    
+    private static class clickArea extends MouseAdapter {
+
+        public clickArea() {
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println(e.getX()+"  "+e.getY());
+            int a= Integer.parseInt(JOptionPane.showInputDialog("Agregar reja?\n0.-Norte\n1.-Oeste\n2.-Sur\n3.-Este"));
+            int x= e.getX()/50;
+            int y= e.getY()/50;
+            
+            reja nueva = new reja(1,)
+            
+        }
+    }
+    
+    
 }
