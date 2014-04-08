@@ -11,7 +11,7 @@ public class Mapa extends Canvas{
     int largo;
     int ancho;
     cuadro Area[][];
-    Jaula ListaJaulas[];
+    Jaula ListaJaulas[]=new Jaula[10];
     int indJaulas=0;
     private int jaulaYtam;
     
@@ -45,7 +45,7 @@ public class Mapa extends Canvas{
     
     reja[] esJaula(int i,int j){//metodo que se usara antes de crear una jaula, para ver si en el menu se desplegara la opcion de crear jaula
         //los indices son de la posicion del cuadro no de los pixeles
-        reja ListaDeRejas[] = null;
+        reja ListaDeRejas[]= new reja[28];
         int indice=0;
         int tamX=1;
         int tamY=1;
@@ -57,10 +57,9 @@ public class Mapa extends Canvas{
                 return null;
             
         }
-        System.out.println(i+ "  "+j);
         ListaDeRejas[indice]=Area[i][j].norte();
         indice++;
-        
+        System.out.println(1);
         while(!Area[i][j].getDerecha()){//agrega el resto de rejas de arriba de la jaula
             j++;
             if(j>=largo)//si el indice j sale del area del mapa sale
@@ -74,6 +73,8 @@ public class Mapa extends Canvas{
             }
         }
         ListaDeRejas[indice]=Area[i][j].oeste();
+        indice++;
+        System.out.println(2);
         
         while(!Area[i][j].getAbajo()){//agrega las rejas de la Derecha de ña jaula
             i++;
@@ -89,14 +90,15 @@ public class Mapa extends Canvas{
         }
         jaulaYtam=tamY;
         ListaDeRejas[indice]=Area[i][j].sur();
-        tamX=i;
+        //tamX=i;
+        indice++;
+        System.out.println(3);
         
         while(!Area[i][j].getIzquierda()){ //agrega las rejas Abajo de la jaula
             j--;
             if(j<largo)
                 return null;
             if(!Area[i][j].getAbajo()){
-                
                 ListaDeRejas[indice]=Area[i][j].sur();
                 indice++;
             }else{
@@ -104,25 +106,29 @@ public class Mapa extends Canvas{
             }
         }
         ListaDeRejas[indice]=Area[i][j].este();
+        indice++;
+        System.out.println(5);
         
-        if(j<tamX)//asi sabremos si minimo recorrio lo que recorrio al principio
-            return null;
-        
-        for(int k=0;k<tamY;k++){//Subira hasta donde inicio la jaula
+        while(!Area[i][j].getArriba()){
+            i--;
+            if(i<0){
+                return null;
+            }
             if(!Area[i][j].getIzquierda()){
                 ListaDeRejas[indice]=Area[i][j].este();
                 indice++;
-                i--;
             }else{
                 return null;
             }
         }
         
+        System.out.println(6);
         while(!Area[i][j].getArriba() && Area[i][j].norte().unico!=ListaDeRejas[0].unico ){
             ListaDeRejas[indice]=Area[i][j].este();
             indice++;
             j++;
         }
+        System.out.println(6);
         return ListaDeRejas;
     }
     
