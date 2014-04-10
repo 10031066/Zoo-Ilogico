@@ -262,7 +262,9 @@ public class Mapa extends Canvas{
                     n=y;
                     nueva = new reja(1,k,l,m,n);
                     Area[x][y].NuevaNorte(nueva);
-                    Area[x][y-1].NuevaSur(nueva); // Se igualan las rejas de "afuera" y adentro
+                    if(y-1>=0){
+                        Area[x][y-1].NuevaSur(nueva); // Se igualan las rejas de "afuera" y adentro
+                    }
                     break;
                 case 1:
                     k+=1;
@@ -270,7 +272,9 @@ public class Mapa extends Canvas{
                     n+=1;
                     nueva = new reja(1,k,l,m,n);
                     Area[x][y].NuevaDerecha(nueva);
-                    Area[x+1][y].NuevaIzquierda(nueva);
+                    if(x+1<Area.length){
+                        Area[x+1][y].NuevaIzquierda(nueva);
+                    }
                     break;
                 case 2:
                     l+=1;
@@ -278,13 +282,18 @@ public class Mapa extends Canvas{
                     n+=1;
                     nueva = new reja(1,k,l,m,n);
                     Area[x][y].NuevaSur(nueva);
-                    Area[x][y+1].NuevaNorte(nueva);
+                    if(y+1<Area[1].length){
+                        Area[x][y+1].NuevaNorte(nueva);
+                    }
+                    
                     break;
                 case 3:
                     n+=1;
                     nueva = new reja(1,k,l,m,n);
                     Area[x][y].NuevaIzquierda(nueva);
-                    Area[x-1][y].NuevaDerecha(nueva);
+                    if(x-1>=0){
+                        Area[x-1][y].NuevaDerecha(nueva);
+                    }
                     break;
                 default:
                     reja nuevaJaula[] = esJaula(x, y);
