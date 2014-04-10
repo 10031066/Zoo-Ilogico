@@ -60,28 +60,30 @@ public class Mapa extends Canvas{
         ListaDeRejas[indice]=Area[i][j].norte();
         indice++;
         System.out.println(1);
+        
         while(!Area[i][j].getDerecha()){//agrega el resto de rejas de arriba de la jaula
-            j++;
-            if(j>=largo)//si el indice j sale del area del mapa sale
+            i++;
+            if(j>=ancho){//si el indice j sale del area del mapa sale
                return null;
-            if(!Area[i][j].getArriba()){ //si el cuadro de la derecha, tiene norte continua recorriendose
-                tamX++;
+            }
+            
+            if(Area[i][j].getArriba()){ //si el cuadro de la derecha, tiene norte continua recorriendose
                 ListaDeRejas[indice]=Area[i][j].norte(); 
                 indice++;
             }else{
                 return null;
             }
+            
         }
         ListaDeRejas[indice]=Area[i][j].oeste();
         indice++;
         System.out.println(2);
         
         while(!Area[i][j].getAbajo()){//agrega las rejas de la Derecha de ña jaula
-            i++;
-            if(i>ancho)
+            j++;
+            if(i>largo)
                 return null;
-            if(!Area[i][j].getDerecha()){
-                tamY++;
+            if(Area[i][j].getDerecha()){
                 ListaDeRejas[indice]=Area[i][j].oeste();
                 indice++;
             }else{
@@ -95,26 +97,28 @@ public class Mapa extends Canvas{
         System.out.println(3);
         
         while(!Area[i][j].getIzquierda()){ //agrega las rejas Abajo de la jaula
-            j--;
-            if(j<largo)
+            i--;
+            if(j>ancho)
                 return null;
-            if(!Area[i][j].getAbajo()){
+            System.out.println(Area[i][j].getAbajo() + " "+i+ " "+j);
+            if(Area[i][j].getAbajo()){
                 ListaDeRejas[indice]=Area[i][j].sur();
                 indice++;
             }else{
                 return null;
             }
+            
         }
         ListaDeRejas[indice]=Area[i][j].este();
         indice++;
         System.out.println(5);
         
         while(!Area[i][j].getArriba()){
-            i--;
+            j--;
             if(i<0){
                 return null;
             }
-            if(!Area[i][j].getIzquierda()){
+            if(Area[i][j].getIzquierda()){
                 ListaDeRejas[indice]=Area[i][j].este();
                 indice++;
             }else{
@@ -123,10 +127,10 @@ public class Mapa extends Canvas{
         }
         
         System.out.println(6);
-        while(!Area[i][j].getArriba() && Area[i][j].norte().unico!=ListaDeRejas[0].unico ){
+        while(Area[i][j].getArriba() && Area[i][j].norte().unico!=ListaDeRejas[0].unico ){
             ListaDeRejas[indice]=Area[i][j].este();
             indice++;
-            j++;
+            i++;
         }
         System.out.println(6);
         return ListaDeRejas;
@@ -185,8 +189,8 @@ public class Mapa extends Canvas{
     }
    
     class cuadro{
-        boolean poss[]={true,true,true,true};//poss 1.- Arriba 2.-Derecha 3.-Abajo 4.-Izquierda
-        //un valor verdadera significa que puede caminar por ahi, osea no hay reja
+        boolean poss[]={false,false,false,false,};//poss 1.- Arriba 2.-Derecha 3.-Abajo 4.-Izquierda
+        //valor falso significa que no hay reja
         reja rejas[]={null,null,null,null};//hay reja??
         
         void NuevaNorte(reja ne){
@@ -220,30 +224,18 @@ public class Mapa extends Canvas{
         }
         
         boolean getArriba(){
-            if(rejas[0]==null){
-                return false;
-            }
-            return true;
+            return poss[0];
         }
         
         boolean getDerecha(){
-            if(rejas[1]==null){
-                return false;
-            }
-            return true;
+            return poss[1];
         }
         
         boolean getAbajo(){
-            if(rejas[2]==null){
-                return false;
-            }
-            return true;
+            return poss[2];
         }
         boolean getIzquierda(){
-            if(rejas[3]==null){
-                return false;
-            }
-            return true;
+            return poss[3];
         }
         
     }
@@ -269,7 +261,6 @@ public class Mapa extends Canvas{
                     m=x+1;
                     n=y;
                     nueva = new reja(1,k,l,m,n);
-                    System.out.println(x+" "+y);
                     Area[x][y].NuevaNorte(nueva);
                     Area[x][y-1].NuevaSur(nueva); // Se igualan las rejas de "afuera" y adentro
                     break;
