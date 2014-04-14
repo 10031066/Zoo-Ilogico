@@ -1,4 +1,8 @@
 package javaapplication2zoooologico;
+
+import java.awt.Canvas;
+import java.awt.Graphics;
+
 abstract public class Animales extends Thread{
 
     public int getMaxSalud() {
@@ -6,14 +10,14 @@ abstract public class Animales extends Thread{
     }
     protected int posX,posY;//Posiciones del animal
     private int indice;//para definir el animal 1 a 14
-    private String nombre; 
+    String nombre; 
     private boolean salvaje; //si o no
     private int salud; // funciona como indicador de hambre
     private int MaxSalud;
     public void setSalud(int salud) {
         this.salud = salud;
     }
-    protected Mapa zona;
+    protected Cuadro zona; //un animal pertenece a un cuadro
     public int getSalud() {
         return salud;
     }
@@ -21,6 +25,7 @@ abstract public class Animales extends Thread{
         //si es un animal docil baja a cero muere
         //si baja a un 10% del total bota una alarma o cambia de color la linea para avisar
     protected int ataque;
+    Canvas g;
 
     public int getAtaque() {
         return ataque;
@@ -32,7 +37,7 @@ abstract public class Animales extends Thread{
     private boolean pescado;
     private boolean carne;
     
-    public void crear(int indice,String nombre ,boolean salvaje, int salud, int ataque, int precio, boolean heno, boolean fruta, boolean pescado, boolean carne) {
+    public void crear(int indice,String nombre ,boolean salvaje, int salud, int ataque, int precio, boolean heno, boolean fruta, boolean pescado, boolean carne,Canvas g) {
         this.indice = indice;
         this.nombre = nombre;
         this.salvaje = salvaje;
@@ -44,5 +49,11 @@ abstract public class Animales extends Thread{
         this.pescado = pescado;
         this.carne = carne;
         this.salud=salud;
+        this.g=g;
+    }
+
+    void Dibujate(){
+        this.g.getGraphics().drawString(nombre+"("+salud+"/"+MaxSalud+")", posX, posY);
+        System.out.println(nombre + " en "+ posX + ":"+posY);
     }
 }

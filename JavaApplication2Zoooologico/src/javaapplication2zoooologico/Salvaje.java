@@ -1,5 +1,7 @@
 package javaapplication2zoooologico;
 
+import java.awt.Canvas;
+import java.awt.Graphics;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,8 +11,11 @@ public class Salvaje extends Animales{
     
     @Override
     public void run() {
+        //
         try {
             while(true){
+                g.repaint();
+                System.out.println(nombre+" corriendo");
                 Thread.sleep(5000);
                 setSalud(getSalud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
                 if(getSalud()<=0){
@@ -73,29 +78,33 @@ public class Salvaje extends Animales{
         
     }
     
-    public Salvaje(int indice, Mapa zona) {
+    public Salvaje(int indice, Cuadro zona,int x,int y,Jaula origen,Canvas g) {
         this.zona=zona;
+        this.posX=x;
+        this.posY=y;
+        this.origen= origen;
+        
         switch (indice){
             case 8: //tigre
-                crear(indice,"Tigre",true,300,20,1000,false,false,true,true);
+                crear(indice,"Tigre",true,300,20,1000,false,false,true,true,g);
                 break;
             case 9: //Oso
-                crear(indice,"Oso",true,250,15,900,false,false,true,true);
+                crear(indice,"Oso",true,250,15,900,false,false,true,true,g);
                 break;
             case 10: //leon
-                crear(indice,"Leon",true,250,20,900,false,false,true,true);
+                crear(indice,"Leon",true,250,20,900,false,false,true,true,g);
                 break;
             case 11: //Avestruz
-                crear(indice,"Avestruz",true,250,10,750,true,true,false,false);
+                crear(indice,"Avestruz",true,250,10,750,true,true,false,false,g);
                 break;
             case 12: //Panda
-                crear(indice,"Panda",true,210,15,800,false,true,false,true);
+                crear(indice,"Panda",true,210,15,800,false,true,false,true,g);
                 break;
             case 13: //Cocodrilo
-                crear(indice,"Cocodrilo",true,230,20,850,false,false,true,true);
+                crear(indice,"Cocodrilo",true,230,20,850,false,false,true,true,g);
                 break;
             case 14: //Rinoceronte
-                crear(indice,"Rinoceronte",true,350,30,1100,true,true,false,false);
+                crear(indice,"Rinoceronte",true,350,30,1100,true,true,false,false,g);
                 break;   
         }   
     }

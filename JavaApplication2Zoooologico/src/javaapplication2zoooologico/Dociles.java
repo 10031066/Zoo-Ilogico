@@ -2,12 +2,13 @@ package javaapplication2zoooologico;
 public class Dociles extends Animales{
 
     public Dociles(int indice) {
+        /*
         switch (indice){
             case 1: //chango
-                crear(indice,"Chango",false,60,0,250,false,true,false,true);
+                crear(indice,"Chango",false,60,0,250,false,true,false,true,g);
                 break;
             case 2://elefante
-                crear(indice,"Elefante",false,250,0,750,true,true,false,false);
+                crear(indice,"Elefante",false,250,0,750,true,true,false,false,g);
                 break;
             case 3://jirafa
                 crear(indice,"Jirafa",false,200,0,650,true,true,false,false);
@@ -26,7 +27,7 @@ public class Dociles extends Animales{
                 break;
             default:
                 break;
-        }
+        }*/
     }
     
     
