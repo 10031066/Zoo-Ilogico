@@ -33,7 +33,6 @@ public class Jaula {
         this.rejas = muros;
         this.indice=indice;
         
-        
     }
     //las jaulas solo pueden ser rectangulares
     //las possioniones es donde empieza la jaula
