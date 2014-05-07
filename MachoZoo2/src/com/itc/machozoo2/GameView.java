@@ -33,7 +33,7 @@ public class GameView extends SurfaceView {
 	int activa;
 	private Rect[][] Celdas;
 	private GameView GV = this;
-	boolean flag = false;
+	boolean flag = false, flagF=false;
 	Canvas canvas;
 
 	public GameView(Context context) {
@@ -75,14 +75,23 @@ public class GameView extends SurfaceView {
 				
 				Figuras = new CopyOnWriteArrayList<Figura>();
 				// Animales tipo:1, rejas tipo:2, botones tipo:3
+				
 				//Figuras.add(new RejaSprite(GV, bmp2, id++, 2));
+<<<<<<< HEAD
 				Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1));//tigre
+=======
+				Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
+>>>>>>> ceca0f1e5cf0af17ee7cee758442a66bc016f360
 				Figuras.add(new Boton(GV, bmp3, id++, 3));
 				Figuras.add(new Boton(GV, bmp4, id++, 3));
 				Figuras.get(id - 1).get_dst().set(250, 250, 350, 350);
 				Figuras.add(new Boton(GV, bmp8, id++, 3));
 				Figuras.get(id - 1).get_dst().set(0, 500, 250, 750);
+				//si quieres otro tigre descomenta la linea de abajo, todo lo que quieras agregar de figuras 
+				//ponlo abajo de este comentario por que si no joderas los botones.
+				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
 				
+
 				// botones overhere!!
 			}
 
@@ -108,38 +117,29 @@ public class GameView extends SurfaceView {
 	            food.get(i).onDraw(canvas);
 	     }
 	        }
-		// Figuras.get(0).onDraw(canvas);
-		// Figuras.get(1).onDraw(canvas);
-		// Figuras.get(2).onDraw(canvas);
-		// sprite.onDraw(canvas);
-		// Reja1.onDraw(canvas);
 	}
 
 	@SuppressLint("WrongCall")
 	@Override
-	public boolean onTouchEvent(MotionEvent event) {
+	public boolean onTouchEvent(MotionEvent event) {//Aqui se controlas las acciones TOUCH!
 		int x = (int) event.getX();
 		int y = (int) event.getY();
-		// Log.i("zoo", "("+x+","+y);
+		
 
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
+		case MotionEvent.ACTION_DOWN://Dedo sobre la pantalla
 			for (Iterator<Figura> f = Figuras.iterator(); f.hasNext();) {
 				Figura aux = f.next();
-				// Log.i("zoo", "NO SE= " + f.hasNext());
+				
 				switch (aux.tipo) {
 				case 2:
 					if (aux.get_dst().contains(x, y)) {
 						Log.i("zoo", "toque");
 						flag = true;
 						activa = aux.get_id();
-						// Log.i("zoo", "old= " + activa);
+					
 						break;
-					} else {
-						// Log.i("zoo", "ELSE");
-						// flag = false;
-
-					}
+					} 
 					break;
 
 				case 3:// accion de los botones
@@ -153,6 +153,7 @@ public class GameView extends SurfaceView {
 						Figuras.get(id - 1).get_dst().set(x - 15, y - 125, x + 15, y + 125);
 						activa = id-1;
 						flag = true;
+						flagF=false;
 						onDraw(canvas);
 						break;
 					} else {
@@ -185,27 +186,56 @@ public class GameView extends SurfaceView {
 						}else{
 							if (aux.get_dst().contains(x, y) && aux.get_id() == 3) {//añadir carne
 								Log.i("zoo", "presionaste carne");
-								food.add(new FoodSprite(GV, bmp9, food, id_carne++, 4, x, y));
+								
+								id_carne=food.size();
+								
+								food.add(new FoodSprite(GV, bmp9, food, id_carne++, 4));
+								if(id_carne!=0){
+								food.get(id_carne - 1).get_dst().set(x - 22, y - 15, x + 22, y + 15);
+								}else{
+									food.get(id_carne).get_dst().set(x - 22, y - 15, x + 22, y + 15);
+								}
 							}
 						}
 					}
 
 				}
 			}
+			for(Iterator<FoodSprite> f = food.iterator(); f.hasNext();){
+				FoodSprite aux=f.next();
+				if (aux.get_dst().contains(x, y) && aux.get_tipo()==4) {
+					Log.i("zoo", "toque en la carne");
+					flagF = true;flag=false;
+					activa = aux.get_id();
+					// Log.i("zoo", "old= " + activa);
+					break;
+				}else
+				{
+					flagF=false;
+				}
+			}
 
 			break;
 
-		case MotionEvent.ACTION_MOVE:
+		case MotionEvent.ACTION_MOVE://moviendo el dedo
 			// Log.i("zoo", "" + flag);
+			if(flagF){
+					//Bug conocido: cuando el tigre se come la carne 1 antes que la 2 
+					
+					food.get(activa).get_dst().set(x - 22, y - 15, x + 22, y + 15);
+					
+					break;
+				
+			}
 			if (flag) {
+				
 				if (activa == 0) {
 					Log.i("zoo", "move");
 					Figuras.get(activa).get_dst().set(x - 15, y - 125, x + 15, y + 125);
 					break;
 				} else {
 					Log.i("zoo", "Activa= " + activa);
-					// Figuras.get(activa).get_dst().set(x-15,y-125, x+15,
-					// y+125);
+					
 					for (int i = 0; i < Celdas.length; i++) {// recorre la
 																// rejilla celda
 																// por celda
@@ -246,11 +276,14 @@ public class GameView extends SurfaceView {
 
 				// Log.i("zoo",
 				// ""+Reja1.SpriteRect().left+","+Reja1.SpriteRect().top+","+Reja1.SpriteRect().top+","+Reja1.SpriteRect().bottom);
+			
 			}
 			break;
 
-		case MotionEvent.ACTION_UP:
-			/*for (int i = 0; i < Celdas.length; i++) {// recorre la
+		case MotionEvent.ACTION_UP://levantando el dedo
+			
+			if(Figuras.get(activa).get_tipo()==2){
+			for (int i = 0; i < Celdas.length; i++) {// recorre la
 				// rejilla celda
 				// por celda
 				for (int j = 0; j < Celdas[0].length; j++) {
@@ -286,7 +319,7 @@ public class GameView extends SurfaceView {
 
 					}
 				}
-			}*/
+			}}
 			flag = false;
 			break;
 		}
@@ -306,9 +339,6 @@ public class GameView extends SurfaceView {
 
 				// Log.i("zoo", "Hola");
 				/* horizontal a la torch */
-				
-					
-				
 				if(i!=j){
 				if ((Rejas.get(j).get_dst().left == Rejas
 						.get(i).get_dst().right || Rejas.get(i).get_dst().left == Rejas
@@ -376,6 +406,9 @@ public class GameView extends SurfaceView {
 						
 							}
 						}
+					if(!yaexiste(Rejas.get(i).get_id())){
+						Rejastmp.add(Rejas.get(i));
+					}
 				}
 					
 				if(Rejas.get(i).get_dst().top == Rejas.get(j)
