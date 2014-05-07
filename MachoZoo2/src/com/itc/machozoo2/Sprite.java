@@ -17,7 +17,8 @@ public class Sprite  extends Figura{
 	private int ySpeed;
 	private int currentFrame = 0;
 	private int salud;
-	
+	private List<FoodSprite>food;
+	private Rect dst;
 	List<Figura> Figuras;
 	Random rnd = new Random();
 	
@@ -27,7 +28,7 @@ public class Sprite  extends Figura{
 	private boolean v=false,h=false;
 	int[] DIRECTION_TO_ANIMATION_MAP = { 3, 1, 0, 2 };
 
-	public Sprite(GameView gameView, Bitmap bmp,List<Figura> arg, int id,int tipo) {
+	public Sprite(GameView gameView, Bitmap bmp,List<Figura> arg, int id,int tipo, List<FoodSprite> F) {
 	    x=0;
 	    y=0;
 	    Figuras=arg;
@@ -37,7 +38,7 @@ public class Sprite  extends Figura{
 		this.bmp = bmp;
 		this.width = (bmp.getWidth() / BMP_COLUMNS);// -67;
 		this.height = bmp.getHeight() / BMP_ROWS;
-		
+		food=F;
 		
 		xSpeed = rnd.nextInt(10);
 		ySpeed = rnd.nextInt(10) - 5;
@@ -48,6 +49,7 @@ public class Sprite  extends Figura{
 	}
 
 	private void update() {
+		if(!comiendo()){
 		if (x > gameView.getWidth() - 133 ) {
 			xSpeed = -10;
 		}
@@ -69,6 +71,7 @@ public class Sprite  extends Figura{
 		y = y + ySpeed;
 		currentFrame = ++currentFrame % BMP_COLUMNS;
 	}
+	}
     @Override
 	public void onDraw(Canvas canvas) {
 
@@ -77,9 +80,9 @@ public class Sprite  extends Figura{
 	
 		src = new Rect(srcX, srcY, srcX + width, srcY + height);
 		dst = new Rect(x, y, x + width, y + height);
-		// Log.i("dst", ""+dst.width());
+
 		for (Figura f : Figuras) {
-			if( this.id != f.get_id()){
+			if( this.id != f.get_id() && this.get_tipo() != f.get_tipo()){
 			if (Rect.intersects(dst, f.get_dst()) ) {
 				
 				flag = false;
@@ -93,7 +96,7 @@ public class Sprite  extends Figura{
 					}else{
 						h=false;
 					}
-				//Log.i("dst", "INTERSECCION");
+			
 				break;
 			} else {
 				flag = true;
@@ -119,5 +122,15 @@ public class Sprite  extends Figura{
     }
     public void set_salud(int s){
     	salud=s;
+    }
+    
+    public boolean comiendo(){//busca colision con comida
+    	for (FoodSprite f : food){
+    	 if(Rect.intersects(dst, f.get_dst())){
+    		 f.mordida();
+    		 return true;
+    	 }
+    	}
+    	return false;
     }
 }

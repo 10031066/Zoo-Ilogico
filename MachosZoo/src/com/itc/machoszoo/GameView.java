@@ -10,11 +10,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
  
 public class GameView extends SurfaceView {
-       private Bitmap bmp;
+       private Bitmap bmp, bmp2;
        private SurfaceHolder holder;
        private GameLoopThread gameLoopThread;
        private Sprite sprite;
-      
+       private RejaSprite Reja1;
        public GameView(Context context) {
              super(context);
              gameLoopThread = new GameLoopThread(this);
@@ -46,7 +46,10 @@ public class GameView extends SurfaceView {
                     }
              });
              bmp = BitmapFactory.decodeResource(getResources(), R.drawable.tigres);
+             bmp2= BitmapFactory.decodeResource(getResources(), R.drawable.);
              sprite = new Sprite(this,bmp);
+             
+             
        }
  
        @SuppressLint("WrongCall")
