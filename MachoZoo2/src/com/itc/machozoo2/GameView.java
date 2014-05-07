@@ -76,7 +76,7 @@ public class GameView extends SurfaceView {
 				Figuras = new CopyOnWriteArrayList<Figura>();
 				// Animales tipo:1, rejas tipo:2, botones tipo:3
 				//Figuras.add(new RejaSprite(GV, bmp2, id++, 2));
-				Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1));
+				Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1));//tigre
 				Figuras.add(new Boton(GV, bmp3, id++, 3));
 				Figuras.add(new Boton(GV, bmp4, id++, 3));
 				Figuras.get(id - 1).get_dst().set(250, 250, 350, 350);
