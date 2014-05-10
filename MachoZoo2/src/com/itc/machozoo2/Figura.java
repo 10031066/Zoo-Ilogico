@@ -3,15 +3,14 @@ package com.itc.machozoo2;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 
-public abstract class Figura  {
-
+public abstract class Figura  extends Thread{
+	Canvas canvas;
 	Bitmap bmp;
 	int width;
 	int height;
 	int x;
-	int tipo;
+	int tipo;//El tipo 3 son los botones
 	int y;
 	int id;
 	Rect dst, src;

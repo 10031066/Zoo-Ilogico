@@ -1,7 +1,9 @@
 package com.itc.machozoo2;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 
+@SuppressLint("WrongCall")
 public class GameLoopThread extends Thread {
 	static final long FPS = 10;
 	private GameView view;

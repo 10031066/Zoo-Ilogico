@@ -22,10 +22,7 @@ public class Boton extends Figura{
 	
 	public void onDraw(Canvas canvas) {
 		update();
-
 		src = new Rect(0, 0, width, height);
 		canvas.drawBitmap(bmp, src, dst, null);
 	}
-	
-
 }

@@ -1,21 +1,72 @@
 package com.itc.machozoo2;
 
-public class Salvajes extends Animales{
+import java.util.List;
+
+import android.graphics.Bitmap;
+
+public class Salvajes extends Sprite {
 	Jaula origen;
     boolean atacar=false;    
+    
+    public Salvajes(int indice/*, Cuadro zona*/,int x,int y,Jaula origen,GameView gameView, int id,int tipo, List<FoodSprite> F) {
+	    this.id=id;
+	    this.tipo=tipo;
+		this.gameView=gameView;
+		
+		gameView.Figuras.add(this);
+		gameView.ListaSalvajes.add(this);
+		food=F;
+		
+		xSpeed = rnd.nextInt(10);
+		ySpeed = rnd.nextInt(10) - 5;
+
+		//this.zona=zona;
+        this.x=x;
+        this.y=y;
+        this.origen= origen;
+        origen.agregarAnimal(this); //se agrega el animal a la lista de su jaula
+        switch (indice){
+            case 8: //tigre
+                crear(indice,"Tigre",true,100,20,1000,false,false,true,true,gameView.bmp[1]);
+                break;
+            case 9: //Oso
+                crear(indice,"Oso",true,250,15,900,false,false,true,true,gameView.bmp[1]);
+                break;
+            case 10: //leon
+                crear(indice,"Leon",true,250,20,900,false,false,true,true,gameView.bmp[1]);
+                break;
+            case 11: //Avestruz
+                crear(indice,"Avestruz",true,250,10,750,true,true,false,false,gameView.bmp[1]);
+                break;
+            case 12: //Panda
+                crear(indice,"Panda",true,210,15,800,false,true,false,true,gameView.bmp[1]);
+                break;
+            case 13: //Cocodrilo
+                crear(indice,"Cocodrilo",true,230,20,850,false,false,true,true,gameView.bmp[1]);
+                break;
+            case 14: //Rinoceronte
+                crear(indice,"Rinoceronte",true,350,30,1100,true,true,false,false,gameView.bmp[1]);
+                break;   
+        } 
+		
+		
+		// Log.i("zoo",""+this.width);
+        start();
+	}
     
     @Override
     public void run() {
         //
         try {
             while(true){
-                System.out.println(nombre+" corriendo");
+                System.out.println(nombre+" corriendo "+get_salud() );
                 Thread.sleep(5000);
-                setSalud(getSalud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
-                if(getSalud()<=0){
-                    setSalud(0);
+                set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
+                if(get_salud()<=0){
+                	System.out.println("El tigre tiene hambre!!!");
+                    set_salud(0);
                     atacar=true;
-                    while(getSalud()<getMaxSalud()*40){//empieza a atacar!!!
+                    while(get_salud()<MaxSalud*40){//empieza a atacar!!!
                        if(origen.jaulaRota){//si la jaula esta rota
                            //es libre!!! ahora busca comida...
                            //debe buscar al comestible mas cercano e ir tras el
@@ -24,34 +75,26 @@ public class Salvajes extends Animales{
                            double distancia;
                            int comidaX,comidaY;
                            
-                           /**for(int i=0;i<)
+                           //for(int i=0;i<)
                            
                            
-                           while(getSalud()<getMaxSalud()*40){ //mientras su salud mantenga el margen de atacante
-                               ASasasdasd 
+                           //while(getSalud()<getMaxSalud()*40){ //mientras su salud mantenga el margen de atacante
                                
-                           }*/
+                               
+                           //}
                        }else{//a dañar la jaula
                            //busca la reja mas cercana
                            int indiceReja=0;
                            double distanciaMenor=999;
                            double distancia;
                            int jaulaX,jaulaY;//posiciones de la jaula
-                           for(int i=0;i<origen.getDiametro();i++){
-                               jaulaX=origen.rejas[i].iniI;
-                               jaulaY=origen.rejas[i].iniJ;
-                               distancia = Math.sqrt(Math.pow(posX-jaulaX,2)+Math.pow(posY-jaulaY,2));
-                               if(distancia<distanciaMenor){
-                                   distanciaMenor=distancia;
-                                   indiceReja=i;
-                               }
-                           }
-                           //ya teniendo la reja mas cercana, se debera mover hacia ella y empezar a atacar
+                           
+                           //atacara la primera reja con la que se tope
                            
                            
-                           while(getSalud()<getMaxSalud()*40){ //mientras su salud mantenga el margen de atacante
+                           while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
                                //atacando la reja
-                               origen.rejas[indiceReja].Resistencia-=ataque;
+                               origen.rejas.get(indiceReja).Resistencia-=ataque;
                                Thread.sleep(1000);
                            }
                        }
@@ -59,10 +102,10 @@ public class Salvajes extends Animales{
                 }
             }
         } catch (InterruptedException ex) {
-            Logger.getLogger(Salvaje.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
-    
+
     void atacando(){
         //buscara al ser docil o humano mas cercando y atacara hasta que muera, o el estres(salud) mejore
         boolean seguir=true;
@@ -70,36 +113,5 @@ public class Salvajes extends Animales{
             
         }
         
-    }
-    
-    public Salvaje(int indice, Cuadro zona,int x,int y,Jaula origen) {
-        this.zona=zona;
-        this.posX=x;
-        this.posY=y;
-        this.origen= origen;
-        
-        switch (indice){
-            case 8: //tigre
-                crear(indice,"Tigre",true,300,20,1000,false,false,true,true,g);
-                break;
-            case 9: //Oso
-                crear(indice,"Oso",true,250,15,900,false,false,true,true,g);
-                break;
-            case 10: //leon
-                crear(indice,"Leon",true,250,20,900,false,false,true,true,g);
-                break;
-            case 11: //Avestruz
-                crear(indice,"Avestruz",true,250,10,750,true,true,false,false,g);
-                break;
-            case 12: //Panda
-                crear(indice,"Panda",true,210,15,800,false,true,false,true,g);
-                break;
-            case 13: //Cocodrilo
-                crear(indice,"Cocodrilo",true,230,20,850,false,false,true,true,g);
-                break;
-            case 14: //Rinoceronte
-                crear(indice,"Rinoceronte",true,350,30,1100,true,true,false,false,g);
-                break;   
-        }   
     }
 }
