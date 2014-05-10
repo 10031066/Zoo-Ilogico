@@ -28,7 +28,7 @@ public class GameView extends SurfaceView {
 	public List<Figura> Figuras; //Aqui se guardan todas las figuras que pueden chocar entre si
 	public List<Figura> Nochocan;
 	public List<Sprite> ListaSalvajes;
-	private List<Jaula> Jaulas = new ArrayList<Jaula>();
+	public List<Jaula> Jaulas = new ArrayList<Jaula>();
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
 	private ArrayList<reja> Rejas;
@@ -42,6 +42,7 @@ public class GameView extends SurfaceView {
 	private GameView GV = this;
 	int indice=0;
 	public Mapa map;
+	Condiciones condicion;
 
 	public GameView(Context context) {
 		super(context);
@@ -104,17 +105,13 @@ public class GameView extends SurfaceView {
 					map.crearJaula(2,2,1,1, Temp);
 				}
 				Salvajes temp1 = new Salvajes(8, 520,520, map.Jaulas.get(0), GV, 4, 0, food);
-				
-				//temp1.start();
-				
 				Salvajes temp2 = new Salvajes(8, 520,620, map.Jaulas.get(0), GV, 4, 0, food);
 				
-				//temp2.start();
+				int var1[]={0};
+				int var2[]={2};
+				condicion = new Condiciones(GV,var1,var2);
 				
 				
-				//Figuras.add(new Salvajes(8,0,0,GV, bmp, Figuras, id++, 1,food));//tigre
-
-				//Figuras.add(new Salvajes(GV, bmp, Figuras, id++, 1,food));
 
 			}
 

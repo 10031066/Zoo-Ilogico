@@ -63,10 +63,12 @@ public class Salvajes extends Sprite {
                 Thread.sleep(5000);
                 set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
                 if(get_salud()<=0){
-                	System.out.println("El tigre tiene hambre!!!");
                     set_salud(0);
                     atacar=true;
                     while(get_salud()<MaxSalud*40){//empieza a atacar!!!
+                       Thread.sleep(5000);
+                       System.out.println("El tigre tiene hambre!!!");
+                       
                        if(origen.jaulaRota){//si la jaula esta rota
                            //es libre!!! ahora busca comida...
                            //debe buscar al comestible mas cercano e ir tras el
@@ -76,8 +78,6 @@ public class Salvajes extends Sprite {
                            int comidaX,comidaY;
                            
                            //for(int i=0;i<)
-                           
-                           
                            //while(getSalud()<getMaxSalud()*40){ //mientras su salud mantenga el margen de atacante
                                
                                

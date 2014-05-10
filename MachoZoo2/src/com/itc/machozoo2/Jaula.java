@@ -43,9 +43,7 @@ private int size;
 	 return alto;
  }
  //Agregado 
- 
- 	
- 	
+
 public int getDiametro() {
 	return 2*ancho+alto;
 	
