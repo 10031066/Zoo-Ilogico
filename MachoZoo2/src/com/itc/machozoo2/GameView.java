@@ -153,9 +153,12 @@ public class GameView extends SurfaceView {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN://Dedo sobre la pantalla
+			
+			
+			
 			for (Iterator<Figura> f = Nochocan.iterator(); f.hasNext();) {
 				Figura aux = f.next();
-
+				
 				switch (aux.tipo) {
 				case 2:
 					if (aux.get_dst().contains(x, y)) {
@@ -282,7 +285,7 @@ public class GameView extends SurfaceView {
 											.set(x - 125, y - 15, x + 125, y + 15);
 									Nochocan.get(activa).set_heigth(30);
 									Nochocan.get(activa).set_width(250);
-
+									
 									break;
 								} else {
 									Nochocan.get(activa).set_btm(
@@ -325,6 +328,8 @@ public class GameView extends SurfaceView {
 							map.crearReja(j, i, 0);//Crea la reja logica para despues dibujarla
 							Nochocan.remove(activa);  //Remueve la Reja visual
 							id--;
+							flag=false;
+							activa--;
 							return true;
 						}
 						if (Nochocan.get(activa).get_dst().centerY() > Celdas[i][j].centerY() + 45) {// bot
@@ -334,6 +339,8 @@ public class GameView extends SurfaceView {
 							map.crearReja(j, i, 2);
 							Nochocan.remove(activa);
 							id--;
+							flag=false;
+							activa--;
 							return true;
 						}
 						if (Nochocan.get(activa).get_dst().centerX() > Celdas[i][j].centerX() + 45) {
@@ -345,6 +352,8 @@ public class GameView extends SurfaceView {
 							map.crearReja(j, i, 1);
 							Nochocan.remove(activa);
 							id--;
+							flag=false;
+							activa--;
 							return true;
 						}
 						if (Nochocan.get(activa).get_dst().centerX() < Celdas[i][j].centerX() - 45) {
@@ -356,6 +365,8 @@ public class GameView extends SurfaceView {
 							map.crearReja(j, i, 3);
 							Nochocan.remove(activa);
 							id--;
+							flag=false;
+							activa--;
 							return true;
 						}
 
