@@ -94,7 +94,7 @@ public class GameView extends SurfaceView {
 				
 				// botones overhere!!
 				escenario1();
-				Log.i("llega", "ahhh");
+				//Log.i("llega", "ahhh");
 			}
 			
 			public void escenario1(){
@@ -103,10 +103,8 @@ public class GameView extends SurfaceView {
 				map.crearReja(2, 2, 2);
 				map.crearReja(2, 2, 3);
 				
-				reja Temp[] = map.esJaula(2,2);
-				if(Temp!=null){
-					map.crearJaula(2,2,1,1, Temp);
-				}
+				Jaula Temp = map.esJaula(2,2);
+
 				Salvajes temp1 = new Salvajes(8, 520,520, map.Jaulas.get(0), GV, 4, 0, food);
 				Salvajes temp2 = new Salvajes(8, 520,620, map.Jaulas.get(0), GV, 4, 0, food);
 				
@@ -155,11 +153,16 @@ public class GameView extends SurfaceView {
 		int x = (int) event.getX();
 		int y = (int) event.getY();
 
-
+		
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN://Dedo sobre la pantalla
 			
-			
+			if(!map.Area[x/250][y/250].Jaula){			//Agregado en 0.00 : al presionar un cuadro que podria ser jaula lo combierte en una
+				
+				map.esJaula(x/250, y/250);
+				
+				
+			}
 			
 			for (Iterator<Figura> f = Nochocan.iterator(); f.hasNext();) {
 				Figura aux = f.next();
@@ -277,11 +280,11 @@ public class GameView extends SurfaceView {
 			if (flag) {
 
 				if (activa == 0) {
-					Log.i("zoo", "move");
+					//Log.i("zoo", "move");
 					Nochocan.get(activa).get_dst().set(x - 15, y - 125, x + 15, y + 125);
 					break;
 				} else {
-					Log.i("zoo", "Activa= " + activa);
+					//Log.i("zoo", "Activa= " + activa);
 
 					for (int i = 0; i < Celdas.length; i++) {// recorre la
 																// rejilla celda

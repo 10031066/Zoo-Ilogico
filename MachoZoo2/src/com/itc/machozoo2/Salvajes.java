@@ -59,7 +59,7 @@ public class Salvajes extends Sprite {
         //
         try {
             while(true){
-                System.out.println(nombre+" corriendo "+get_salud() );
+                //System.out.println(nombre+" corriendo "+get_salud() );
                 Thread.sleep(5000);
                 set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
                 if(get_salud()<=0){

@@ -21,7 +21,7 @@ private int size;
  
  //
  
- public Jaula(int ancho, int largo, int iniX, int iniY, reja[] lista) {
+ public Jaula(int ancho, int largo, int iniX, int iniY, List<reja> nuevaJaula) {
 	 this.possX=iniX;
      this.possY=iniY;
      this.ancho = ancho;
@@ -29,10 +29,11 @@ private int size;
      this.size =ancho*largo;
      rejas = new CopyOnWriteArrayList<reja>();
      inquilinos = new CopyOnWriteArrayList<Sprite>();
-     for(int i=0;i<lista.length;i++)
-    	 if(lista[i]!=null){
-    		 rejas.add(lista[i]);
+     for(int i=0;i<nuevaJaula.size();i++){
+    	 if(nuevaJaula.get(i)!=null){
+    		 rejas.add(nuevaJaula.get(i));
     	 }
+     }
      
 }
  

@@ -102,7 +102,7 @@ public class Sprite  extends Figura {
 			if( this.id != f.get_id()){// && this.get_tipo() != f.get_tipo()){
 				//System.out.println(f.id);
 			if (Rect.intersects(dst, f.dst) ) {
-				System.out.println("Se interceptaron");
+				//System.out.println("Se interceptaron");
 				flag = false;
 				
 				v=!v;
