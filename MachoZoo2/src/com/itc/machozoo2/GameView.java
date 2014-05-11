@@ -21,7 +21,7 @@ public class GameView extends SurfaceView {
 	public Bitmap bmp[]= {null,BitmapFactory.decodeResource(getResources(), R.drawable.tigres),BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall),BitmapFactory.decodeResource(getResources(), R.drawable.bjaula),
 			BitmapFactory.decodeResource(getResources(), R.drawable.checkbutton),BitmapFactory.decodeResource(getResources(), R.drawable.poste),BitmapFactory.decodeResource(getResources(), R.drawable.puerta),
 			BitmapFactory.decodeResource(getResources(), R.drawable.piso),BitmapFactory.decodeResource(getResources(), R.drawable.bcarne),
-			BitmapFactory.decodeResource(getResources(), R.drawable.carne)};
+			BitmapFactory.decodeResource(getResources(), R.drawable.carne),BitmapFactory.decodeResource(getResources(), R.drawable.bpico),BitmapFactory.decodeResource(getResources(), R.drawable.pico)};
 			
 	private SurfaceHolder holder;
 	private GameLoopThread gameLoopThread;
@@ -32,8 +32,8 @@ public class GameView extends SurfaceView {
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
 	private ArrayList<reja> Rejas;
-	boolean flag = false, flagF=false;
-	int id=3;
+	boolean flag = false, flagF=false,FlagP=false;
+	int id=4;
 	int id_jaulas = 0;
 	int id_carne=0;
 	Canvas canvas;
@@ -42,6 +42,7 @@ public class GameView extends SurfaceView {
 	private GameView GV = this;
 	int indice=0;
 	public Mapa map;
+	private Pico p;
 	Condiciones condicion;
 
 	public GameView(Context context) {
@@ -78,13 +79,15 @@ public class GameView extends SurfaceView {
 				// Botones overhere!!
 				
 				
-				// Animales tipo:1, rejas tipo:2, botones tipo:3
+				// Animales tipo:1, rejas tipo:2, botones tipo:3, pico tipo: 4
 				
 				Nochocan.add(new Boton(GV, bmp[3], 1, 3));
 				Nochocan.add(new Boton(GV, bmp[4], 2, 3));
 				Nochocan.get(1).get_dst().set(250, 250, 350, 350);
 				Nochocan.add(new Boton(GV, bmp[8], 3, 3));
 				Nochocan.get(2).get_dst().set(0, 500, 250, 750);
+				Nochocan.add(new Boton(GV, bmp[10], 4, 3));
+				Nochocan.get(3).get_dst().set(0, 750, 250, 1000);
 				//si quieres otro tigre descomenta la linea de abajo, todo lo que quieras agregar de figuras 
 				//ponlo abajo de este comentario por que si no joderas los botones.
 				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
@@ -125,9 +128,9 @@ public class GameView extends SurfaceView {
 	@SuppressLint("WrongCall")
 	protected
 	void onDraw(Canvas canvas) {
-		//canvas.drawColor(Color.WHITE);
+		canvas.drawColor(Color.WHITE);
 		map.onDraw(canvas);
-    
+        
 		for (Iterator<Figura> f = Figuras.iterator(); f.hasNext();) {
 			Figura aux = f.next();
 			aux.onDraw(canvas);
@@ -141,7 +144,9 @@ public class GameView extends SurfaceView {
 			Figura aux = f.next();
 			aux.onDraw(canvas);
 		}
-	    
+	    if(p!=null){
+        	p.onDraw(canvas);
+        }
 	}
 
 	@SuppressLint("WrongCall")
@@ -222,6 +227,16 @@ public class GameView extends SurfaceView {
 									food.get(id_carne).get_dst().set(x - 22, y - 15, x + 22, y + 15);
 								}
 							}
+							else{//pico
+								if(aux.get_dst().contains(x, y) && aux.get_id() == 4){
+									p= new Pico(GV, bmp[11], 4);
+									p.get_dst().set(x - 75, y , x + 75, y );
+									FlagP=true;
+									Log.i("tag", "PICO");
+								}else{
+									FlagP=false;
+								}
+							}
 						}
 					}
 
@@ -252,6 +267,9 @@ public class GameView extends SurfaceView {
 
 					break;
 
+			}
+			if(FlagP){//pico
+				p.get_dst().set(x - 75, y-150, x + 75, y );
 			}
 			if (flag) {
 
@@ -309,6 +327,9 @@ public class GameView extends SurfaceView {
 
 		case MotionEvent.ACTION_UP://levantando el dedo
 
+			
+				p=null;
+			
 			if(Nochocan.get(activa).get_tipo()==2){
 			for (int i = 0; i < Celdas.length; i++) {// recorre la
 				// rejilla celda
