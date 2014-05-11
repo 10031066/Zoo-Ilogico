@@ -20,9 +20,9 @@ public class Cuadro{
 	GameView GV;
 	Bitmap tipo1,tipo2,usar;
     
-	Cuadro(int left, int top,int right,int bottom,GameView GV){
-		this.GV=GV;
-		desplazamiento= new Rect(left,top,right,bottom);
+	public Cuadro(Rect rect, GameView gameview) {
+		this.GV=gameview;
+		desplazamiento= rect;
 		tipo1=BitmapFactory.decodeResource(GV.getResources(),R.drawable.poste);
 		tipo2=usar=BitmapFactory.decodeResource(GV.getResources(),R.drawable.piso);
 	}

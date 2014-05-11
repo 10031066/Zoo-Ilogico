@@ -18,7 +18,7 @@ public class Mapa{
 
 	private int width;
 	private int height;
-	private int SIZE = 250;
+	int SIZE = 250;
 	private int rows;
 	private int columns;
 	List<Figura> Figuras;
@@ -54,27 +54,7 @@ public class Mapa{
 		Log.i("zoo", "Tamaño: " + columns);
         this.id=id;
         this.food=food;
-        
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				
-				Area[i][j]=new Cuadro(i*250,j*250,i*250+250,j*250+250,gameview);
-                if(i==0){
-                    Area[i][j].poss[0]=false;
-                }
-                if(i==rows-1){
-                    Area[i][j].poss[2]=false;
-                }
-                if(j==0){
-                    Area[i][j].poss[3]=false;
-                }
-                if(j==columns-1){
-                    Area[i][j].poss[1]=false;
-                }
-
-			}
-		}
-		
+        		
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				if (i == 0 && j == 0) {
@@ -97,6 +77,26 @@ public class Mapa{
 						}
 					}
 				}
+
+			}
+		}
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				
+				Area[i][j]=new Cuadro(Celdas[i][j],gameview);
+                if(i==0){
+                    Area[i][j].poss[0]=false;
+                }
+                if(i==rows-1){
+                    Area[i][j].poss[2]=false;
+                }
+                if(j==0){
+                    Area[i][j].poss[3]=false;
+                }
+                if(j==columns-1){
+                    Area[i][j].poss[1]=false;
+                }
 
 			}
 		}
@@ -264,33 +264,33 @@ public class Mapa{
             nueva = new reja(1,new Rect(x*250,y*250-15,x*250+250,y*250+15),gameView,false);
             Figuras.add(nueva);
             System.out.println("Se creo una reja arriba");
-            Area[x][y].NuevaNorte(nueva);
+            Area[y][x].NuevaNorte(nueva);
             if(y-1>=0){
-                Area[x][y-1].NuevaSur(nueva); // Se igualan las rejas de "afuera" y adentro
+                Area[y-1][x].NuevaSur(nueva); // Se igualan las rejas de "afuera" y adentro
             }
             
             break;
         case 1:
             nueva = new reja(1,new Rect(x*250+235,y*250,x*250+265,y*250+250),gameView,true);
-            Area[x][y].NuevaDerecha(nueva);
-            if(x+1<Area.length){
-                Area[x+1][y].NuevaIzquierda(nueva);
+            Area[y][x].NuevaDerecha(nueva);
+            if(x+1<columns){
+                Area[y][x+1].NuevaIzquierda(nueva);
             }
             Figuras.add(nueva);
             break;
         case 2:
             nueva = new reja(1,new Rect(x*250,y*250+235,x*250+250,y*250+265),gameView,false);
-            Area[x][y].NuevaSur(nueva);
-            if(y+1<Area[1].length){
-                Area[x][y+1].NuevaNorte(nueva);
+            Area[y][x].NuevaSur(nueva);
+            if(y+1<rows){
+                Area[y+1][x].NuevaNorte(nueva);
             }
             Figuras.add(nueva);
             break;
         case 3:
             nueva = new reja(1,new Rect(x*250-15,y*250,x*250+15,y*250+250),gameView,true);
-            Area[x][y].NuevaIzquierda(nueva);
+            Area[y][x].NuevaIzquierda(nueva);
             if(x-1>=0){
-                Area[x-1][y].NuevaDerecha(nueva);
+                Area[y][x+1].NuevaDerecha(nueva);
             }
             Figuras.add(nueva);
             break;

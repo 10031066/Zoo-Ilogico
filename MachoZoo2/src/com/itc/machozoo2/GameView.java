@@ -152,16 +152,17 @@ public class GameView extends SurfaceView {
 	public boolean onTouchEvent(MotionEvent event) {//Aqui se controlas las acciones TOUCH!
 		int x = (int) event.getX();
 		int y = (int) event.getY();
-
+		int puntoX=x/map.SIZE;
+		int puntoY=y/map.SIZE;
+		
+		System.out.println(x+","+y);
+		System.out.println("punto "+puntoX+","+puntoY);
 		
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN://Dedo sobre la pantalla
 			
-			if(!map.Area[x/250][y/250].Jaula){			//Agregado en 0.00 : al presionar un cuadro que podria ser jaula lo combierte en una
-				
-				map.esJaula(x/250, y/250);
-				
-				
+			if(!map.Area[puntoY][puntoX].Jaula){			//Agregado en 0.00 : al presionar un cuadro que podria ser jaula lo combierte en una
+				map.esJaula(puntoY, puntoX);
 			}
 			
 			for (Iterator<Figura> f = Nochocan.iterator(); f.hasNext();) {
