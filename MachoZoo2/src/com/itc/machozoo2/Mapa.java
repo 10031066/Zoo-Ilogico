@@ -134,8 +134,6 @@ public class Mapa{
 				canvas.drawRect(Celdas[i][j], paint);
 				
 				Area[i][j].onDraw(canvas);
-				
-				
 			}
 		}
 	}

@@ -17,7 +17,7 @@ public class reja extends Figura{
     double unico;
     rejaSprite imagen;
     private GameView GV;
-    Bitmap tipo1,tipo2;
+    Bitmap tipo1,tipo2,usar;
     //Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall);
     boolean Vertical;
     		
@@ -42,9 +42,14 @@ public class reja extends Figura{
         }
         width=tipo1.getWidth()/2;
         height=tipo1.getHeight();
-        
         unico = id;
         this.dst = dst;
+        
+        if(Vertical){
+        	usar=tipo2;
+        }else{
+        	usar=tipo1;
+        }
     }
 	private int position=0;
 	private Paint p1 = new Paint();
@@ -59,13 +64,9 @@ public class reja extends Figura{
 		//System.out.println(dst.left +" "+dst.top+" "+dst.right+" "+dst.bottom);
 		
 		canvas.drawRect(dst, p1);
-		if(Vertical){
-			//src = new Rect(0, 0, tipo2.getWidth(), tipo2.getHeight());
-			canvas.drawBitmap(tipo2, null, dst, null);
-		}else{
-			//src = new Rect(0, 0, tipo1.getWidth(),tipo1.getHeight() );
-			canvas.drawBitmap(tipo1, null, dst, null);
-		}
+
+		canvas.drawBitmap(usar, null, dst, null);
+
 		
 	}
 	

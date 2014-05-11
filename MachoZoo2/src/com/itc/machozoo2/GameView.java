@@ -195,7 +195,7 @@ public class GameView extends SurfaceView {
 						break;
 					} else {
 						if (aux.get_dst().contains(x, y) && aux.get_id() == 2) {// check
-							
+							/**
 							//Rejas = new ArrayList<RejaSprite>(); // button
 							//Rejastmp = new ArrayList<RejaSprite>();int i=0;
 							for (Iterator<Figura> t = Figuras.iterator(); t.hasNext();) {// crea arrelgo de rejas
@@ -244,7 +244,9 @@ public class GameView extends SurfaceView {
 									FlagP=false;
 								}
 							}
+						*/
 						}
+						
 					}
 
 				}
@@ -333,8 +335,11 @@ public class GameView extends SurfaceView {
 			break;
 
 		case MotionEvent.ACTION_UP://levantando el dedo
-
 			
+			if(FlagP){
+				p.EliminaReja();
+				FlagP=false;
+			}
 				p=null;
 			
 			if(Nochocan.get(activa).get_tipo()==2){
