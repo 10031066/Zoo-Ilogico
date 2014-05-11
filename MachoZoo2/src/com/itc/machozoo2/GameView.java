@@ -32,6 +32,8 @@ public class GameView extends SurfaceView {
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
 	private ArrayList<reja> Rejas;
+	private List<reja> Rejas2= new ArrayList<reja>();//lo ocupo para la colision del pico, 
+	                                            //es una lista de todas las rejas, se llena cuando lepicas al pico
 	boolean flag = false, flagF=false,FlagP=false;
 	int id=4;
 	int id_jaulas = 0;
@@ -51,6 +53,7 @@ public class GameView extends SurfaceView {
 		gameLoopThread = new GameLoopThread(this);
 		Figuras = new CopyOnWriteArrayList<Figura>();
 		Nochocan = new CopyOnWriteArrayList<Figura>();
+		Rejas2=new CopyOnWriteArrayList<reja>();
 		ListaSalvajes = new CopyOnWriteArrayList<Sprite>();
 		
 		map = new Mapa(this,bmp,Figuras,id,food);
@@ -195,7 +198,7 @@ public class GameView extends SurfaceView {
 						break;
 					} else {
 						if (aux.get_dst().contains(x, y) && aux.get_id() == 2) {// check
-							/**
+							
 							//Rejas = new ArrayList<RejaSprite>(); // button
 							//Rejastmp = new ArrayList<RejaSprite>();int i=0;
 							for (Iterator<Figura> t = Figuras.iterator(); t.hasNext();) {// crea arrelgo de rejas
@@ -236,7 +239,27 @@ public class GameView extends SurfaceView {
 							}
 							else{//pico
 								if(aux.get_dst().contains(x, y) && aux.get_id() == 4){
-									p= new Pico(GV, bmp[11], 4);
+									for(int i=0; i<map.Area.length;i++){
+										for(int j=0; j<map.Area[0].length;j++){
+											for(int k=0; k<4;k++){boolean flag1=false;
+												if(map.Area[i][j].rejas[k]!=null){
+													//Log.i("Zoo", "Testing");
+													if(Rejas2.isEmpty()){
+													Rejas2.add(map.Area[i][j].rejas[k]);
+													Log.i("Zoo", "se agrego1= "+map.Area[i][j].rejas[k].get_id());
+													}else{
+														if(!yaexiste2(map.Area[i][j].rejas[k].get_id())){
+														Rejas2.add(map.Area[i][j].rejas[k]);
+														Log.i("Zoo", "se agrego1= "+map.Area[i][j].rejas[k].get_id());
+														}
+													}
+												
+												}
+											}
+											
+										}
+									}
+									p= new Pico(GV, bmp[11], 4,Rejas2);
 									p.get_dst().set(x - 75, y , x + 75, y );
 									FlagP=true;
 									Log.i("tag", "PICO");
@@ -244,7 +267,7 @@ public class GameView extends SurfaceView {
 									FlagP=false;
 								}
 							}
-						*/
+					
 						}
 						
 					}
@@ -337,7 +360,7 @@ public class GameView extends SurfaceView {
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
 			if(FlagP){
-				p.EliminaReja();
+				//p.EliminaReja();
 				FlagP=false;
 			}
 				p=null;
@@ -569,7 +592,26 @@ public class GameView extends SurfaceView {
 		}
 		return false;
 	}
-
+	public boolean yaexiste2(int id) {// este lo ocupo en la linea 251 y es para lo del pico vs reja
+		for (int i = 0; i < Rejas2.size(); i++) {
+			if (id == Rejas2.get(i).get_id()) {
+				return true;
+			}
+		}
+		return false;
+	}
+public boolean estaencuadro(int id){// este metodo busca si el id pertenece a una reja de algun cuadro
+	for(int i=0; i<map.Area.length;i++){
+		for(int j=0; j<map.Area[0].length;j++){
+			for(int k=0; k<4;k++){
+				if(map.Area[i][j].rejas[k].get_id()==id){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
 	public boolean estacompleta() {
 		boolean flag=false;
 		for (int i = 0; i < Rejastmp.size(); i++) {
