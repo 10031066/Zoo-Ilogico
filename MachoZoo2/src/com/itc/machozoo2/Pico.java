@@ -32,8 +32,6 @@ private List<reja> R;
 		puntaY=dst.left;
 		this.GV=gameView;
 
-		
-
 	}
 	
 	private void update(){
@@ -45,8 +43,8 @@ private List<reja> R;
 				picada=R.get(i);
 				Log.i("Zoo", "Id reja picada= "+ R.get(i).get_id());
 			}else{
-				id_picada=0;
-				picada=null;
+				//id_picada=0;
+				//picada=null;
 			}
 		}
 	}
@@ -56,19 +54,27 @@ private List<reja> R;
 		puntaY=dst.left;
         src = new Rect(0, 0, width, height);
         canvas.drawBitmap(bmp, src, dst, null);
+        
 	}
 	
 	public void EliminaReja(){	// V 0.01 Agregando la funcionalidad del pico
-
-		List<Jaula> No=new CopyOnWriteArrayList<Jaula>();
+		System.out.println("Buscando ID: " + id_picada);
+		List<Jaula> No=new ArrayList<Jaula>();
 		System.out.println("Eliminando Reja");
-		for(int i=0;i<GV.map.rows;i++){
-			for(int j=0;j<GV.map.columns;j++){
-				if(GV.map.Area[i][j].rejas[0]==picada || GV.map.Area[i][j].rejas[1]==picada || GV.map.Area[i][j].rejas[2]==picada || GV.map.Area[i][j].rejas[3]==picada){
-					No.add(GV.map.Area[i][j].pertenece);
+		
+		//Buscar las dos Jaulas donde esta la reja picada
+		
+		System.out.println("Jaulas: "+GV.Jaulas.size());
+		for(int i=0;i<GV.Jaulas.size();i++){//la idea es que consiga las dos Jaulas que compartan la msima reja
+			for(int j=0;j<GV.Jaulas.get(i).rejas.size();j++){
+				if(GV.Jaulas.get(i).rejas.get(j).id==picada.id){
+					//No.add(GV.Jaulas.get(i));
+					System.out.println("SE econtro la reja");
 				}
 			}
 		}
+		System.out.println(No.size());
+		
 		//en teoria solo deberia haber una o dos jaulas
 		switch (No.size()){
 		case 0:
@@ -78,12 +84,17 @@ private List<reja> R;
 			//
 			break;
 		case 2:
-			No.get(0).rejas.remove(picada);
-			No.get(1).rejas.remove(picada);
-			No.get(0).aumentaSize(No.get(1).getSize());
+			System.out.println(No.get(0));
+			System.out.println(No.get(1));
+			
+			No.get(0).remuevePorID(picada.id);
+			//No.get(1).remuevePorID(picada.id);
+			System.out.println(No.get(1).size);
+			No.get(0).aumentaSize(No.get(1).size);
 			
 			No.get(0).rejas.addAll(No.get(1).rejas); //todas las rejas que restan de la jaula 1
 			GV.Jaulas.remove(No.get(1));
+			System.out.println("Reja eliminada");
 			break;
 		
 		}

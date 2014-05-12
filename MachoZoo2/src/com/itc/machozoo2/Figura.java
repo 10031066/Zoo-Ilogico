@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public abstract class Figura  extends Thread{
+public abstract class Figura{
 	Canvas canvas;
 	Bitmap bmp;
 	int width;

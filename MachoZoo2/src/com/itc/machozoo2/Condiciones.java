@@ -24,7 +24,9 @@ public class Condiciones extends Thread{
 	@Override
 	public void run(){
 		try {
-			boolean terminar;
+			boolean repetir;
+			int cumplidas=0;
+			
 			do{
 				for(int i=0;i<CondCumplidas.length;i++){//
 					if(!CondCumplidas[i]){
@@ -32,8 +34,10 @@ public class Condiciones extends Thread{
 							case 0:
 								for(Iterator<Jaula> j =GV.Jaulas.iterator();j.hasNext(); ){//Busca en todas las jaulas
 									Jaula temp = j.next();
-									if(temp.getSize()>=numero[i]){
+									if(temp.size>=numero[i]){
 										CondCumplidas[i]=true;
+										cumplidas++;
+										System.out.println("Se cumplio una condicion");
 									}
 								}
 								break;
@@ -43,17 +47,15 @@ public class Condiciones extends Thread{
 					}
 				}
 				
-				terminar=true;
-				
-				for(int i=0;i<CondCumplidas.length;i++){
-					if(!CondCumplidas[i]){// si alguna condicion no esta cumplida no termina
-						terminar= false;
-					}
+				repetir=true;
+				System.out.println("condicions cumplidas "+cumplidas+"/"+CondCumplidas.length);
+				if(cumplidas==CondCumplidas.length){
+					repetir=false;
 				}
 				
 				
 				Thread.sleep(1000);
-			}while(!terminar);
+			}while(repetir);
 			
 			
 		} catch (InterruptedException e) {

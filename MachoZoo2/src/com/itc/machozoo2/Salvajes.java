@@ -51,17 +51,16 @@ public class Salvajes extends Sprite {
 		
 		
 		// Log.i("zoo",""+this.width);
-        start();
+        //start();
 	}
     
-    @Override
     public void run() {
         //
         try {
             while(true){
                 //System.out.println(nombre+" corriendo "+get_salud() );
                 Thread.sleep(5000);
-                set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.getSize()));
+                set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.size));
                 if(get_salud()<=0){
                     set_salud(0);
                     atacar=true;

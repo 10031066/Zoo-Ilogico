@@ -8,7 +8,7 @@ import java.util.ListIterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Jaula {
- List<reja> rejas;
+ public List<reja> rejas;
  private int ancho=0,alto=0;//numero de rejas que forman el ancho y el alto 
  //como guardo los indices?
  List<Sprite> inquilinos;
@@ -16,7 +16,7 @@ public class Jaula {
  //
  protected int possX; //posicion incial de la jaula
  protected int possY; //posicion incial de la jaula
-private int size;
+ int size;
 
  
  //
@@ -34,15 +34,11 @@ private int size;
     		 rejas.add(nuevaJaula.get(i));
     	 }
      }
-     
+     System.out.println("Jaula Creada");
 }
 
  //Agregado 
 
-public int getSize() {
-	// TODO Auto-generated method stub
-	return size;
-}
 
 void agregarAnimal(Salvajes ani){
     ani.origen=this;//se le define a que jaula pertenece el animal
@@ -60,6 +56,16 @@ public List<reja> Get_Rejas() {
 
 public void aumentaSize(int size2) {
 	this.size+=size2;
+	
+}
+
+public void remuevePorID(int id) {
+	for(int i=0;i<rejas.size();i++){
+		if(rejas.get(i).id==id){
+			rejas.remove(rejas.get(i));
+			System.out.println("reja eliminada");
+		}
+	}
 	
 }
 	

@@ -149,8 +149,4 @@ public class Sprite  extends Figura {
     	return false;
     }
 
-	@Override
-	public void run() {
-		
-	}
 }

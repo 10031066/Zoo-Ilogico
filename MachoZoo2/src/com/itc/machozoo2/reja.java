@@ -19,6 +19,7 @@ public class reja extends Figura{
     Bitmap tipo1,tipo2,usar;
     //Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall);
     boolean Vertical;
+    int i1,i2,j1,j2;
     		
     public reja(int tipo, Rect dst,GameView gameView,boolean Vertical) {
     	this.id=(int)(Math.random()*32000);

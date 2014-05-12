@@ -33,15 +33,14 @@ public class Mapa{
 		public Rect Celdas[][];
 		List<Jaula> Jaulas;
 		List<Sprite> ListaAnimales;
-		int jaulaYtam;
-	    int jaulaXtam;
+		
 		private Bitmap[] Bmp;
 	//
 
 	public Mapa(GameView gameview, Bitmap Bmp[],List<Figura> figuras,int id, List<FoodSprite> food) {
 		this.gameView = gameview;
 		this.Figuras=figuras;
-		Jaulas = new CopyOnWriteArrayList<Jaula>();
+		Jaulas = gameview.Jaulas;
 		width = 2500;
 		Log.i("zoo", "Ancho: " + width);
 		height = 1600;
@@ -120,7 +119,6 @@ public class Mapa{
                 Area[i][j-1].poss[poss]=!Area[i][j-1].poss[poss];
                 break;
         }
-        
     }
 
 	@SuppressLint("WrongCall")
@@ -146,6 +144,8 @@ public class Mapa{
         List<reja> ListaDeRejas = new CopyOnWriteArrayList<reja>();;
         int tamX=1;
         int tamY=1;
+        int jaulaYtam;
+	    int jaulaXtam;
         //empezara a bsucar el borde superior de la jaula, osea, una reja
         
         while(!Area[i][j].getArriba()){
@@ -236,7 +236,11 @@ public class Mapa{
     }
 
 	void crearJaula(int iniJ,int iniI, int lonX,int lonY,List<reja> nuevaJaula){//suponiendo que la funcion ya resive las rejas
-		System.out.println("Creando Jaula");
+		System.out.println("Creando Jaula con "+nuevaJaula.size()+" rejas");
+		for(int i=0;i<nuevaJaula.size();i++){
+			System.out.println(nuevaJaula.get(i).id);
+		}
+		
         Jaulas.add(new Jaula(lonY,lonX,iniI,iniJ,nuevaJaula));
         //indicar que cuadros pertenecer a esta jaula
         for(int i=iniI;i<iniI+lonY;i++){
@@ -247,7 +251,7 @@ public class Mapa{
                 Area[i][j].pertenece=Jaulas.get(Jaulas.size()-1);
             }
         }
-       
+        
     }
 	
 	void crearReja(int x,int y,int a){//x y y son las posiciones del cuadro
@@ -261,6 +265,7 @@ public class Mapa{
             Figuras.add(nueva);
             System.out.println("Se creo una reja arriba");
             Area[y][x].NuevaNorte(nueva);
+
             if(y-1>=0){
                 Area[y-1][x].NuevaSur(nueva); // Se igualan las rejas de "afuera" y adentro
             }
