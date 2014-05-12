@@ -19,8 +19,8 @@ public class Mapa{
 	private int width;
 	private int height;
 	int SIZE = 250;
-	private int rows;
-	private int columns;
+	int rows;
+	int columns;
 	List<Figura> Figuras;
 	boolean flag = false, flagF=false;
 	Paint paint = new Paint();
@@ -142,23 +142,23 @@ public class Mapa{
 	Jaula esJaula(int i,int j){//Si es Jaula la crea y agrega a la lista
 		//Esta funcion se usa solamente si no s sabe si es o no una jaula
         //los indices son de la posicion del cuadro no de los pixeles
-        
+        System.out.println("Area "+i+","+j);
         List<reja> ListaDeRejas = new CopyOnWriteArrayList<reja>();;
         int tamX=1;
         int tamY=1;
         //empezara a bsucar el borde superior de la jaula, osea, una reja
         
         while(!Area[i][j].getArriba()){
-            j--;
-            if(j<0)
+            i--;
+            if(i<0)
                 return null;
             
         }
-        System.out.println("arriba en "+j);
+        System.out.println("arriba en "+i);
         ListaDeRejas.add(Area[i][j].norte());
         
         while(!Area[i][j].getDerecha()){//agrega el resto de rejas de arriba de la jaula
-            i++;
+            j++;
             if(j>=columns){//si el indice j sale del area del mapa sale
                return null;
             }
@@ -170,18 +170,17 @@ public class Mapa{
             }
             
         }
-        System.out.println("largo "+i);
+        System.out.println("largo "+j);
         ListaDeRejas.add(Area[i][j].oeste());
         
         //System.out.println(2);
         
         while(!Area[i][j].getAbajo()){//agrega las rejas de la Derecha de ña jaula
-            j++;
-            if(i>rows)
+            i++;
+            if(i>=rows)
                 return null;
             if(Area[i][j].getDerecha()){
                 ListaDeRejas.add(Area[i][j].oeste());
-                
                 
             }else{
                 return null;
@@ -195,10 +194,10 @@ public class Mapa{
         //System.out.println(3);
         
         while(!Area[i][j].getIzquierda()){ //agrega las rejas Abajo de la jaula
-            i--;
-            if(j>columns)
+            j--;
+            if(j<0)
                 return null;
-            System.out.println(Area[i][j].getAbajo() + " "+i+ " "+j);
+            //System.out.println(Area[i][j].getAbajo() + " "+i+ " "+j);
             if(Area[i][j].getAbajo()){
                 ListaDeRejas.add(Area[i][j].sur());
                 
@@ -213,8 +212,8 @@ public class Mapa{
         
         //System.out.println(5);
         
-        while(!Area[i][j].getArriba()){
-            j--;
+        while(!Area[i][j].getArriba()){//Ahora sube buscando las rejas de laa izquierda
+            i--;
             if(i<0){
                 return null;
             }
@@ -225,26 +224,25 @@ public class Mapa{
                 return null;
             }
         }
-        int i2=i,j2=j;
+        int i2=i,j2=j;//La posicion inicial de la jaula
         //System.out.println(6);
-        while(Area[i][j].getArriba() && Area[i][j].norte().unico!=ListaDeRejas.get(0).unico ){
+        while(Area[i][j].getArriba() && Area[i][j].norte().id!=ListaDeRejas.get(0).id ){
             ListaDeRejas.add(Area[i][j].este());
-            
-            i++;
+            j++;
         }
         //System.out.println(6);
-        crearJaula(i2,j2,jaulaXtam,jaulaYtam,ListaDeRejas);
+        crearJaula(j2,i2,jaulaXtam,jaulaYtam,ListaDeRejas);
         return Jaulas.get(Jaulas.size()-1);
     }
 
-	void crearJaula(int iniX,int iniY, int ancho,int largo,List<reja> nuevaJaula){//suponiendo que la funcion ya resive las rejas
-		
-        Jaulas.add(new Jaula(ancho,largo,iniX,iniY,nuevaJaula));
+	void crearJaula(int iniJ,int iniI, int lonX,int lonY,List<reja> nuevaJaula){//suponiendo que la funcion ya resive las rejas
+		System.out.println("Creando Jaula");
+        Jaulas.add(new Jaula(lonY,lonX,iniI,iniJ,nuevaJaula));
         //indicar que cuadros pertenecer a esta jaula
-        for(int i=iniX;i<iniX+ancho;i++){
-            for(int j=iniY;j<iniY+largo;j++){
+        for(int i=iniI;i<iniI+lonY;i++){
+            for(int j=iniJ;j<iniJ+lonX;j++){
                 //System.out.println(i+" "+j);
-                Area[i][j].EsJaula(true);
+                Area[i][j].Jaula=true;
                 Area[i][j].NoJaula=Jaulas.size()-1;
                 Area[i][j].pertenece=Jaulas.get(Jaulas.size()-1);
             }

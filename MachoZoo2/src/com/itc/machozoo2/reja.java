@@ -14,7 +14,6 @@ public class reja extends Figura{
     int iniI,iniJ;
     int finI,finJ;
     int estado;
-    double unico;
     rejaSprite imagen;
     private GameView GV;
     Bitmap tipo1,tipo2,usar;
@@ -42,7 +41,6 @@ public class reja extends Figura{
         }
         width=tipo1.getWidth()/2;
         height=tipo1.getHeight();
-        unico = id;
         this.dst = dst;
         
         if(Vertical){

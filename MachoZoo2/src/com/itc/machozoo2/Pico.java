@@ -2,6 +2,7 @@ package com.itc.machozoo2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -57,12 +58,34 @@ private List<reja> R;
         canvas.drawBitmap(bmp, src, dst, null);
 	}
 	
-	public Jaula EliminaReja(reja Elimi,Jaula No1,Jaula No2){	// V 0.01 Agregando la funcionalidad del pico
-		No1.rejas.remove(Elimi);
-		No2.rejas.remove(Elimi);
+	public void EliminaReja(){	// V 0.01 Agregando la funcionalidad del pico
+
+		List<Jaula> No=new CopyOnWriteArrayList<Jaula>();
+		System.out.println("Eliminando Reja");
+		for(int i=0;i<GV.map.rows;i++){
+			for(int j=0;j<GV.map.columns;j++){
+				if(GV.map.Area[i][j].rejas[0]==picada || GV.map.Area[i][j].rejas[1]==picada || GV.map.Area[i][j].rejas[2]==picada || GV.map.Area[i][j].rejas[3]==picada){
+					No.add(GV.map.Area[i][j].pertenece);
+				}
+			}
+		}
+		//en teoria solo deberia haber una o dos jaulas
+		switch (No.size()){
+		case 0:
+			//si no hay ninguna jaula no hace nada
+			break;
+		case 1:
+			//
+			break;
+		case 2:
+			No.get(0).rejas.remove(picada);
+			No.get(1).rejas.remove(picada);
+			No.get(0).aumentaSize(No.get(1).getSize());
+			
+			No.get(0).rejas.addAll(No.get(1).rejas); //todas las rejas que restan de la jaula 1
+			GV.Jaulas.remove(No.get(1));
+			break;
 		
-		No1.rejas.addAll(No2.rejas);
-		GV.Jaulas.remove(No2);
-		return No1;
+		}
 	}
 }

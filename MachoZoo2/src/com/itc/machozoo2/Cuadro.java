@@ -26,15 +26,6 @@ public class Cuadro{
 		tipo1=BitmapFactory.decodeResource(GV.getResources(),R.drawable.poste);
 		tipo2=usar=BitmapFactory.decodeResource(GV.getResources(),R.drawable.piso);
 	}
-	void EsJaula(boolean Jaula){
-		 this.Jaula=Jaula;
-		 if(Jaula){
-			 usar=tipo1;
-		 }else{
-			 usar=tipo2;
-		 }
-	}
-	
 	
     void NuevaNorte(reja ne){
         rejas[0]=ne;
@@ -89,6 +80,11 @@ public class Cuadro{
 		p1.setStyle(Style.STROKE);
 		canvas.drawRect(desplazamiento, p1);
 		 */
+		if(Jaula){
+			usar=tipo1;
+		}else
+			usar=tipo2;
+		
 		canvas.drawBitmap(usar, null, desplazamiento, null);
 		//System.out.println(desplazamiento.toString());
 		if(rejas[0]!=null)

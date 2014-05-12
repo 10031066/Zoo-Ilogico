@@ -21,9 +21,9 @@ private int size;
  
  //
  
- public Jaula(int ancho, int largo, int iniX, int iniY, List<reja> nuevaJaula) {
-	 this.possX=iniX;
-     this.possY=iniY;
+ public Jaula(int ancho, int largo, int iniI, int iniJ, List<reja> nuevaJaula) {
+	 this.possX=iniJ;
+     this.possY=iniI;
      this.ancho = ancho;
      this.alto = largo;
      this.size =ancho*largo;
@@ -36,23 +36,12 @@ private int size;
      }
      
 }
- 
- public int get_ancho(){
-	 return ancho;
- }
- public int get_largo(){
-	 return alto;
- }
- //Agregado 
 
-public int getDiametro() {
-	return 2*ancho+alto;
-	
-}
+ //Agregado 
 
 public int getSize() {
 	// TODO Auto-generated method stub
-	return ancho*alto;
+	return size;
 }
 
 void agregarAnimal(Salvajes ani){
@@ -67,6 +56,11 @@ public int getHabitantes() {
 public List<reja> Get_Rejas() {
 	// TODO Auto-generated method stub
 	return rejas;
+}
+
+public void aumentaSize(int size2) {
+	this.size+=size2;
+	
 }
 	
 }
