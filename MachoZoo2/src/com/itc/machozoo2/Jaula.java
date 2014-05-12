@@ -62,6 +62,7 @@ public void aumentaSize(int size2) {
 public void remuevePorID(int id) {
 	for(int i=0;i<rejas.size();i++){
 		if(rejas.get(i).id==id){
+			rejas.set(i, null);
 			rejas.remove(rejas.get(i));
 			System.out.println("reja eliminada");
 		}

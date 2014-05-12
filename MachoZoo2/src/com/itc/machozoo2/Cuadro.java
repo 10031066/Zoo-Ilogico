@@ -82,19 +82,19 @@ public class Cuadro{
 		 */
 		if(Jaula){
 			usar=tipo1;
-		}else
+		}else{
 			usar=tipo2;
-		
+		}
 		canvas.drawBitmap(usar, null, desplazamiento, null);
 		//System.out.println(desplazamiento.toString());
-		if(rejas[0]!=null)
+		/**if(poss[0]) no se necesita por que se dibujan cuando se dibujan las figuras chocables
 			rejas[0].onDraw(canvas);
-		if(rejas[1]!=null)
+		if(poss[1])
 			rejas[1].onDraw(canvas);
-		if(rejas[2]!=null)
+		if(poss[2])
 			rejas[2].onDraw(canvas);
-		if(rejas[3]!=null)
+		if(poss[3])
 			rejas[3].onDraw(canvas);
-		
+		*/
 	}
 }

@@ -16,8 +16,13 @@ public int puntaX;
 public int puntaY;
 GameView GV;
 
+public Mapa m;
 public int id_picada;
 public reja picada;
+ int i[]= new int[2];
+ int j[]= new int[2];
+ int indice=0;
+
 private List<reja> R;
 	public Pico (GameView gameView, Bitmap bmp,int tipo, List<reja>R){
 
@@ -34,11 +39,12 @@ private List<reja> R;
 
 	}
 	
-	private void update(){
+	private void update(){		
 		
+		indice=0;
 		for(int i=0; i<R.size();i++){
 			//Log.i("Zoo","top"+ puntaX);
-			if(R.get(i).get_dst().contains(puntaX, puntaY)){
+			if(Rect.intersects(dst, R.get(i).get_dst())){
 				id_picada=R.get(i).get_id();
 				picada=R.get(i);
 				Log.i("Zoo", "Id reja picada= "+ R.get(i).get_id());
@@ -68,11 +74,24 @@ private List<reja> R;
 		for(int i=0;i<GV.Jaulas.size();i++){//la idea es que consiga las dos Jaulas que compartan la msima reja
 			for(int j=0;j<GV.Jaulas.get(i).rejas.size();j++){
 				if(GV.Jaulas.get(i).rejas.get(j).id==picada.id){
-					//No.add(GV.Jaulas.get(i));
+					No.add(GV.Jaulas.get(i));
 					System.out.println("SE econtro la reja");
+					
 				}
 			}
 		}
+		for(int i=0;i<4;i++){
+			if(GV.map.Area[this.i[0]][this.j[0]].rejas[i].id==id_picada ){
+				GV.map.Area[this.i[0]][this.j[0]].rejas[i]=null;
+				GV.map.Area[this.i[0]][this.j[0]].poss[i]=false;
+				
+				
+				GV.map.Area[this.i[1]][this.j[1]].poss[(i+2)%4]=false;
+				GV.Figuras.remove(picada);
+				System.out.println("Se eliminaron rejas");
+			}
+		}
+		
 		System.out.println(No.size());
 		
 		//en teoria solo deberia haber una o dos jaulas
@@ -94,7 +113,7 @@ private List<reja> R;
 			
 			No.get(0).rejas.addAll(No.get(1).rejas); //todas las rejas que restan de la jaula 1
 			GV.Jaulas.remove(No.get(1));
-			System.out.println("Reja eliminada");
+			//System.out.println("Reja eliminada");
 			break;
 		
 		}

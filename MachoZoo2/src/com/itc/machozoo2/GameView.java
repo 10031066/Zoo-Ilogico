@@ -35,7 +35,7 @@ public class GameView extends SurfaceView {
 	private List<reja> Rejas2= new ArrayList<reja>();//lo ocupo para la colision del pico, 
 	                                            //es una lista de todas las rejas, se llena cuando lepicas al pico
 	boolean flag = false, flagF=false,FlagP=false;
-	int id=4;
+	int id=3;
 	int id_jaulas = 0;
 	int id_carne=0;
 	Canvas canvas;
@@ -85,18 +85,18 @@ public class GameView extends SurfaceView {
 				// Animales tipo:1, rejas tipo:2, botones tipo:3, pico tipo: 4
 				
 				Nochocan.add(new Boton(GV, bmp[3], 1, 3));
-				Nochocan.add(new Boton(GV, bmp[4], 2, 3));
-				Nochocan.get(1).get_dst().set(250, 250, 350, 350);
-				Nochocan.add(new Boton(GV, bmp[8], 3, 3));
-				Nochocan.get(2).get_dst().set(0, 500, 250, 750);
-				Nochocan.add(new Boton(GV, bmp[10], 4, 3));
-				Nochocan.get(3).get_dst().set(0, 750, 250, 1000);
+				//Nochocan.add(new Boton(GV, bmp[4], 2, 3));
+				//Nochocan.get(1).get_dst().set(250, 250, 350, 350);
+				Nochocan.add(new Boton(GV, bmp[8], 2, 3));
+				Nochocan.get(1).get_dst().set(0, 500, 250, 750);
+				Nochocan.add(new Boton(GV, bmp[10], 3, 3));
+				Nochocan.get(2).get_dst().set(0, 750, 250, 1000);
 				//si quieres otro tigre descomenta la linea de abajo, todo lo que quieras agregar de figuras 
 				//ponlo abajo de este comentario por que si no joderas los botones.
 				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
 				
 				// botones overhere!!
-				//escenario1();
+				escenario1();
 				//Log.i("llega", "ahhh");
 			}
 			
@@ -200,7 +200,7 @@ public class GameView extends SurfaceView {
 						onDraw(canvas);
 						break;
 					} else {
-						if (aux.get_dst().contains(x, y) && aux.get_id() == 2) {// check
+						if (aux.get_dst().contains(x, y) && aux.get_id() == 2) {/*// check
 							
 							//Rejas = new ArrayList<RejaSprite>(); // button
 							//Rejastmp = new ArrayList<RejaSprite>();int i=0;
@@ -224,11 +224,11 @@ public class GameView extends SurfaceView {
 								//Jaulas.add(new Jaula(id_jaulas++,Rejastmp));
 								Log.i("zoo", "la jaula  terminada");
 							}else{
-								Log.i("zoo", "la jaula no esta terminada");
+								Log.i(s"zoo", "la jaula no esta terminada");
 							}
-							
+							*/
 						}else{
-							if (aux.get_dst().contains(x, y) && aux.get_id() == 3) {//añadir carne
+							if (aux.get_dst().contains(x, y) && aux.get_id() == 2) {//añadir carne
 								Log.i("zoo", "presionaste carne");
 
 								id_carne=food.size();
@@ -241,7 +241,7 @@ public class GameView extends SurfaceView {
 								}
 							}
 							else{//pico
-								if(aux.get_dst().contains(x, y) && aux.get_id() == 4){
+								if(aux.get_dst().contains(x, y) && aux.get_id() == 3){
 									for(int i=0; i<map.Area.length;i++){
 										for(int j=0; j<map.Area[0].length;j++){
 											for(int k=0; k<4;k++){boolean flag1=false;
@@ -363,6 +363,16 @@ public class GameView extends SurfaceView {
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
 			if(FlagP){
+				for(int i=0;i<map.rows;i++){
+					for(int j=0;j<map.columns;j++){
+						if(Rect.intersects(map.Celdas[i][j], p.dst)){
+							p.i[indice]=i;
+							p.j[indice]=j;
+							p.indice++;
+						}
+					}
+				}
+				
 				p.EliminaReja();
 				FlagP=false;
 			}
