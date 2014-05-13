@@ -96,7 +96,7 @@ public class GameView extends SurfaceView {
 				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
 				
 				// botones overhere!!
-				escenario1();
+				//escenario1();
 				//Log.i("llega", "ahhh");
 			}
 			
@@ -363,6 +363,7 @@ public class GameView extends SurfaceView {
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
 			if(FlagP){
+				p.update();
 				for(int i=0;i<map.rows;i++){
 					for(int j=0;j<map.columns;j++){
 						if(Rect.intersects(map.Celdas[i][j], p.dst)){

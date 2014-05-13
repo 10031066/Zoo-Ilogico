@@ -24,12 +24,8 @@ public class rejaSprite extends Figura{
 		dst = new Rect(470, 0, 500, 250);
 	}
 
-	private void update() {
-
-	}
 
 	public void onDraw(Canvas canvas) {
-		update();
 
 		src = new Rect(0, 0, width, height);
 

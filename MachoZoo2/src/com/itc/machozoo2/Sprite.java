@@ -15,7 +15,7 @@ public class Sprite  extends Figura {
 
 	protected int xSpeed = 10;
 	protected int ySpeed;
-	private int currentFrame = 0;
+	int currentFrame = 0;
 	private int salud;
 	protected List<FoodSprite>food;
 	List<Figura> Figuras;
@@ -23,8 +23,9 @@ public class Sprite  extends Figura {
 	
 	GameView gameView;
 	
-	private boolean flag = true;
-	private boolean v=false,h=false;
+	boolean flag = true;
+	boolean v=false;
+	boolean h=false;
 	int[] DIRECTION_TO_ANIMATION_MAP = { 3, 1, 0, 2 };
 	
 	//Cambios de Edgar
@@ -63,67 +64,20 @@ public class Sprite  extends Figura {
 		this.Figuras=gameView.Figuras;
 	}    
 	
-	private void update() {
-		if(!comiendo()){
-			if (x > gameView.getWidth() - 133 ) {
-				xSpeed = -10;
-			}
-			if (x + xSpeed < 250 ) {
-				xSpeed = 10;
-			}
-			if(!flag){ //Log.i("zoo", "hola");
-				if(v){
-					ySpeed=ySpeed*(-1);
-				}if(h){
-					xSpeed=xSpeed*(-1);
-				}
-			
-			}
-			x = x + xSpeed;
-			if (y > gameView.getHeight() - height - ySpeed || y + ySpeed < 0) {
-				ySpeed = -ySpeed;
-			}
-			y = y + ySpeed;
-			currentFrame = ++currentFrame % BMP_COLUMNS;
-		}
-	}
 	
     @Override
 	public void onDraw(Canvas canvas) {
 
-		int srcX = currentFrame * width;
-		int srcY = getAnimationRow() * height;
-	
-		src = new Rect(srcX, srcY, srcX + width, srcY + height);
-		dst = new Rect(x, y, x + width, y + height);
-		//System.out.println(Figuras.size());
-		for (Figura f : Figuras) {
-			
-			if( this.id != f.get_id()){// && this.get_tipo() != f.get_tipo()){
-				//System.out.println(f.id);
-			if (Rect.intersects(dst, f.dst) ) {
-				//System.out.println("Se interceptaron");
-				flag = false;
-				
-				v=!v;
-				h=!h;
-				break;
-			} else {
-				flag = true;
-			}
-			}
-		}
-		
-		Paint p1= new Paint();
+		/**Paint p1= new Paint();
 		p1.setARGB(255, 255, 0, 0);
 		p1.setStyle(Style.STROKE);
 		canvas.drawRect(dst, p1);
-		
+		*/
 		canvas.drawBitmap(bmp, src, dst, null);
-		update();
+
 	}
 
-	private int getAnimationRow() {
+	int getAnimationRow() {
 		if (xSpeed > 0) {
 			return 0;
 		} else {

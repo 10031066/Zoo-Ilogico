@@ -58,12 +58,12 @@ public class reja extends Figura{
  
     public void onDraw(Canvas canvas) {
 		
-		p1.setARGB(255, 255, 0, 0);
+		/**p1.setARGB(255, 255, 0, 0);
 		p1.setStyle(Style.STROKE);
 		//System.out.println(dst.left +" "+dst.top+" "+dst.right+" "+dst.bottom);
 		
 		canvas.drawRect(dst, p1);
-
+		 */
 		canvas.drawBitmap(usar, null, dst, null);
 
 		

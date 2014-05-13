@@ -51,11 +51,13 @@ public class Salvajes extends Sprite {
 		
 		
 		// Log.i("zoo",""+this.width);
-        //start();
+        ActulizandoAnimales Act = new ActulizandoAnimales(this);
+        start();
 	}
     
     public void run() {
         //
+    	
         try {
             while(true){
                 //System.out.println(nombre+" corriendo "+get_salud() );

@@ -82,27 +82,13 @@ public class Mapa{
 		
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
-				
 				Area[i][j]=new Cuadro(Celdas[i][j],gameview);
-                if(i==0){
-                    Area[i][j].poss[0]=false;
-                }
-                if(i==rows-1){
-                    Area[i][j].poss[2]=false;
-                }
-                if(j==0){
-                    Area[i][j].poss[3]=false;
-                }
-                if(j==columns-1){
-                    Area[i][j].poss[1]=false;
-                }
-
 			}
 		}
 		
 	}
 	
-	void Modifica(int i,int j,int poss){//poss 1.- Arriba 2.-Derecha 3.-Abajo 4.-Izquierda
+	/**void Modifica(int i,int j,int poss){//poss 1.- Arriba 2.-Derecha 3.-Abajo 4.-Izquierda
         Area[i][j].poss[poss]=!Area[i][j].poss[poss];
         
         switch (poss){
@@ -119,7 +105,7 @@ public class Mapa{
                 Area[i][j-1].poss[poss]=!Area[i][j-1].poss[poss];
                 break;
         }
-    }
+    }*/
 
 	@SuppressLint("WrongCall")
 	public void onDraw(Canvas canvas) {
@@ -127,10 +113,10 @@ public class Mapa{
 		// Log.i("zoo", ""+Celdas.length);
 		for (int i = 0; i < Celdas.length; i++) {
 			for (int j = 0; j < Celdas[0].length; j++) {
-				paint.setARGB(255, 255, 0, 0);
+				/**paint.setARGB(255, 255, 0, 0);
 				paint.setStyle(Style.STROKE);
 				canvas.drawRect(Celdas[i][j], paint);
-				
+				*/
 				Area[i][j].onDraw(canvas);
 			}
 		}
@@ -148,39 +134,39 @@ public class Mapa{
 	    int jaulaXtam;
         //empezara a bsucar el borde superior de la jaula, osea, una reja
         
-        while(!Area[i][j].getArriba()){
+        while(Area[i][j].getArriba()==null){
             i--;
             if(i<0)
                 return null;
             
         }
         System.out.println("arriba en "+i);
-        ListaDeRejas.add(Area[i][j].norte());
+        ListaDeRejas.add(Area[i][j].getArriba());
         
-        while(!Area[i][j].getDerecha()){//agrega el resto de rejas de arriba de la jaula
+        while(Area[i][j].getDerecha()==null){//agrega el resto de rejas de arriba de la jaula
             j++;
             if(j>=columns){//si el indice j sale del area del mapa sale
                return null;
             }
             
-            if(Area[i][j].getArriba()){ //si el cuadro de la derecha, tiene norte continua recorriendose
-                ListaDeRejas.add(Area[i][j].norte()); 
+            if(Area[i][j].getArriba()!=null){ //si el cuadro de la derecha, tiene norte continua recorriendose
+                ListaDeRejas.add(Area[i][j].getArriba()); 
             }else{
                 return null;
             }
             
         }
         System.out.println("largo "+j);
-        ListaDeRejas.add(Area[i][j].oeste());
+        ListaDeRejas.add(Area[i][j].getDerecha());
         
         //System.out.println(2);
         
-        while(!Area[i][j].getAbajo()){//agrega las rejas de la Derecha de ña jaula
+        while(Area[i][j].getAbajo()==null){//agrega las rejas de la Derecha de ña jaula
             i++;
             if(i>=rows)
                 return null;
-            if(Area[i][j].getDerecha()){
-                ListaDeRejas.add(Area[i][j].oeste());
+            if(Area[i][j].getDerecha()!=null){
+                ListaDeRejas.add(Area[i][j].getDerecha());
                 
             }else{
                 return null;
@@ -189,17 +175,17 @@ public class Mapa{
         }
         jaulaYtam=tamY;
         System.out.println("Tamaño en Y " + jaulaYtam);
-        ListaDeRejas.add(Area[i][j].sur());
+        ListaDeRejas.add(Area[i][j].getAbajo());
         //tamX=i;
         //System.out.println(3);
         
-        while(!Area[i][j].getIzquierda()){ //agrega las rejas Abajo de la jaula
+        while(Area[i][j].getIzquierda()==null){ //agrega las rejas Abajo de la jaula
             j--;
             if(j<0)
                 return null;
             //System.out.println(Area[i][j].getAbajo() + " "+i+ " "+j);
-            if(Area[i][j].getAbajo()){
-                ListaDeRejas.add(Area[i][j].sur());
+            if(Area[i][j].getAbajo()!=null){
+                ListaDeRejas.add(Area[i][j].getAbajo());
                 
             }else{
                 return null;
@@ -208,17 +194,17 @@ public class Mapa{
         }
         jaulaXtam=tamX;
         System.out.println("Tamaño en X " + jaulaXtam);
-        ListaDeRejas.add(Area[i][j].este());
+        ListaDeRejas.add(Area[i][j].getIzquierda());
         
         //System.out.println(5);
         
-        while(!Area[i][j].getArriba()){//Ahora sube buscando las rejas de laa izquierda
+        while(Area[i][j].getArriba()==null){//Ahora sube buscando las rejas de laa izquierda
             i--;
             if(i<0){
                 return null;
             }
-            if(Area[i][j].getIzquierda()){
-                ListaDeRejas.add(Area[i][j].este());
+            if(Area[i][j].getIzquierda()!=null){
+                ListaDeRejas.add(Area[i][j].getIzquierda());
                 
             }else{
                 return null;
@@ -226,8 +212,8 @@ public class Mapa{
         }
         int i2=i,j2=j;//La posicion inicial de la jaula
         //System.out.println(6);
-        while(Area[i][j].getArriba() && Area[i][j].norte().id!=ListaDeRejas.get(0).id ){
-            ListaDeRejas.add(Area[i][j].este());
+        while(Area[i][j].getArriba()!=null && Area[i][j].getArriba().id!=ListaDeRejas.get(0).id ){
+            ListaDeRejas.add(Area[i][j].getIzquierda());
             j++;
         }
         //System.out.println(6);
@@ -264,38 +250,39 @@ public class Mapa{
             nueva = new reja(1,new Rect(x*250,y*250-15,x*250+250,y*250+15),gameView,false);
             Figuras.add(nueva);
             System.out.println("Se creo una reja arriba");
-            Area[y][x].NuevaNorte(nueva);
+            Area[y][x].setArriba(nueva);
 
             if(y-1>=0){
-                Area[y-1][x].NuevaSur(nueva); // Se igualan las rejas de "afuera" y adentro
+                Area[y-1][x].setAbajo(nueva); // Se igualan las rejas de "afuera" y adentro
             }
             
             break;
         case 1:
             nueva = new reja(1,new Rect(x*250+235,y*250,x*250+265,y*250+250),gameView,true);
-            Area[y][x].NuevaDerecha(nueva);
+            Area[y][x].setDerecha(nueva);
             if(x+1<columns){
-                Area[y][x+1].NuevaIzquierda(nueva);
+                Area[y][x+1].setIzquierda(nueva);
             }
             Figuras.add(nueva);
             break;
         case 2:
             nueva = new reja(1,new Rect(x*250,y*250+235,x*250+250,y*250+265),gameView,false);
-            Area[y][x].NuevaSur(nueva);
+            Area[y][x].setAbajo(nueva);
             if(y+1<rows){
-                Area[y+1][x].NuevaNorte(nueva);
+                Area[y+1][x].setArriba(nueva);
             }
             Figuras.add(nueva);
             break;
         case 3:
             nueva = new reja(1,new Rect(x*250-15,y*250,x*250+15,y*250+250),gameView,true);
-            Area[y][x].NuevaIzquierda(nueva);
+            Area[y][x].setIzquierda(nueva);
             if(x-1>=0){
-                Area[y][x+1].NuevaDerecha(nueva);
+                Area[y][x+1].setDerecha(nueva);
             }
             Figuras.add(nueva);
             break;
         default:
+        	System.out.println("Este mensaje no deberia nunca aparecer");
         	/**Se usaba en el java, ya no se necesita
             List<reja> nuevaJaula = esJaula(x, y);
             if(nuevaJaula!=null){

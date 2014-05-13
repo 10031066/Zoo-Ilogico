@@ -33,7 +33,8 @@ public final class R {
         public static final int poste=0x7f020009;
         public static final int puerta=0x7f02000a;
         public static final int rejasmall=0x7f02000b;
-        public static final int tigres=0x7f02000c;
+        public static final int tierra=0x7f02000c;
+        public static final int tigres=0x7f02000d;
     }
     public static final class id {
         public static final int action_settings=0x7f080000;

@@ -14,15 +14,10 @@ public class Boton extends Figura{
         width=bmp.getWidth();
         height=bmp.getHeight();
 		dst = new Rect(0, 250, 250, 500);
-	}
-	
-	private void update() {
-
+		src = new Rect(0, 0, width, height);
 	}
 	
 	public void onDraw(Canvas canvas) {
-		update();
-		src = new Rect(0, 0, width, height);
 		canvas.drawBitmap(bmp, src, dst, null);
 	}
 }

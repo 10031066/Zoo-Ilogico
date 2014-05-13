@@ -40,7 +40,6 @@ public class FoodSprite extends Figura{
          canvas.drawBitmap(bmp, src, dst, null);
    }
 	 private void update() {
-        
 		 if (life < 1) {
                 temps.remove(this);
          }
