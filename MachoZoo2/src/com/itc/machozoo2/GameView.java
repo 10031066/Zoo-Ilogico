@@ -96,7 +96,7 @@ public class GameView extends SurfaceView {
 				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
 				
 				// botones overhere!!
-				//escenario1();
+				escenario1();
 				//Log.i("llega", "ahhh");
 			}
 			

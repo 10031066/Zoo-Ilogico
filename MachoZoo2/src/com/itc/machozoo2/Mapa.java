@@ -212,9 +212,13 @@ public class Mapa{
         }
         int i2=i,j2=j;//La posicion inicial de la jaula
         //System.out.println(6);
-        while(Area[i][j].getArriba()!=null && Area[i][j].getArriba().id!=ListaDeRejas.get(0).id ){
+        
+        try{
+        while(Area[i][j].getArriba().id!=ListaDeRejas.get(0).id ){
             ListaDeRejas.add(Area[i][j].getIzquierda());
             j++;
+        }}catch(Exception e){
+        	return null;
         }
         //System.out.println(6);
         crearJaula(j2,i2,jaulaXtam,jaulaYtam,ListaDeRejas);
