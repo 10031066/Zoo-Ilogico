@@ -20,8 +20,8 @@ GameView GV;
 public Mapa m;
 public int id_picada;
 public reja picada;
- int i[]= new int[2];
- int j[]= new int[2];
+ int i[]=new int[2];
+ int j[]=new int[2];
  int indice=0;
 
 private List<reja> R;
@@ -37,10 +37,10 @@ private List<reja> R;
 		puntaX=dst.top+50;
 		puntaY=dst.left;
 		this.GV=gameView;
-
+		this.src = new Rect(0, 0, width, height);
 	}
 	
-	void update(){		
+	void update(){//Deberia solo usarse en el momento que se suelta el dedo		
 		
 		indice=0;
 		for(int i=0; i<R.size();i++){
@@ -50,16 +50,27 @@ private List<reja> R;
 				picada=R.get(i);
 				Log.i("Zoo", "Id reja picada= "+ R.get(i).get_id());
 			}else{
-				/**id_picada=0;
-				picada=null;*/
+				//id_picada=0;
+				//picada=null;
 			}
 		}
+		
+		for(int i=0;i<GV.map.rows;i++){
+			for(int j=0;j<GV.map.columns;j++){
+				if(Rect.intersects(GV.map.Celdas[i][j], dst)){
+					this.i[indice]=i;
+					this.j[indice]=j;
+					indice++;
+				}
+			}
+		}
+		puntaX=dst.top+50;
+		puntaY=dst.left;
 	}
 	public void onDraw(Canvas canvas) {
         //update();
-        puntaX=dst.top+50;
-		puntaY=dst.left;
-        src = new Rect(0, 0, width, height);
+        
+        //
         canvas.drawBitmap(bmp, src, dst, null);
         
 	}
@@ -86,15 +97,19 @@ private List<reja> R;
 		}
 		
 		
-		System.out.println(No.size());
+		System.out.println("Jaulas encontradas con esa reja "+No.size());
 		
 		//en teoria solo deberia haber una o dos jaulas
-		switch (No.size()){
+		switch (No.size()){//Numero de jaulas tocadas
 		case 0:
 			//si no hay ninguna jaula no hace nada
 			break;
 		case 1://En el caso de que se toque la reja de una sola Jaula
-			if(this.i==this.j){//Para el caso en que se seleccione una reja que estra en la misma jaula
+			System.out.println("indice "+indice);
+			for(int k=0;k<indice;k++)
+				System.out.println((this.i[k]+","+this.j[k]));
+			
+			if(GV.map.Area[i[0]][j[0]].Jaula){//Para el caso en que se seleccione una reja que estra en la misma jaula
 				No.get(0).remuevePorID(id_picada);
 				
 				for(int i=0;i<4;i++){

@@ -88,24 +88,7 @@ public class Mapa{
 		
 	}
 	
-	/**void Modifica(int i,int j,int poss){//poss 1.- Arriba 2.-Derecha 3.-Abajo 4.-Izquierda
-        Area[i][j].poss[poss]=!Area[i][j].poss[poss];
-        
-        switch (poss){
-            case 1:
-                Area[i-1][j].poss[poss]=!Area[i-1][j].poss[poss];
-                break;
-            case 2:
-                Area[i][j+1].poss[poss]=!Area[i][j+1].poss[poss];
-                break;
-            case 3:
-                Area[i+1][j].poss[poss]=!Area[i+1][j].poss[poss];
-                break;
-            case 4:
-                Area[i][j-1].poss[poss]=!Area[i][j-1].poss[poss];
-                break;
-        }
-    }*/
+
 
 	@SuppressLint("WrongCall")
 	public void onDraw(Canvas canvas) {
@@ -248,6 +231,9 @@ public class Mapa{
 		System.out.println("Creando reja "+x+","+y+","+a);
 		reja nueva;
 		//Rect temp1= new Rect(k,l,m,n);
+		if(Area[y][x].Jaula){ //si el cuadro ya es una jaula, no se le pueden agregar mas rejas adentro
+			return;
+		}
 		if(Area[y][x].rejas[a]!=null){
 			System.out.println("ya existia una reja ahi");
 			return;

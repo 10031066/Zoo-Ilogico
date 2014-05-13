@@ -194,34 +194,6 @@ public class GameView extends SurfaceView {
 						onDraw(canvas);
 						break;
 					} else {
-						if (aux.get_dst().contains(x, y) && aux.get_id() == 2) {/*// check
-							
-							//Rejas = new ArrayList<RejaSprite>(); // button
-							//Rejastmp = new ArrayList<RejaSprite>();int i=0;
-							for (Iterator<Figura> t = Figuras.iterator(); t.hasNext();) {// crea arrelgo de rejas
-
-								Figura aux1 = t.next();
-
-								if (aux1.get_tipo() == 2) {
-									if(CheckId(aux1.get_id())){
-									//Rejas.add((rejaSprite) aux1);
-									Log.i("zoo", "reja añadida");
-									}else{
-										Log.i("zoo","no se añadio reja");
-									}
-									// Jaulas.add(new Jaula(id_jaulas++));
-								}
-							}
-							continuidad();
-							imprimirjaulas();
-							if(estacompleta()){
-								//Jaulas.add(new Jaula(id_jaulas++,Rejastmp));
-								Log.i("zoo", "la jaula  terminada");
-							}else{
-								Log.i(s"zoo", "la jaula no esta terminada");
-							}
-							*/
-						}else{
 							if (aux.get_dst().contains(x, y) && aux.get_id() == 2) {//añadir carne
 								Log.i("zoo", "presionaste carne");
 
@@ -233,6 +205,7 @@ public class GameView extends SurfaceView {
 								}else{
 									food.get(id_carne).get_dst().set(x - 22, y - 15, x + 22, y + 15);
 								}
+								
 							}
 							else{//pico
 								if(aux.get_dst().contains(x, y) && aux.get_id() == 3){
@@ -265,7 +238,7 @@ public class GameView extends SurfaceView {
 								}
 							}
 					
-						}
+						
 						
 					}
 
@@ -368,15 +341,7 @@ public class GameView extends SurfaceView {
 			
 			if(FlagP){
 				p.update();
-				for(int i=0;i<map.rows;i++){
-					for(int j=0;j<map.columns;j++){
-						if(Rect.intersects(map.Celdas[i][j], p.dst)){
-							p.i[indice]=i;
-							p.j[indice]=j;
-							p.indice++;
-						}
-					}
-				}
+				
 				
 				p.EliminaReja();
 				FlagP=false;
