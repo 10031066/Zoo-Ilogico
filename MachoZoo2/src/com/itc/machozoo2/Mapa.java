@@ -277,7 +277,7 @@ public class Mapa{
             nueva = new reja(1,new Rect(x*250-15,y*250,x*250+15,y*250+250),gameView,true);
             Area[y][x].setIzquierda(nueva);
             if(x-1>=0){
-                Area[y][x+1].setDerecha(nueva);
+                Area[y][x-1].setDerecha(nueva);
             }
             Figuras.add(nueva);
             break;
