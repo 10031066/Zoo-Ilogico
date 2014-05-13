@@ -241,9 +241,14 @@ public class Mapa{
     }
 	
 	void crearReja(int x,int y,int a){//x y y son las posiciones del cuadro
-		
+		System.out.println("Creando reja "+x+","+y+","+a);
 		reja nueva;
 		//Rect temp1= new Rect(k,l,m,n);
+		if(Area[y][x].rejas[a]!=null){
+			System.out.println("ya existia una reja ahi");
+			return;
+		}
+		
 		
 		switch (a){
         case 0:
@@ -277,6 +282,7 @@ public class Mapa{
             nueva = new reja(1,new Rect(x*250-15,y*250,x*250+15,y*250+250),gameView,true);
             Area[y][x].setIzquierda(nueva);
             if(x-1>=0){
+            	System.out.println("creando reja en "+y+","+(x-1)+","+a);
                 Area[y][x-1].setDerecha(nueva);
             }
             Figuras.add(nueva);

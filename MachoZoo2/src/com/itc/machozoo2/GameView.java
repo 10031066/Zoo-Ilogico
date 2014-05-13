@@ -164,12 +164,6 @@ public class GameView extends SurfaceView {
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN://Dedo sobre la pantalla
 			
-			if(!map.Area[puntoY][puntoX].Jaula){			//Agregado en 0.00 : al presionar un cuadro que podria ser jaula lo combierte en una
-				if(map.esJaula(puntoY, puntoX)==null){
-					System.out.println("No se creo la jaula");
-				}
-					
-			}
 			
 			for (Iterator<Figura> f = Nochocan.iterator(); f.hasNext();) {
 				Figura aux = f.next();
@@ -362,6 +356,16 @@ public class GameView extends SurfaceView {
 
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
+			if(!FlagP && Nochocan.get(activa).get_tipo()!=2){
+				if(!map.Area[puntoY][puntoX].Jaula){			//Agregado en 0.00 : al presionar un cuadro que podria ser jaula lo combierte en una
+					if(map.esJaula(puntoY, puntoX)==null){
+						System.out.println("No se creo la jaula");
+					}
+						
+				}
+			}
+			
+			
 			if(FlagP){
 				p.update();
 				for(int i=0;i<map.rows;i++){
@@ -439,8 +443,12 @@ public class GameView extends SurfaceView {
 
 					}
 				}
-			}}
+			}
+			}
 			flag = false;
+			
+			
+			
 			break;
 		}
 

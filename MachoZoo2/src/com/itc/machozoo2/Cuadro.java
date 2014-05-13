@@ -29,13 +29,13 @@ public class Cuadro{
 		rejas[0]=temp;
 	}
 	void setIzquierda(reja temp){
-		rejas[1]=temp;
+		rejas[3]=temp;
 	}
 	void setAbajo(reja temp){
 		rejas[2]=temp;
 	}
 	void setDerecha(reja temp){
-		rejas[3]=temp;
+		rejas[1]=temp;
 	}
 	
     reja getArriba(){

@@ -31,7 +31,7 @@ public class reja extends Figura{
         fija = false;
         anterior=null;
         siguiente =null;
-        p1= new Paint();
+        //p1= new Paint();
         x=500;
         position=0;
         if(tipo==1){
@@ -51,7 +51,7 @@ public class reja extends Figura{
         }
     }
 	private int position=0;
-	private Paint p1 = new Paint();
+	//private Paint p1 = new Paint();
 	private reja anterior=null, siguiente=null;
     private boolean fija = false;
     private int Salud=1000;
