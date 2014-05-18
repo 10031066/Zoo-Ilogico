@@ -29,9 +29,9 @@ public class rejaSprite extends Figura{
 
 		src = new Rect(0, 0, width, height);
 
-		p1.setARGB(255, 255, 0, 0);
-		p1.setStyle(Style.STROKE);
-		canvas.drawRect(dst, p1);
+		//p1.setARGB(255, 255, 0, 0);
+		//p1.setStyle(Style.STROKE);
+		//canvas.drawRect(dst, p1);
 		canvas.drawBitmap(bmp, src, dst, null);
 	}
 

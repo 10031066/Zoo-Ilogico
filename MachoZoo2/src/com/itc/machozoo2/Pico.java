@@ -24,14 +24,14 @@ public reja picada;
  int j[]=new int[2];
  int indice=0;
 
-private List<reja> R;
+//private List<reja> R;
 	public Pico (GameView gameView, Bitmap bmp,int tipo, List<reja>R){
 
 		this.tipo=tipo;
 		this.bmp=bmp;
 		this.width=bmp.getWidth();
 		this.height=bmp.getHeight();
-		this.R=R;
+		//this.R=R;
 		dst = new Rect(0, 0, 45, 30);
 
 		puntaX=dst.top+50;
@@ -43,12 +43,12 @@ private List<reja> R;
 	void update(){//Deberia solo usarse en el momento que se suelta el dedo		
 		
 		indice=0;
-		for(int i=0; i<R.size();i++){
+		for(int i=0; i<GV.Rejas.size();i++){
 			//Log.i("Zoo","top"+ puntaX);
-			if(Rect.intersects(dst, R.get(i).get_dst())){
-				id_picada=R.get(i).get_id();
-				picada=R.get(i);
-				Log.i("Zoo", "Id reja picada= "+ R.get(i).get_id());
+			if(Rect.intersects(dst, GV.Rejas.get(i).get_dst())){
+				id_picada=GV.Rejas.get(i).get_id();
+				picada=GV.Rejas.get(i);
+				Log.i("Zoo", "Id reja picada= "+ GV.Rejas.get(i).get_id());
 			}else{
 				//id_picada=0;
 				//picada=null;
@@ -109,13 +109,12 @@ private List<reja> R;
 			for(int k=0;k<indice;k++)
 				System.out.println((this.i[k]+","+this.j[k]));
 			
-			if(GV.map.Area[i[0]][j[0]].Jaula){//Para el caso en que se seleccione una reja que estra en la misma jaula
+			if(GV.map.Area[i[0]][j[0]].Jaula && GV.map.Area[i[1]][j[1]].Jaula){//Para el caso en que se seleccione una reja que estra en la misma jaula
 				No.get(0).remuevePorID(id_picada);
 				
 				for(int i=0;i<4;i++){
 					if(GV.map.Area[this.i[0]][this.j[0]].rejas[i].id==id_picada ){
 						GV.map.Area[this.i[0]][this.j[0]].rejas[i]=null;
-						
 						
 						GV.Figuras.remove(picada);
 						System.out.println("Se elimino la reja intermedia");

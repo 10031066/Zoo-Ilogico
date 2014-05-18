@@ -198,7 +198,7 @@ public class Mapa{
         
         try{
         while(Area[i][j].getArriba().id!=ListaDeRejas.get(0).id ){
-            ListaDeRejas.add(Area[i][j].getIzquierda());
+            ListaDeRejas.add(Area[i][j].getArriba());
             j++;
         }}catch(Exception e){
         	return null;
@@ -228,7 +228,7 @@ public class Mapa{
     }
 	
 	void crearReja(int x,int y,int a){//x y y son las posiciones del cuadro
-		System.out.println("Creando reja "+x+","+y+","+a);
+		//System.out.println("Creando reja "+x+","+y+","+a);
 		reja nueva;
 		//Rect temp1= new Rect(k,l,m,n);
 		if(Area[y][x].Jaula){ //si el cuadro ya es una jaula, no se le pueden agregar mas rejas adentro
@@ -239,12 +239,9 @@ public class Mapa{
 			return;
 		}
 		
-		
 		switch (a){
         case 0:
             nueva = new reja(1,new Rect(x*250,y*250-15,x*250+250,y*250+15),gameView,false);
-            Figuras.add(nueva);
-            System.out.println("Se creo una reja arriba");
             Area[y][x].setArriba(nueva);
 
             if(y-1>=0){
@@ -258,7 +255,6 @@ public class Mapa{
             if(x+1<columns){
                 Area[y][x+1].setIzquierda(nueva);
             }
-            Figuras.add(nueva);
             break;
         case 2:
             nueva = new reja(1,new Rect(x*250,y*250+235,x*250+250,y*250+265),gameView,false);
@@ -266,19 +262,17 @@ public class Mapa{
             if(y+1<rows){
                 Area[y+1][x].setArriba(nueva);
             }
-            Figuras.add(nueva);
             break;
         case 3:
             nueva = new reja(1,new Rect(x*250-15,y*250,x*250+15,y*250+250),gameView,true);
             Area[y][x].setIzquierda(nueva);
             if(x-1>=0){
-            	System.out.println("creando reja en "+y+","+(x-1)+","+a);
                 Area[y][x-1].setDerecha(nueva);
             }
-            Figuras.add(nueva);
             break;
         default:
         	System.out.println("Este mensaje no deberia nunca aparecer");
+        	return;
         	/**Se usaba en el java, ya no se necesita
             List<reja> nuevaJaula = esJaula(x, y);
             if(nuevaJaula!=null){
@@ -287,9 +281,10 @@ public class Mapa{
                 Log.i("zoo", "old= " + "Nueva Jaula Creada");
                 //System.out.println("nueva jaula creada " + ListaJaulas[indJaulas-1].ancho +" " +ListaJaulas[indJaulas-1].largo);
             }*/
-            break;
 		}
-		
+		Figuras.add(nueva);
+		gameView.Rejas.add(nueva);
+		System.out.println(nueva.id);
 	}
 
 	public Rect[][] Get_Celdas() {

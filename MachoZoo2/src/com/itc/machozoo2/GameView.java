@@ -31,7 +31,7 @@ public class GameView extends SurfaceView {
 	public List<Jaula> Jaulas = new ArrayList<Jaula>();
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
-	private ArrayList<reja> Rejas;
+	List<reja> Rejas;
 	private List<reja> Rejas2= new ArrayList<reja>();//lo ocupo para la colision del pico, 
 	                                            //es una lista de todas las rejas, se llena cuando lepicas al pico
 	boolean flag = false, flagF=false,FlagP=false;
@@ -53,7 +53,7 @@ public class GameView extends SurfaceView {
 		gameLoopThread = new GameLoopThread(this);
 		Figuras = new CopyOnWriteArrayList<Figura>();
 		Nochocan = new CopyOnWriteArrayList<Figura>();
-		Rejas2=new CopyOnWriteArrayList<reja>();
+		Rejas= new CopyOnWriteArrayList<reja>();
 		ListaSalvajes = new CopyOnWriteArrayList<Sprite>();
 		
 		map = new Mapa(this,bmp,Figuras,id,food);
@@ -97,7 +97,6 @@ public class GameView extends SurfaceView {
 				
 				// botones overhere!!
 				escenario1();
-				//Log.i("llega", "ahhh");
 			}
 			
 			public void escenario1(){
@@ -115,8 +114,6 @@ public class GameView extends SurfaceView {
 				int var2[]={2};
 				condicion = new Condiciones(GV,var1,var2);
 				
-				
-
 			}
 
 			@Override
@@ -211,7 +208,8 @@ public class GameView extends SurfaceView {
 								if(aux.get_dst().contains(x, y) && aux.get_id() == 3){
 									for(int i=0; i<map.Area.length;i++){
 										for(int j=0; j<map.Area[0].length;j++){
-											for(int k=0; k<4;k++){boolean flag1=false;
+											for(int k=0; k<4;k++){
+												boolean flag1=false;
 												if(map.Area[i][j].rejas[k]!=null){
 													//Log.i("Zoo", "Testing");
 													if(Rejas2.isEmpty()){
