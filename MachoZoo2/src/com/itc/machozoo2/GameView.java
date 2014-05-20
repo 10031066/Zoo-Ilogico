@@ -18,6 +18,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class GameView extends SurfaceView {
+	
+	public int esc;
+	
 	public Bitmap bmp[]= {null,BitmapFactory.decodeResource(getResources(), R.drawable.tigres),BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall),BitmapFactory.decodeResource(getResources(), R.drawable.bjaula),
 			BitmapFactory.decodeResource(getResources(), R.drawable.checkbutton),BitmapFactory.decodeResource(getResources(), R.drawable.poste),BitmapFactory.decodeResource(getResources(), R.drawable.puerta),
 			BitmapFactory.decodeResource(getResources(), R.drawable.piso),BitmapFactory.decodeResource(getResources(), R.drawable.bcarne),
@@ -47,9 +50,11 @@ public class GameView extends SurfaceView {
 	private Pico p;
 	Condiciones condicion;
 
-	public GameView(Context context) {
+	public GameView(Context context, final int esc) {
 		super(context);
 
+		this.esc=esc; //parametro que indicara el escenario a usar se manda desde mainactivity
+		
 		gameLoopThread = new GameLoopThread(this);
 		Figuras = new CopyOnWriteArrayList<Figura>();
 		Nochocan = new CopyOnWriteArrayList<Figura>();
@@ -96,7 +101,14 @@ public class GameView extends SurfaceView {
 				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
 				
 				// botones overhere!!
-				escenario1();
+				
+				switch (esc) { //aqui mete la funcion correspondiente a cada escenario es el case conveniente
+				case 1: escenario1(); break;
+				case 2:
+				case 3:
+				case 4:
+				}
+				
 			}
 			
 			public void escenario1(){
