@@ -124,7 +124,7 @@ public class GameView extends SurfaceView {
 				Salvajes temp2 = new Salvajes(8, 520,620, map.Jaulas.get(0), GV, 4, 0, food);
 				
 				int var1[]={0};
-				int var2[]={2};
+				int var2[]={9};
 				condicion = new Condiciones(GV,var1,var2);
 				
 			}
