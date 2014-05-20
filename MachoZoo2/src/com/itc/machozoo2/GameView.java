@@ -48,11 +48,12 @@ public class GameView extends SurfaceView {
 	int indice=0;
 	public Mapa map;
 	private Pico p;
+	public Context ct;
 	Condiciones condicion;
 
 	public GameView(Context context, final int esc) {
 		super(context);
-
+        ct=context;
 		this.esc=esc; //parametro que indicara el escenario a usar se manda desde mainactivity
 		
 		gameLoopThread = new GameLoopThread(this);

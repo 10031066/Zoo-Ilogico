@@ -2,6 +2,9 @@ package com.itc.machozoo2;
 
 import java.util.Iterator;
 
+import android.content.Intent;
+import android.util.Log;
+
 public class Condiciones extends Thread{
 	public GameView GV;
 	int tipo[]; //tipo de la condicion 
@@ -37,6 +40,7 @@ public class Condiciones extends Thread{
 									if(temp.size>=numero[i]){
 										CondCumplidas[i]=true;
 										cumplidas++;
+										
 										System.out.println("Se cumplio una condicion");
 									}
 								}
@@ -64,5 +68,8 @@ public class Condiciones extends Thread{
 		}
 		
 		System.err.println("Las condiciones se han cumplido");
+		Log.i("Zoo","lanzando letrero");
+		Intent in=new Intent(GV.ct,WinActivity.class); 
+		GV.ct.startActivity(in);
 	}
 }
