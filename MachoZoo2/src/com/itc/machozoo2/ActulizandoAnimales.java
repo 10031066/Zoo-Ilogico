@@ -27,6 +27,8 @@ public class ActulizandoAnimales extends Thread{
 				//System.out.println(f.id);
 			if (Rect.intersects(Animal.dst, f.dst) ) {
 				//System.out.println("Se interceptaron");
+				
+				
 				Animal.flag = false;
 				
 				Animal.v=!Animal.v;

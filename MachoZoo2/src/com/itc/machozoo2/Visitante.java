@@ -3,10 +3,10 @@ package com.itc.machozoo2;
 import android.graphics.Canvas;
 
 public class Visitante extends Sprite{
-	GameView GV;
+	//GameView GV;
 	
 	public Visitante(GameView GV){
-		this.GV=GV;
+		this.gameView=GV;
 		GV.Figuras.add(this);
 		this.x=850;
 		this.y=100;
@@ -41,4 +41,13 @@ public class Visitante extends Sprite{
 	public void onDraw(Canvas canvas) {
 		canvas.drawBitmap(bmp, src, dst, null);
 	}
+	
+	public void update(){
+		
+	}
+	
+	public boolean comiendo(){
+		return false;
+	}
+	
 }

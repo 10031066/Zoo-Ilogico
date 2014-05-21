@@ -68,6 +68,7 @@ public class GameView extends SurfaceView {
 		Nochocan = new CopyOnWriteArrayList<Figura>();
 		Rejas= new CopyOnWriteArrayList<reja>();
 		ListaSalvajes = new CopyOnWriteArrayList<Sprite>();
+		ListaVisitantes = new CopyOnWriteArrayList<Visitante>();
 		
 		map = new Mapa(this,bmp,Figuras,id,food);
 		Celdas = map.Get_Celdas();
@@ -165,6 +166,10 @@ public class GameView extends SurfaceView {
 	    if(p!=null){
         	p.onDraw(canvas);
         }
+	    for (Iterator<Visitante> f = ListaVisitantes.iterator(); f.hasNext();) {
+			Figura aux = f.next();
+			aux.onDraw(canvas);
+		}
 	}
 
 	@SuppressLint("WrongCall")

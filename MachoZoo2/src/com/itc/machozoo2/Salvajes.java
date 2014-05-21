@@ -91,11 +91,19 @@ public class Salvajes extends Sprite {
                            int jaulaX,jaulaY;//posiciones de la jaula
                            
                            //atacara la primera reja con la que se tope
-                           
+                           reja victima= ;
+                           //
                            
                            while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
                                //atacando la reja
-                               origen.rejas.get(indiceReja).Resistencia-=ataque;
+                               victima.Resistencia-=ataque;
+                               if(victima.Resistencia<victima.ResistenciaMax/2){
+                            	   if(victima.Vertical){
+                            		   victima.usar=victima.broken2;
+                            	   }else{
+                            		   victima.usar=victima.broken1;
+                            	   }
+                               }
                                Thread.sleep(1000);
                            }
                        }

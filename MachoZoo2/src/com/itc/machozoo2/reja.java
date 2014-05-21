@@ -16,7 +16,7 @@ public class reja extends Figura{
     int estado;
     rejaSprite imagen;
     private GameView GV;
-    Bitmap tipo1,tipo2,usar;
+    Bitmap tipo1,tipo2,usar,broken1,broken2;
     //Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall);
     boolean Vertical;
     int i1,i2,j1,j2;
@@ -28,6 +28,9 @@ public class reja extends Figura{
         this.tipo = tipo;
         tipo1=BitmapFactory.decodeResource(GV.getResources(),R.drawable.hrejasmall);
         tipo2=BitmapFactory.decodeResource(GV.getResources(),R.drawable.rejasmall);
+        broken1=BitmapFactory.decodeResource(GV.getResources(),R.drawable.hrejasmall);//rejas dañadas, se tendra que cambiar el icono
+        broken2=BitmapFactory.decodeResource(GV.getResources(),R.drawable.rejasmall);
+        
         fija = false;
         anterior=null;
         siguiente =null;
@@ -54,7 +57,6 @@ public class reja extends Figura{
 	//private Paint p1 = new Paint();
 	private reja anterior=null, siguiente=null;
     private boolean fija = false;
-    private int Salud=1000;
  
     public void onDraw(Canvas canvas) {
 		
@@ -97,10 +99,10 @@ public class reja extends Figura{
     	return fija;
     }
     public int get_salud(){
-    	return Salud;
+    	return Resistencia;
     }
     public void set_salud(int s){
-    	Salud=s;
+    	Resistencia=s;
     }
     
 }

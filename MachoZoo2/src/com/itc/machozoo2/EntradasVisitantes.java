@@ -13,10 +13,10 @@ public class EntradasVisitantes extends Thread{
 	public void run(){
 		while(true){
 			try {
-				sleep(60000-GV.ListaSalvajes.size()*2000);
+				
 				GV.ListaVisitantes.add(new Visitante(GV));
 				
-				
+				sleep(60000-GV.ListaSalvajes.size()*2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

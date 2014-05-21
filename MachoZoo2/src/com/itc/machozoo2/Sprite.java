@@ -97,8 +97,10 @@ public class Sprite  extends Figura {
     	for (FoodSprite f : food){
     	 if(Rect.intersects(dst, f.get_dst())){
     		 f.mordida();
+    		 salud++;
     		 return true;
     	 }
+    	 
     	}
     	return false;
     }
