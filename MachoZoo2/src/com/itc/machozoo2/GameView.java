@@ -24,7 +24,7 @@ public class GameView extends SurfaceView {
 	public Bitmap bmp[]= {null,BitmapFactory.decodeResource(getResources(), R.drawable.tigres),BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall),BitmapFactory.decodeResource(getResources(), R.drawable.bjaula),
 			BitmapFactory.decodeResource(getResources(), R.drawable.checkbutton),BitmapFactory.decodeResource(getResources(), R.drawable.poste),BitmapFactory.decodeResource(getResources(), R.drawable.puerta),
 			BitmapFactory.decodeResource(getResources(), R.drawable.piso),BitmapFactory.decodeResource(getResources(), R.drawable.bcarne),
-			BitmapFactory.decodeResource(getResources(), R.drawable.carne),BitmapFactory.decodeResource(getResources(), R.drawable.bpico),BitmapFactory.decodeResource(getResources(), R.drawable.pico)};
+			BitmapFactory.decodeResource(getResources(), R.drawable.carne),BitmapFactory.decodeResource(getResources(), R.drawable.bpico),BitmapFactory.decodeResource(getResources(), R.drawable.pico),BitmapFactory.decodeResource(getResources(), R.drawable.gold)};
 			
 	private SurfaceHolder holder;
 	private GameLoopThread gameLoopThread;
@@ -50,12 +50,18 @@ public class GameView extends SurfaceView {
 	private Pico p;
 	public Context ct;
 	Condiciones condicion;
-
+	
+	//contadores
+	contador gold;
+	
 	public GameView(Context context, final int esc) {
 		super(context);
         ct=context;
 		this.esc=esc; //parametro que indicara el escenario a usar se manda desde mainactivity
 		
+		//contador
+		gold=new contador(GV, bmp[12], 10, 0, 20);
+		//contador
 		gameLoopThread = new GameLoopThread(this);
 		Figuras = new CopyOnWriteArrayList<Figura>();
 		Nochocan = new CopyOnWriteArrayList<Figura>();
@@ -141,7 +147,7 @@ public class GameView extends SurfaceView {
 	void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.WHITE);
 		map.onDraw(canvas);
-        
+        gold.onDraw(canvas);
 		for (Iterator<Figura> f = Figuras.iterator(); f.hasNext();) {
 			Figura aux = f.next();
 			aux.onDraw(canvas);
