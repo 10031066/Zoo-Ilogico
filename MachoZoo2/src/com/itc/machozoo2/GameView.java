@@ -50,9 +50,10 @@ public class GameView extends SurfaceView {
 	private Pico p;
 	public Context ct;
 	Condiciones condicion;
+	public List<Visitante> ListaVisitantes;
 	
 	//contadores
-	contador gold;
+	public contador gold;
 	
 	public GameView(Context context, final int esc) {
 		super(context);
@@ -60,7 +61,7 @@ public class GameView extends SurfaceView {
 		this.esc=esc; //parametro que indicara el escenario a usar se manda desde mainactivity
 		
 		//contador
-		gold=new contador(GV, bmp[12], 10, 0, 20);
+		gold=new contador(GV, bmp[12]);
 		//contador
 		gameLoopThread = new GameLoopThread(this);
 		Figuras = new CopyOnWriteArrayList<Figura>();
@@ -132,7 +133,7 @@ public class GameView extends SurfaceView {
 				int var1[]={0};
 				int var2[]={9};
 				condicion = new Condiciones(GV,var1,var2);
-				
+				EntradasVisitantes Visi = new EntradasVisitantes(GV);
 			}
 
 			@Override
