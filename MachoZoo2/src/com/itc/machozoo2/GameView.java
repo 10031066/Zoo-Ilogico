@@ -21,26 +21,29 @@ public class GameView extends SurfaceView {
 	
 	public int esc;
 	
-	public Bitmap bmp[]= {null,BitmapFactory.decodeResource(getResources(), R.drawable.tigres),BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall),BitmapFactory.decodeResource(getResources(), R.drawable.bjaula),
-			BitmapFactory.decodeResource(getResources(), R.drawable.checkbutton),BitmapFactory.decodeResource(getResources(), R.drawable.poste),BitmapFactory.decodeResource(getResources(), R.drawable.puerta),
-			BitmapFactory.decodeResource(getResources(), R.drawable.piso),BitmapFactory.decodeResource(getResources(), R.drawable.bcarne),
-			BitmapFactory.decodeResource(getResources(), R.drawable.carne),BitmapFactory.decodeResource(getResources(), R.drawable.bpico),BitmapFactory.decodeResource(getResources(), R.drawable.pico),BitmapFactory.decodeResource(getResources(), R.drawable.gold)};
+	public Bitmap bmp[]= {null,BitmapFactory.decodeResource(getResources(), R.drawable.tigres)/*1*/,BitmapFactory.decodeResource(getResources(), R.drawable.rejasmall)/*2*/,BitmapFactory.decodeResource(getResources(), R.drawable.bjaula)/*3*/,
+			BitmapFactory.decodeResource(getResources(), R.drawable.checkbutton)/*4*/,BitmapFactory.decodeResource(getResources(), R.drawable.poste)/*5*/,BitmapFactory.decodeResource(getResources(), R.drawable.puerta)/*6*/,
+			BitmapFactory.decodeResource(getResources(), R.drawable.piso)/*7*/,BitmapFactory.decodeResource(getResources(), R.drawable.bcarne)/*8*/,
+			BitmapFactory.decodeResource(getResources(), R.drawable.carne)/*9*/,BitmapFactory.decodeResource(getResources(), R.drawable.bpico)/*10*/,BitmapFactory.decodeResource(getResources(), R.drawable.pico)/*11*/,BitmapFactory.decodeResource(getResources(), R.drawable.gold)/*12*/,
+			BitmapFactory.decodeResource(getResources(), R.drawable.btigre)/*13*/,BitmapFactory.decodeResource(getResources(), R.drawable.belefante)/*14*/,BitmapFactory.decodeResource(getResources(), R.drawable.bsuperreja)/*15*/};
 			
 	private SurfaceHolder holder;
 	private GameLoopThread gameLoopThread;
 	public List<Figura> Figuras; //Aqui se guardan todas las figuras que pueden chocar entre si
 	public List<Figura> Nochocan;
 	public List<Sprite> ListaSalvajes;
+	public List<Salvajes> salvaje;
 	public List<Jaula> Jaulas = new ArrayList<Jaula>();
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
 	List<reja> Rejas;
 	private List<reja> Rejas2= new ArrayList<reja>();//lo ocupo para la colision del pico, 
 	                                            //es una lista de todas las rejas, se llena cuando lepicas al pico
-	boolean flag = false, flagF=false,FlagP=false;
-	int id=3;
+	boolean flag = false, flagF=false,FlagP=false,FlagS=false;
+	int id=6;
 	int id_jaulas = 0;
 	int id_carne=0;
+	int id_salvajes=1;
 	Canvas canvas;
 	int activa;
 	private Rect[][] Celdas;
@@ -67,6 +70,8 @@ public class GameView extends SurfaceView {
 		Nochocan = new CopyOnWriteArrayList<Figura>();
 		Rejas= new CopyOnWriteArrayList<reja>();
 		ListaSalvajes = new CopyOnWriteArrayList<Sprite>();
+		salvaje=new CopyOnWriteArrayList<Salvajes>();
+
 		
 		map = new Mapa(this,bmp,Figuras,id,food);
 		Celdas = map.Get_Celdas();
@@ -96,13 +101,19 @@ public class GameView extends SurfaceView {
 				
 				// Animales tipo:1, rejas tipo:2, botones tipo:3, pico tipo: 4
 				
-				Nochocan.add(new Boton(GV, bmp[3], 1, 3));
+				Nochocan.add(new Boton(GV, bmp[3], 1, 3));//reja
 				//Nochocan.add(new Boton(GV, bmp[4], 2, 3));
 				//Nochocan.get(1).get_dst().set(250, 250, 350, 350);
-				Nochocan.add(new Boton(GV, bmp[8], 2, 3));
+				Nochocan.add(new Boton(GV, bmp[8], 2, 3));//carne
 				Nochocan.get(1).get_dst().set(0, 500, 250, 750);
-				Nochocan.add(new Boton(GV, bmp[10], 3, 3));
+				Nochocan.add(new Boton(GV, bmp[10], 3, 3));//pico
 				Nochocan.get(2).get_dst().set(0, 750, 250, 1000);
+				Nochocan.add(new Boton(GV, bmp[13],4,3));//tigre
+				Nochocan.get(3).get_dst().set(2250, 250, 2500, 500);
+				Nochocan.add(new Boton(GV, bmp[14],5,3));//elefante
+				Nochocan.get(4).get_dst().set(2250, 500, 2500, 750);
+				Nochocan.add(new Boton(GV, bmp[15],6,3));//superreja
+				Nochocan.get(5).get_dst().set(2250, 750, 2500, 1000);
 				//si quieres otro tigre descomenta la linea de abajo, todo lo que quieras agregar de figuras 
 				//ponlo abajo de este comentario por que si no joderas los botones.
 				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
@@ -126,8 +137,8 @@ public class GameView extends SurfaceView {
 				
 				Jaula Temp = map.esJaula(2,2);
 
-				Salvajes temp1 = new Salvajes(8, 520,520, map.Jaulas.get(0), GV, 4, 0, food);
-				Salvajes temp2 = new Salvajes(8, 520,620, map.Jaulas.get(0), GV, 4, 0, food);
+				salvaje.add(new Salvajes(8, 520,520, map.Jaulas.get(0), GV, id_salvajes++, 0, food));
+				salvaje.add(new Salvajes(8, 520,620, map.Jaulas.get(0), GV, id_salvajes++, 0, food));
 				
 				int var1[]={0};
 				int var2[]={9};
@@ -207,6 +218,7 @@ public class GameView extends SurfaceView {
 						activa = id-1;
 						flag = true;
 						flagF=false;
+					
 						onDraw(canvas);
 						break;
 					} else {
@@ -251,7 +263,13 @@ public class GameView extends SurfaceView {
 									FlagP=true;
 									Log.i("tag", "PICO");
 								}else{
-									FlagP=false;
+									//FlagP=false;
+									
+									if(aux.get_dst().contains(x, y) && aux.get_id() == 4){
+										Log.i("Zoo", "BOTON TIGRE");
+									    FlagS=true;flag=false;flagF = false;
+									}
+									
 								}
 							}
 					
@@ -265,7 +283,7 @@ public class GameView extends SurfaceView {
 				FoodSprite aux=f.next();
 				if (aux.get_dst().contains(x, y) && aux.get_tipo()==4) {
 					Log.i("zoo", "toque en la carne");
-					flagF = true;flag=false;
+					flagF = true;flag=false;FlagS=false;
 					activa = aux.get_id();
 					// Log.i("zoo", "old= " + activa);
 					break;
@@ -286,6 +304,9 @@ public class GameView extends SurfaceView {
 
 					break;
 
+			}
+			if(FlagS){//tigre
+				//salvaje.get(activa-1).get_dst().set(x,y, x, y);
 			}
 			if(FlagP){//pico
 				p.get_dst().set(x - 75, y-150, x + 75, y );
@@ -342,10 +363,15 @@ public class GameView extends SurfaceView {
 				// ""+Reja1.SpriteRect().left+","+Reja1.SpriteRect().top+","+Reja1.SpriteRect().top+","+Reja1.SpriteRect().bottom);
 
 			}
-			break;
+		break;
 
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
+			if(FlagS){
+				salvaje.add(new Salvajes(8, 520,520, map.Jaulas.get(0), GV, id++, 0, food));
+				salvaje.get(id_salvajes-1).get_dst().set(x-(salvaje.get(id_salvajes-1).get_width()/2),y-(salvaje.get(id_salvajes-1).get_height()/2), x+(salvaje.get(id_salvajes-1).get_width()/2), y-(salvaje.get(id_salvajes-1).get_height()/2));
+			    activa=id_salvajes;
+			}
 			if(!FlagP && Nochocan.get(activa).get_tipo()!=2){
 				if(!map.Area[puntoY][puntoX].Jaula){			//Agregado en 0.00 : al presionar un cuadro que podria ser jaula lo combierte en una
 					if(map.esJaula(puntoY, puntoX)==null){

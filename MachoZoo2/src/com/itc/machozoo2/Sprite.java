@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Paint.Style;
+import android.util.Log;
 
 public class Sprite  extends Figura {
 	protected static final int BMP_ROWS = 2;
