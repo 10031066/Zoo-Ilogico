@@ -255,11 +255,12 @@ containing a value of this type.
         public static final int rejasmall=0x7f020011;
         public static final int tierra=0x7f020012;
         public static final int tigres=0x7f020013;
-        public static final int woodb=0x7f020014;
-        public static final int woodb2=0x7f020015;
-        public static final int woodb3=0x7f020016;
-        public static final int woodb4=0x7f020017;
-        public static final int youwin=0x7f020018;
+        public static final int visitante=0x7f020014;
+        public static final int woodb=0x7f020015;
+        public static final int woodb2=0x7f020016;
+        public static final int woodb3=0x7f020017;
+        public static final int woodb4=0x7f020018;
+        public static final int youwin=0x7f020019;
     }
     public static final class id {
         public static final int action_settings=0x7f040017;

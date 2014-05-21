@@ -3,6 +3,7 @@ package com.itc.machozoo2;
 import java.util.List;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 public class Salvajes extends Sprite {
 	Jaula origen;
@@ -24,7 +25,9 @@ public class Salvajes extends Sprite {
         this.x=x;
         this.y=y;
         this.origen= origen;
+        if(origen!=null){
         origen.agregarAnimal(this); //se agrega el animal a la lista de su jaula
+        }
         switch (indice){
             case 8: //tigre
                 crear(indice,"Tigre",true,100,20,1000,false,false,true,true,gameView.bmp[1]);
@@ -62,7 +65,7 @@ public class Salvajes extends Sprite {
             while(true){
                 //System.out.println(nombre+" corriendo "+get_salud() );
                 Thread.sleep(5000);
-                set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.size));
+                //set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.size));
                 if(get_salud()<=0){
                     set_salud(0);
                     atacar=true;
@@ -89,13 +92,27 @@ public class Salvajes extends Sprite {
                            double distanciaMenor=999;
                            double distancia;
                            int jaulaX,jaulaY;//posiciones de la jaula
-                           
+                           reja victima=null;
                            //atacara la primera reja con la que se tope
+                         
+                           for(int i=0; i<origen.Get_Rejas().size(); i++){
+                        	   if(Rect.intersects(this.get_dst(),origen.Get_Rejas().get(i).get_dst())){
+                        		   victima=origen.Get_Rejas().get(i);
+                        	   }
+                           }
                            
+                           //
                            
-                           while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
+                        while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
                                //atacando la reja
-                               origen.rejas.get(indiceReja).Resistencia-=ataque;
+                               victima.Resistencia-=ataque;
+                         if(victima.Resistencia<victima.ResistenciaMax/2){
+                            	  if(victima.Vertical){
+                            		  victima.usar=victima.broken2;
+                            	   }else{
+                            		   victima.usar=victima.broken1;
+                            	  }
+                             }
                                Thread.sleep(1000);
                            }
                        }

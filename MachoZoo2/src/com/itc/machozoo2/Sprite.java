@@ -11,8 +11,8 @@ import android.graphics.Paint.Style;
 import android.util.Log;
 
 public class Sprite  extends Figura {
-	protected static final int BMP_ROWS = 2;
-	protected static final int BMP_COLUMNS = 6;
+	public static int BMP_ROWS = 2;
+	public static int BMP_COLUMNS = 6;
 
 	protected int xSpeed = 10;
 	protected int ySpeed;
@@ -98,8 +98,10 @@ public class Sprite  extends Figura {
     	for (FoodSprite f : food){
     	 if(Rect.intersects(dst, f.get_dst())){
     		 f.mordida();
+    		 salud++;
     		 return true;
     	 }
+    	 
     	}
     	return false;
     }

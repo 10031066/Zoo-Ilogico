@@ -28,17 +28,13 @@ public class contador {
 	 
 	Bitmap bmp;
 	int incremento;
-	int cantidad;
-	int tiempo;//cada cuando se incrementa
-	int cronometro;
+	int cantidad=0;
+
 	Paint p=new Paint();
 	//GameView GV;
 	
-	public contador(GameView GV, Bitmap bmp, int inc, int cant, int t){
+	public contador(GameView GV, Bitmap bmp){
 		this.bmp=bmp;
-		incremento=inc;
-		cantidad=cant;
-		tiempo=t;
 		//cosas de la letra
 		Typeface tf = Typeface.createFromAsset(GV.ct.getAssets(), "fonts/ZookyZooky.ttf");
 		p.setTypeface(tf);
@@ -48,17 +44,17 @@ public class contador {
 	    
 	}
 	
-	public void update(){
+	/**public void update(){
 		if(cronometro>=tiempo){
 			cantidad+=incremento;
 			cronometro=0;
 		}else{
 			cronometro++;
 		}
-	}
+	}*/
 	
 	public void onDraw(Canvas canvas){
-		update();
+		//update();
 		canvas.drawBitmap(bmp, 0, 10, p);
 		canvas.drawText("="+cantidad, bmp.getWidth()+10, 60, p);
 	}

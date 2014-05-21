@@ -25,7 +25,7 @@ public class GameView extends SurfaceView {
 			BitmapFactory.decodeResource(getResources(), R.drawable.checkbutton)/*4*/,BitmapFactory.decodeResource(getResources(), R.drawable.poste)/*5*/,BitmapFactory.decodeResource(getResources(), R.drawable.puerta)/*6*/,
 			BitmapFactory.decodeResource(getResources(), R.drawable.piso)/*7*/,BitmapFactory.decodeResource(getResources(), R.drawable.bcarne)/*8*/,
 			BitmapFactory.decodeResource(getResources(), R.drawable.carne)/*9*/,BitmapFactory.decodeResource(getResources(), R.drawable.bpico)/*10*/,BitmapFactory.decodeResource(getResources(), R.drawable.pico)/*11*/,BitmapFactory.decodeResource(getResources(), R.drawable.gold)/*12*/,
-			BitmapFactory.decodeResource(getResources(), R.drawable.btigre)/*13*/,BitmapFactory.decodeResource(getResources(), R.drawable.belefante)/*14*/,BitmapFactory.decodeResource(getResources(), R.drawable.bsuperreja)/*15*/};
+			BitmapFactory.decodeResource(getResources(), R.drawable.btigre)/*13*/,BitmapFactory.decodeResource(getResources(), R.drawable.belefante)/*14*/,BitmapFactory.decodeResource(getResources(), R.drawable.bsuperreja)/*15*/,BitmapFactory.decodeResource(getResources(), R.drawable.visitante)/*16*/};
 			
 	private SurfaceHolder holder;
 	private GameLoopThread gameLoopThread;
@@ -53,9 +53,10 @@ public class GameView extends SurfaceView {
 	private Pico p;
 	public Context ct;
 	Condiciones condicion;
+	public List<Visitante> ListaVisitantes;
 	
 	//contadores
-	contador gold;
+	public contador gold;
 	
 	public GameView(Context context, final int esc) {
 		super(context);
@@ -63,14 +64,18 @@ public class GameView extends SurfaceView {
 		this.esc=esc; //parametro que indicara el escenario a usar se manda desde mainactivity
 		
 		//contador
-		gold=new contador(GV, bmp[12], 10, 0, 20);
+		gold=new contador(GV, bmp[12]);
 		//contador
 		gameLoopThread = new GameLoopThread(this);
 		Figuras = new CopyOnWriteArrayList<Figura>();
 		Nochocan = new CopyOnWriteArrayList<Figura>();
 		Rejas= new CopyOnWriteArrayList<reja>();
 		ListaSalvajes = new CopyOnWriteArrayList<Sprite>();
+
 		salvaje=new CopyOnWriteArrayList<Salvajes>();
+
+
+		ListaVisitantes = new CopyOnWriteArrayList<Visitante>();
 
 		
 		map = new Mapa(this,bmp,Figuras,id,food);
@@ -143,7 +148,7 @@ public class GameView extends SurfaceView {
 				int var1[]={0};
 				int var2[]={9};
 				condicion = new Condiciones(GV,var1,var2);
-				
+				EntradasVisitantes Visi = new EntradasVisitantes(GV,bmp[16]);
 			}
 
 			@Override
@@ -175,6 +180,10 @@ public class GameView extends SurfaceView {
 	    if(p!=null){
         	p.onDraw(canvas);
         }
+	    for (Iterator<Visitante> f = ListaVisitantes.iterator(); f.hasNext();) {
+			Figura aux = f.next();
+			aux.onDraw(canvas);
+		}
 	}
 
 	@SuppressLint("WrongCall")
@@ -368,7 +377,7 @@ public class GameView extends SurfaceView {
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
 			if(FlagS){
-				salvaje.add(new Salvajes(8, 520,520, map.Jaulas.get(0), GV, id++, 0, food));
+				salvaje.add(new Salvajes(8, x,y, null, GV, id++, 0, food));
 				salvaje.get(id_salvajes-1).get_dst().set(x-(salvaje.get(id_salvajes-1).get_width()/2),y-(salvaje.get(id_salvajes-1).get_height()/2), x+(salvaje.get(id_salvajes-1).get_width()/2), y-(salvaje.get(id_salvajes-1).get_height()/2));
 			    activa=id_salvajes;
 			}
