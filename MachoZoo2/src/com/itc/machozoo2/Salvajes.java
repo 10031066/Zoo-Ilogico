@@ -4,11 +4,13 @@ import java.util.List;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Log;
 
 public class Salvajes extends Sprite {
 	Jaula origen;
-    boolean atacar=false;    
-    
+    boolean atacar=false;  
+    reja victima=null;
+    ActulizandoAnimales Act;
     public Salvajes(int indice/*, Cuadro zona*/,int x,int y,Jaula origen,GameView gameView, int id,int tipo, List<FoodSprite> F) {
 	    this.id=id;
 	    this.tipo=tipo;
@@ -30,7 +32,7 @@ public class Salvajes extends Sprite {
         }
         switch (indice){
             case 8: //tigre
-                crear(indice,"Tigre",true,100,20,1000,false,false,true,true,gameView.bmp[1]);
+                crear(indice,"Tigre",true,10,20,10,false,false,true,true,gameView.bmp[1]);
                 break;
             case 9: //Oso
                 crear(indice,"Oso",true,250,15,900,false,false,true,true,gameView.bmp[1]);
@@ -54,7 +56,7 @@ public class Salvajes extends Sprite {
 		
 		
 		// Log.i("zoo",""+this.width);
-        ActulizandoAnimales Act = new ActulizandoAnimales(this);
+        Act = new ActulizandoAnimales(this);
         start();
 	}
     
@@ -64,14 +66,20 @@ public class Salvajes extends Sprite {
         try {
             while(true){
                 //System.out.println(nombre+" corriendo "+get_salud() );
+            	Log.i("Zoo",nombre+" corriendo "+get_salud());
                 Thread.sleep(5000);
-                //set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.size));
+                if(origen!=null){
+                	Log.i("Zoo", "Origen no es nulo");
+                set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.size));
+                }
+            
                 if(get_salud()<=0){
                     set_salud(0);
-                    atacar=true;
+                   
                     while(get_salud()<MaxSalud*40){//empieza a atacar!!!
                        Thread.sleep(5000);
-                       System.out.println("El tigre tiene hambre!!!");
+                       Log.i("Zoo", "El tigre tiene hambre!!!");
+                       //System.out.println("El tigre tiene hambre!!!");
                        
                        if(origen.jaulaRota){//si la jaula esta rota
                            //es libre!!! ahora busca comida...
@@ -92,12 +100,16 @@ public class Salvajes extends Sprite {
                            double distanciaMenor=999;
                            double distancia;
                            int jaulaX,jaulaY;//posiciones de la jaula
-                           reja victima=null;
+                           
                            //atacara la primera reja con la que se tope
                          
                            for(int i=0; i<origen.Get_Rejas().size(); i++){
                         	   if(Rect.intersects(this.get_dst(),origen.Get_Rejas().get(i).get_dst())){
+                        		   Log.i("Zoo", "reja encontrada para atacar");
                         		   victima=origen.Get_Rejas().get(i);
+                        		   Act.atacando=true;
+                        		   atacar=true;
+                        		   
                         	   }
                            }
                            
@@ -105,6 +117,7 @@ public class Salvajes extends Sprite {
                            
                         while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
                                //atacando la reja
+                        	if(victima!=null){// Log.i("Zoo", "Victima no es null");
                                victima.Resistencia-=ataque;
                          if(victima.Resistencia<victima.ResistenciaMax/2){
                             	  if(victima.Vertical){
@@ -113,6 +126,7 @@ public class Salvajes extends Sprite {
                             		   victima.usar=victima.broken1;
                             	  }
                              }
+                        }
                                Thread.sleep(1000);
                            }
                        }
@@ -127,7 +141,7 @@ public class Salvajes extends Sprite {
     void atacando(){
         //buscara al ser docil o humano mas cercando y atacara hasta que muera, o el estres(salud) mejore
         boolean seguir=true;
-        while(seguir){
+        while(seguir){		
             
         }
         

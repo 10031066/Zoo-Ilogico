@@ -4,9 +4,10 @@ import android.graphics.Rect;
 
 public class ActulizandoAnimales extends Thread{
 	Sprite Animal;
-	
+	boolean atacando=false;
 	ActulizandoAnimales(Sprite Animal){
 		this.Animal= Animal;
+		
 		
 		start();
 	}
@@ -50,7 +51,7 @@ public class ActulizandoAnimales extends Thread{
 	}
 	
 	void update() {
-		if(!Animal.comiendo()){
+		if(!Animal.comiendo()&&!atacando){
 			if (Animal.x > Animal.gameView.getWidth() - 133 ) {
 				Animal.xSpeed = -10;
 			}

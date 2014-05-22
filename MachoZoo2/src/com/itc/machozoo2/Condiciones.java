@@ -52,7 +52,7 @@ public class Condiciones extends Thread{
 				}
 				
 				repetir=true;
-				System.out.println("condicions cumplidas "+cumplidas+"/"+CondCumplidas.length);
+				//System.out.println("condicions cumplidas "+cumplidas+"/"+CondCumplidas.length);
 				if(cumplidas==CondCumplidas.length){
 					repetir=false;
 				}
