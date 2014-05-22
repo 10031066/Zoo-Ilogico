@@ -380,6 +380,7 @@ public class GameView extends SurfaceView {
 				salvaje.add(new Salvajes(8, x,y, null, GV, id++, 0, food));
 				salvaje.get(id_salvajes-1).get_dst().set(x-(salvaje.get(id_salvajes-1).get_width()/2),y-(salvaje.get(id_salvajes-1).get_height()/2), x+(salvaje.get(id_salvajes-1).get_width()/2), y-(salvaje.get(id_salvajes-1).get_height()/2));
 			    activa=id_salvajes;
+			    FlagS=false;
 			}
 			if(!FlagP && Nochocan.get(activa).get_tipo()!=2){
 				if(!map.Area[puntoY][puntoX].Jaula){			//Agregado en 0.00 : al presionar un cuadro que podria ser jaula lo combierte en una
