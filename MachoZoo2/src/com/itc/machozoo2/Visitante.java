@@ -19,7 +19,7 @@ public class Visitante extends Sprite{
 		xSpeed = rnd.nextInt(10);
 		ySpeed = rnd.nextInt(10) - 5;
 		
-		GV.gold.cantidad+=10;
+		GV.gold.cantidad+=20;
 		
 		crear(0,"Visitante",false,1,0,0,false,false,false,false,gameView.bmp[16]);//hay que cambiar el bmp al del visitante
 		
