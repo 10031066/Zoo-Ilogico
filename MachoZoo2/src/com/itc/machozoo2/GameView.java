@@ -114,11 +114,11 @@ public class GameView extends SurfaceView {
 				Nochocan.add(new Boton(GV, bmp[10], 3, 3));//pico
 				Nochocan.get(2).get_dst().set(0, 750, 250, 1000);
 				Nochocan.add(new Boton(GV, bmp[13],4,3));//tigre
-				Nochocan.get(3).get_dst().set(2250, 250, 2500, 500);
+				Nochocan.get(3).get_dst().set(1500, 250, 1750, 500);
 				Nochocan.add(new Boton(GV, bmp[14],5,3));//elefante
-				Nochocan.get(4).get_dst().set(2250, 500, 2500, 750);
+				Nochocan.get(4).get_dst().set(1500, 500, 1750, 750);
 				Nochocan.add(new Boton(GV, bmp[15],6,3));//superreja
-				Nochocan.get(5).get_dst().set(2250, 750, 2500, 1000);
+				Nochocan.get(5).get_dst().set(1500, 750, 1750, 1000);
 				//si quieres otro tigre descomenta la linea de abajo, todo lo que quieras agregar de figuras 
 				//ponlo abajo de este comentario por que si no joderas los botones.
 				//Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));

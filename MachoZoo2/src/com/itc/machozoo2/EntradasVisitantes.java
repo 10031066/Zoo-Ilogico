@@ -19,7 +19,7 @@ public class EntradasVisitantes extends Thread{
 				
 				GV.ListaVisitantes.add(new Visitante(GV,bmp));
 				
-				sleep(60000-GV.ListaSalvajes.size()*2000);
+				sleep(30000-GV.ListaSalvajes.size()*2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
