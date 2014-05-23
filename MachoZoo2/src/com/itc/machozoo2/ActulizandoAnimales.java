@@ -27,13 +27,23 @@ public class ActulizandoAnimales extends Thread{
 			
 			if( Animal.id != f.get_id()){// && this.get_tipo() != f.get_tipo()){
 				//System.out.println(f.id);
+				if(Animal.atacar){
+					Animal.buscaRejaAtacar();
+					if(Animal.victima!=null){
+						atacando=true;
+						try {
+							Animal.atacandoJaula();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+				}else
 			if (Rect.intersects(Animal.dst, f.dst) ) {
 				//System.out.println("Se interceptaron");
 				
-				if(Animal.atacar){
-					Animal.buscaRejaAtacar();
-					atacando=true;
-				}
+				
 				
 				Animal.flag = false;
 				
@@ -47,7 +57,7 @@ public class ActulizandoAnimales extends Thread{
 		}
 		update();
 		try {
-			Thread.sleep(150);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -44,6 +44,7 @@ public class Sprite  extends Figura {
         //si baja a un 10% del total bota una alarma o cambia de color la linea para avisar
 	    protected int ataque;
 	    protected Cuadro zona;
+	    reja victima; //Esta variable solo se usara en los animales salvajes
 	//
 		
 	public void crear(int indice,String nombre ,boolean salvaje, int salud, int ataque, int precio, boolean heno, boolean fruta, boolean pescado, boolean carne,Bitmap bmp) {
@@ -109,6 +110,9 @@ public class Sprite  extends Figura {
 
 	public void buscaRejaAtacar() {//este metodo solo se usa en animales salvajes
 		// TODO Auto-generated method stub
+	}
+	
+	public void atacandoJaula() throws InterruptedException{//este metodo solo se usa en animales salvajes
 		
 	}
 

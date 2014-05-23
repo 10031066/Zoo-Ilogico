@@ -122,15 +122,26 @@ public class Salvajes extends Sprite {
       	   }
     	}
     }
-
-    void atacandoJaula() throws InterruptedException{
+    
+    @Override
+    public void atacandoJaula() throws InterruptedException{
         //La funcion de encarga de atacar la jaula
     	
-        	while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
+        	while(get_salud()<MaxSalud*0.40 && victima!=null){ //mientras su salud mantenga el margen de atacante
                 //atacando la reja
-        		System.out.println("El tigre esta atacando");
+        		System.out.println("El tigre esta atacando "+victima.Resistencia);
         		if(victima!=null){// Log.i("Zoo", "Victima no es null");
         			victima.Resistencia-=ataque;
+        			
+        			if(victima.Resistencia<=0){ //
+        				origen.jaulaRota=true;
+        				origen.rejas.remove(victima);
+        				gameView.Rejas.remove(victima);
+        				gameView.Figuras.remove(victima);
+        				victima=null;
+        				System.out.println("la jaula ha caido!!!");
+        				return;
+        			}
         			if(victima.Resistencia<victima.ResistenciaMax/2){
         				if(victima.Vertical){
         					victima.usar=victima.broken2;
