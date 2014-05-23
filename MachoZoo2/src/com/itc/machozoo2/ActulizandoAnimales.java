@@ -1,10 +1,11 @@
 package com.itc.machozoo2;
 
 import android.graphics.Rect;
+import android.util.Log;
 
 public class ActulizandoAnimales extends Thread{
 	Sprite Animal;
-	boolean atacando=false;
+	private boolean atacando;
 	ActulizandoAnimales(Sprite Animal){
 		this.Animal= Animal;
 		
@@ -29,6 +30,10 @@ public class ActulizandoAnimales extends Thread{
 			if (Rect.intersects(Animal.dst, f.dst) ) {
 				//System.out.println("Se interceptaron");
 				
+				if(Animal.atacar){
+					Animal.buscaRejaAtacar();
+					atacando=true;
+				}
 				
 				Animal.flag = false;
 				

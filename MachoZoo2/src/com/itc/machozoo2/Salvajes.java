@@ -8,9 +8,11 @@ import android.util.Log;
 
 public class Salvajes extends Sprite {
 	Jaula origen;
-    boolean atacar=false;  
+      
     reja victima=null;
     ActulizandoAnimales Act;
+    
+    
     public Salvajes(int indice/*, Cuadro zona*/,int x,int y,Jaula origen,GameView gameView, int id,int tipo, List<FoodSprite> F) {
 	    this.id=id;
 	    this.tipo=tipo;
@@ -28,7 +30,7 @@ public class Salvajes extends Sprite {
         this.y=y;
         this.origen= origen;
         if(origen!=null){
-        origen.agregarAnimal(this); //se agrega el animal a la lista de su jaula
+        	origen.agregarAnimal(this); //se agrega el animal a la lista de su jaula
         }
         switch (indice){
             case 8: //tigre
@@ -75,7 +77,8 @@ public class Salvajes extends Sprite {
             
                 if(get_salud()<=0){
                     set_salud(0);
-                   
+                    atacar=true;//es la prueba de que empezara a atacar o estara en modo de ataque
+                    
                     while(get_salud()<MaxSalud*40){//empieza a atacar!!!
                        Thread.sleep(5000);
                        Log.i("Zoo", "El tigre tiene hambre!!!");
@@ -95,40 +98,12 @@ public class Salvajes extends Sprite {
                                
                            //}
                        }else{//a dañar la jaula
-                           //busca la reja mas cercana
-                           int indiceReja=0;
-                           double distanciaMenor=999;
-                           double distancia;
-                           int jaulaX,jaulaY;//posiciones de la jaula
                            
                            //atacara la primera reja con la que se tope
-                         
-                           for(int i=0; i<origen.Get_Rejas().size(); i++){
-                        	   if(Rect.intersects(this.get_dst(),origen.Get_Rejas().get(i).get_dst())){
-                        		   Log.i("Zoo", "reja encontrada para atacar");
-                        		   victima=origen.Get_Rejas().get(i);
-                        		   Act.atacando=true;
-                        		   atacar=true;
-                        		   
-                        	   }
-                           }
+                           atacandoJaula();
+                           
                            
                            //
-                           
-                        while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
-                               //atacando la reja
-                        	if(victima!=null){// Log.i("Zoo", "Victima no es null");
-                               victima.Resistencia-=ataque;
-                         if(victima.Resistencia<victima.ResistenciaMax/2){
-                            	  if(victima.Vertical){
-                            		  victima.usar=victima.broken2;
-                            	   }else{
-                            		   victima.usar=victima.broken1;
-                            	  }
-                             }
-                        }
-                               Thread.sleep(1000);
-                           }
                        }
                     }
                 }
@@ -137,13 +112,34 @@ public class Salvajes extends Sprite {
             
         }
     }
+    
+    @Override
+    public void buscaRejaAtacar(){
+    	for(int i=0; i<origen.Get_Rejas().size(); i++){
+      	   if(Rect.intersects(this.get_dst(),origen.Get_Rejas().get(i).get_dst())){
+      		   Log.i("Zoo", "reja encontrada para atacar");
+      		   victima=origen.Get_Rejas().get(i);
+      	   }
+    	}
+    }
 
-    void atacando(){
-        //buscara al ser docil o humano mas cercando y atacara hasta que muera, o el estres(salud) mejore
-        boolean seguir=true;
-        while(seguir){		
-            
-        }
-        
+    void atacandoJaula() throws InterruptedException{
+        //La funcion de encarga de atacar la jaula
+    	
+        	while(get_salud()<MaxSalud*40){ //mientras su salud mantenga el margen de atacante
+                //atacando la reja
+        		System.out.println("El tigre esta atacando");
+        		if(victima!=null){// Log.i("Zoo", "Victima no es null");
+        			victima.Resistencia-=ataque;
+        			if(victima.Resistencia<victima.ResistenciaMax/2){
+        				if(victima.Vertical){
+        					victima.usar=victima.broken2;
+        				}else{
+        					victima.usar=victima.broken1;
+        				}
+        			}
+        		}
+        		Thread.sleep(1000);
+            }
     }
 }

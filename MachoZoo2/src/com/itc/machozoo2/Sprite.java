@@ -13,7 +13,7 @@ import android.util.Log;
 public class Sprite  extends Figura {
 	public static int BMP_ROWS = 2;
 	public static int BMP_COLUMNS = 6;
-
+	boolean atacar=false;
 	protected int xSpeed = 10;
 	protected int ySpeed;
 	int currentFrame = 0;
@@ -105,5 +105,11 @@ public class Sprite  extends Figura {
     	}
     	return false;
     }
+
+
+	public void buscaRejaAtacar() {//este metodo solo se usa en animales salvajes
+		// TODO Auto-generated method stub
+		
+	}
 
 }
