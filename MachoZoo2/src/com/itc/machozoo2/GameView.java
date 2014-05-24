@@ -31,14 +31,12 @@ public class GameView extends SurfaceView {
 	private GameLoopThread gameLoopThread;
 	public List<Figura> Figuras; //Aqui se guardan todas las figuras que pueden chocar entre si
 	public List<Figura> Nochocan;
-	public List<Sprite> ListaSalvajes;
+	public List<Animales> Animales;
 	public List<Salvajes> salvaje;
 	public List<Jaula> Jaulas = new ArrayList<Jaula>();
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
 	List<reja> Rejas;
-	private List<reja> Rejas2= new ArrayList<reja>();//lo ocupo para la colision del pico, 
-	                                            //es una lista de todas las rejas, se llena cuando lepicas al pico
 	boolean flag = false, flagF=false,FlagP=false,FlagS=false;
 	int id=6;
 	int id_jaulas = 0;
@@ -70,7 +68,7 @@ public class GameView extends SurfaceView {
 		Figuras = new CopyOnWriteArrayList<Figura>();
 		Nochocan = new CopyOnWriteArrayList<Figura>();
 		Rejas= new CopyOnWriteArrayList<reja>();
-		ListaSalvajes = new CopyOnWriteArrayList<Sprite>();
+		Animales = new CopyOnWriteArrayList<Animales>();
 
 		salvaje=new CopyOnWriteArrayList<Salvajes>();
 
@@ -142,13 +140,13 @@ public class GameView extends SurfaceView {
 				
 				Jaula Temp = map.esJaula(2,2);
 
-				salvaje.add(new Salvajes(8, 520,520, map.Jaulas.get(0), GV, id_salvajes++, 0, food));
-				salvaje.add(new Salvajes(8, 520,620, map.Jaulas.get(0), GV, id_salvajes++, 0, food));
+				salvaje.add(new Salvajes(8, 520,520, map.Jaulas.get(0), GV, id_salvajes++, food));
+				salvaje.add(new Salvajes(8, 520,620, map.Jaulas.get(0), GV, id_salvajes++, food));
 				
 				int var1[]={0};
 				int var2[]={9};
 				condicion = new Condiciones(GV,var1,var2);
-				EntradasVisitantes Visi = new EntradasVisitantes(GV,bmp[16]);
+				EntradasVisitantes Visi = new EntradasVisitantes(GV);
 			}
 
 			@Override
@@ -164,23 +162,34 @@ public class GameView extends SurfaceView {
 		canvas.drawColor(Color.WHITE);
 		map.onDraw(canvas);
         gold.onDraw(canvas);
-		for (Iterator<Figura> f = Figuras.iterator(); f.hasNext();) {
+		/**for (Iterator<Figura> f = Figuras.iterator(); f.hasNext();) {//pintaba algunos objetos mas de una vez
 			Figura aux = f.next();
 			aux.onDraw(canvas);
 		}
+		*/
+        for (Iterator<Animales> f = Animales.iterator(); f.hasNext();) { //Dibuja los animales
+        	Figura aux = f.next();
+        	aux.onDraw(canvas);
+        }
+        for (Iterator<reja> f = Rejas.iterator(); f.hasNext();) {	//Dibuja las rejas
+        	Figura aux = f.next();
+        	aux.onDraw(canvas);
+        }
+        
+        
 	    if(!food.isEmpty()){
 			for (int i = food.size() - 1; i >= 0; i--) {
 	            food.get(i).onDraw(canvas);
 	     }
 	    }
-	    for (Iterator<Figura> f = Nochocan.iterator(); f.hasNext();) {
+	    for (Iterator<Figura> f = Nochocan.iterator(); f.hasNext();) { //dibuja los botones
 			Figura aux = f.next();
 			aux.onDraw(canvas);
 		}
 	    if(p!=null){
         	p.onDraw(canvas);
         }
-	    for (Iterator<Visitante> f = ListaVisitantes.iterator(); f.hasNext();) {
+	    for (Iterator<Visitante> f = ListaVisitantes.iterator(); f.hasNext();) {	//dibuja los visitantes
 			Figura aux = f.next();
 			aux.onDraw(canvas);
 		}
@@ -236,7 +245,7 @@ public class GameView extends SurfaceView {
 
 								id_carne=food.size();
 
-								food.add(new FoodSprite(GV, bmp[9], food, id_carne++, 4));
+								food.add(new FoodSprite(GV, bmp[9], food, id_carne++));
 								if(id_carne!=0){
 								food.get(id_carne - 1).get_dst().set(x - 22, y - 15, x + 22, y + 15);
 								}else{
@@ -252,12 +261,12 @@ public class GameView extends SurfaceView {
 												boolean flag1=false;
 												if(map.Area[i][j].rejas[k]!=null){
 													//Log.i("Zoo", "Testing");
-													if(Rejas2.isEmpty()){
-													Rejas2.add(map.Area[i][j].rejas[k]);
+													if(Rejas.isEmpty()){
+													Rejas.add(map.Area[i][j].rejas[k]);
 													Log.i("Zoo", "se agrego1= "+map.Area[i][j].rejas[k].get_id());
 													}else{
 														if(!yaexiste2(map.Area[i][j].rejas[k].get_id())){
-														Rejas2.add(map.Area[i][j].rejas[k]);
+														Rejas.add(map.Area[i][j].rejas[k]);
 														Log.i("Zoo", "se agrego1= "+map.Area[i][j].rejas[k].get_id());
 														}
 													}
@@ -267,7 +276,7 @@ public class GameView extends SurfaceView {
 											
 										}
 									}
-									p= new Pico(GV, bmp[11], 4,Rejas2);
+									p= new Pico(GV, bmp[11], 4,Rejas);
 									p.get_dst().set(x - 75, y , x + 75, y );
 									FlagP=true;
 									Log.i("tag", "PICO");
@@ -377,7 +386,7 @@ public class GameView extends SurfaceView {
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
 			if(FlagS){
-				salvaje.add(new Salvajes(8, x,y, null, GV, id++, 0, food));
+				salvaje.add(new Salvajes(8, x,y, null, GV, id++, food));
 				salvaje.get(id_salvajes-1).get_dst().set(x-(salvaje.get(id_salvajes-1).get_width()/2),y-(salvaje.get(id_salvajes-1).get_height()/2), x+(salvaje.get(id_salvajes-1).get_width()/2), y-(salvaje.get(id_salvajes-1).get_height()/2));
 			    activa=id_salvajes;
 			    FlagS=false;
@@ -633,8 +642,8 @@ public class GameView extends SurfaceView {
 		return false;
 	}
 	public boolean yaexiste2(int id) {// este lo ocupo en la linea 251 y es para lo del pico vs reja
-		for (int i = 0; i < Rejas2.size(); i++) {
-			if (id == Rejas2.get(i).get_id()) {
+		for (int i = 0; i < Rejas.size(); i++) {
+			if (id == Rejas.get(i).get_id()) {
 				return true;
 			}
 		}

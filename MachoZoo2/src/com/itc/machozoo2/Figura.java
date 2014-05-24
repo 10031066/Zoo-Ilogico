@@ -4,13 +4,17 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public abstract class Figura extends Thread{
+public abstract class Figura{
 	Canvas canvas;
 	Bitmap bmp;
 	int width;
 	int height;
 	int x;
 	int tipo;//El tipo 3 son los botones
+			 //El tipo 4 con los Animales Dociles
+			 //El tipo 5 son los Animales Salvajes
+			 //El tipo 6 son las rejas
+			 //El tipo 7 es la carne
 	int y;
 	int id;
 	Rect dst, src;

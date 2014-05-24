@@ -241,7 +241,7 @@ public class Mapa{
 		
 		switch (a){
         case 0:
-            nueva = new reja(1,new Rect(x*250,y*250-15,x*250+250,y*250+15),gameView,false);
+            nueva = new reja(new Rect(x*250,y*250-15,x*250+250,y*250+15),gameView,false);
             Area[y][x].setArriba(nueva);
 
             if(y-1>=0){
@@ -250,21 +250,21 @@ public class Mapa{
             
             break;
         case 1:
-            nueva = new reja(1,new Rect(x*250+235,y*250,x*250+265,y*250+250),gameView,true);
+            nueva = new reja(new Rect(x*250+235,y*250,x*250+265,y*250+250),gameView,true);
             Area[y][x].setDerecha(nueva);
             if(x+1<columns){
                 Area[y][x+1].setIzquierda(nueva);
             }
             break;
         case 2:
-            nueva = new reja(1,new Rect(x*250,y*250+235,x*250+250,y*250+265),gameView,false);
+            nueva = new reja(new Rect(x*250,y*250+235,x*250+250,y*250+265),gameView,false);
             Area[y][x].setAbajo(nueva);
             if(y+1<rows){
                 Area[y+1][x].setArriba(nueva);
             }
             break;
         case 3:
-            nueva = new reja(1,new Rect(x*250-15,y*250,x*250+15,y*250+250),gameView,true);
+            nueva = new reja(new Rect(x*250-15,y*250,x*250+15,y*250+250),gameView,true);
             Area[y][x].setIzquierda(nueva);
             if(x-1>=0){
                 Area[y][x-1].setDerecha(nueva);

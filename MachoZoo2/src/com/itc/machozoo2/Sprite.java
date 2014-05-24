@@ -11,8 +11,8 @@ import android.graphics.Paint.Style;
 import android.util.Log;
 
 public class Sprite  extends Figura {
-	public static int BMP_ROWS = 2;
-	public static int BMP_COLUMNS = 6;
+	public int BMP_ROWS = 2;
+	public int BMP_COLUMNS = 6;
 	boolean atacar=false;
 	protected int xSpeed = 10;
 	protected int ySpeed;
@@ -28,45 +28,7 @@ public class Sprite  extends Figura {
 	boolean v=false;
 	boolean h=false;
 	int[] DIRECTION_TO_ANIMATION_MAP = { 3, 1, 0, 2 };
-	
-	//Cambios de Edgar
-		private int indice;//para definir el animal 1 a 14
-		String nombre; 
-		private boolean salvaje; //si o no
-		protected int MaxSalud;
-		private int precio; //costo del animal
-	    private boolean heno; //come heno?
-	    private boolean fruta;
-	    private boolean pescado;
-	    private boolean carne;
-	    //si en un animal salvaje, baja a cero empezara a atacar
-        //si es un animal docil baja a cero muere
-        //si baja a un 10% del total bota una alarma o cambia de color la linea para avisar
-	    protected int ataque;
-	    protected Cuadro zona;
-	    reja victima; //Esta variable solo se usara en los animales salvajes
-	//
-		
-	public void crear(int indice,String nombre ,boolean salvaje, int salud, int ataque, int precio, boolean heno, boolean fruta, boolean pescado, boolean carne,Bitmap bmp) {
-		this.indice = indice;
-	    this.nombre = nombre;
-	    this.salvaje = salvaje;
-	    this.MaxSalud = salud;
-	    this.ataque = ataque;
-	    this.precio = precio;
-	    this.heno = heno;
-	    this.fruta = fruta;
-	    this.pescado = pescado;
-	    this.carne = carne;
-	    this.salud=salud;
-	    this.bmp= bmp;
-	    this.width = (bmp.getWidth() / BMP_COLUMNS);// -67;
-		this.height = bmp.getHeight() / BMP_ROWS;
-		dst = new Rect(x,y,x+width,y+height);
-		this.Figuras=gameView.Figuras;
-	}    
-	
-	
+
     @Override
 	public void onDraw(Canvas canvas) {
 

@@ -6,20 +6,19 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 
-public class Salvajes extends Sprite {
-	Jaula origen;
-      
-    reja victima=null;
+public class Salvajes extends Animales {
+	//Jaula origen;
     ActulizandoAnimales Act;
     
     
-    public Salvajes(int indice/*, Cuadro zona*/,int x,int y,Jaula origen,GameView gameView, int id,int tipo, List<FoodSprite> F) {
+    public Salvajes(int indice/*, Cuadro zona*/,int x,int y,Jaula origen,GameView gameView, int id, List<FoodSprite> F) {
 	    this.id=id;
-	    this.tipo=tipo;
+	    this.tipo=5;
 		this.gameView=gameView;
 		
 		gameView.Figuras.add(this);
-		gameView.ListaSalvajes.add(this);
+		gameView.Animales.add(this);
+		gameView.salvaje.add(this);
 		food=F;
 		
 		xSpeed = rnd.nextInt(10);
@@ -31,6 +30,8 @@ public class Salvajes extends Sprite {
         this.origen= origen;
         if(origen!=null){
         	origen.agregarAnimal(this); //se agrega el animal a la lista de su jaula
+        }else{
+        	System.out.println("El animal no tiene jaula");
         }
         switch (indice){
             case 8: //tigre
@@ -58,99 +59,8 @@ public class Salvajes extends Sprite {
 		
 		
 		// Log.i("zoo",""+this.width);
-        Act = new ActulizandoAnimales(this);
-        start();
+        Act = new ActulizandoAnimales(this);//Movimiento
+        digestion = new Hambre(this); //hambre
+        
 	}
-    
-    public void run() {
-        //
-    	
-        try {
-            while(true){
-                //System.out.println(nombre+" corriendo "+get_salud() );
-            	Log.i("Zoo",nombre+" corriendo "+get_salud());
-                Thread.sleep(5000);
-                if(origen!=null){
-                	Log.i("Zoo", "Origen no es nulo");
-                set_salud(get_salud()-((origen.getHabitantes()*origen.getHabitantes())/origen.size));
-                }
-            
-                if(get_salud()<=0){
-                    set_salud(0);
-                    atacar=true;//es la prueba de que empezara a atacar o estara en modo de ataque
-                    
-                    while(get_salud()<MaxSalud*40){//empieza a atacar!!!
-                       Thread.sleep(5000);
-                       Log.i("Zoo", "El tigre tiene hambre!!!");
-                       //System.out.println("El tigre tiene hambre!!!");
-                       
-                       if(origen.jaulaRota){//si la jaula esta rota
-                           //es libre!!! ahora busca comida...
-                           //debe buscar al comestible mas cercano e ir tras el
-                           int indiceComida;
-                           double distanciaMenor=999;
-                           double distancia;
-                           int comidaX,comidaY;
-                           
-                           //for(int i=0;i<)
-                           //while(getSalud()<getMaxSalud()*40){ //mientras su salud mantenga el margen de atacante
-                               
-                               
-                           //}
-                       }else{//a dañar la jaula
-                           
-                           //atacara la primera reja con la que se tope
-                           atacandoJaula();
-                           
-                           
-                           //
-                       }
-                    }
-                }
-            }
-        } catch (InterruptedException ex) {
-            
-        }
-    }
-    
-    @Override
-    public void buscaRejaAtacar(){
-    	for(int i=0; i<origen.Get_Rejas().size(); i++){
-      	   if(Rect.intersects(this.get_dst(),origen.Get_Rejas().get(i).get_dst())){
-      		   Log.i("Zoo", "reja encontrada para atacar");
-      		   victima=origen.Get_Rejas().get(i);
-      	   }
-    	}
-    }
-    
-    @Override
-    public void atacandoJaula() throws InterruptedException{
-        //La funcion de encarga de atacar la jaula
-    	
-        	while(get_salud()<MaxSalud*0.40 && victima!=null){ //mientras su salud mantenga el margen de atacante
-                //atacando la reja
-        		System.out.println("El tigre esta atacando "+victima.Resistencia);
-        		if(victima!=null){// Log.i("Zoo", "Victima no es null");
-        			victima.Resistencia-=ataque;
-        			
-        			if(victima.Resistencia<=0){ //
-        				origen.jaulaRota=true;
-        				origen.rejas.remove(victima);
-        				gameView.Rejas.remove(victima);
-        				gameView.Figuras.remove(victima);
-        				victima=null;
-        				System.out.println("la jaula ha caido!!!");
-        				return;
-        			}
-        			if(victima.Resistencia<victima.ResistenciaMax/2){
-        				if(victima.Vertical){
-        					victima.usar=victima.broken2;
-        				}else{
-        					victima.usar=victima.broken1;
-        				}
-        			}
-        		}
-        		Thread.sleep(1000);
-            }
-    }
 }
