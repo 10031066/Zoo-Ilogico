@@ -15,6 +15,7 @@ public abstract class Figura{
 			 //El tipo 5 son los Animales Salvajes
 			 //El tipo 6 son las rejas
 			 //El tipo 7 es la carne
+			 //El tipo 8 son los Visitantes
 	int y;
 	int id;
 	Rect dst, src;

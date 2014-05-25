@@ -35,6 +35,15 @@ public class ActulizandoAnimales extends Thread{
 							Animal.flag = true;
 							switch(f.tipo){//es reja? animal docil? animal salvaje? visitante?
 								case 4://Docil
+									//Que empieze la batalla!!!
+									atacando=true;
+									Animal.AnimalVictima =BuscaDocilAtacar();
+									if(Animal.AnimalVictima==null){
+										System.out.println("Cosa rara esta pasando");
+									}else{
+										atacandoDocil((Dociles)Animal.AnimalVictima);
+									}
+									
 									
 									break;
 								case 5://Salvaje
@@ -58,7 +67,11 @@ public class ActulizandoAnimales extends Thread{
 									
 									break;
 								
-							
+								case 8://Visitante
+									//El visitantante muere inmediatamente asi que solo necesita ser eliminado
+									VictimaVisitante();
+									
+									break;
 							}
 										
 						}else{//no tiene hambre o no es un animal salvaje
@@ -70,12 +83,7 @@ public class ActulizandoAnimales extends Thread{
 							break;
 						} 
 						
-						//ahora tenemos victima
-						
 					}
-				}else{
-				
-						
 				}
 			}
 		
@@ -89,6 +97,65 @@ public class ActulizandoAnimales extends Thread{
 		}
 
 	  }
+	}
+	
+	private void atacandoDocil(Dociles Vict){//Funcion del Animal salvaje 
+		while(atacando){
+			Vict.salud-=Animal.ataque;
+			if(Vict.salud<=0){//Ha muerto la victima
+				Animal.gameView.dociles.remove(Vict);
+				Animal.gameView.Animales.remove(Vict);
+				Vict=null;
+				atacando=false;
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		Log.i("ActualizandoAnimales", "Ha muerto un docil");
+	}
+	
+	private void atacandoSalvaje(Salvajes Vict){
+		while(atacando){
+			Vict.salud+=Animal.ataque; // los dociles aumentan la salud/desestrezan al animal
+			if(Vict.salud>=Vict.MaxSalud*.40){
+				Vict.atacar=false; //Dejara de buscar pelea
+				Vict.Act.atacando=false; //dejara de pelear
+				Vict=null;
+				atacando=false;
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+ 	private Dociles BuscaDocilAtacar() {
+		for(int i=0; i<Animal.gameView.dociles.size(); i++){
+			if(Rect.intersects(Animal.get_dst(),Animal.gameView.dociles.get(i).get_dst())){
+				Log.i("ActualizandoAnimales", "Rival encontrado");
+	      		return Animal.gameView.dociles.get(i);
+	      	}
+		}
+	    return null;
+		
+	}
+
+	private void VictimaVisitante() {
+		for(int i=0; i<Animal.gameView.ListaVisitantes.size(); i++){
+			if(Rect.intersects(Animal.get_dst(),Animal.gameView.ListaVisitantes.get(i).get_dst())){
+				Animal.gameView.ListaVisitantes.remove(i);
+	      		Log.i("ActualizandoAnimales", "el visitante fue devorado");
+	      		Animal.gameView.VisitantesComidos++;
+	      	}
+	    }
 	}
 
 	public void atacandoJaula() throws InterruptedException{
@@ -120,7 +187,26 @@ public class ActulizandoAnimales extends Thread{
         				if(Animal.gameView.Figuras.remove(Animal.rejaVictima)){
         					System.out.println("se removio reja de las figuras");
         				}
+        				
+        				int indice=0;
+        				int k[]=new int[2];
+        				int l[]=new int[2];
+        				
+        				for(int i=0;i<Animal.gameView.map.rows;i++){
+        					for(int j=0;j<Animal.gameView.map.columns;j++){
+        						if(Rect.intersects(Animal.gameView.map.Celdas[i][j], Animal.rejaVictima.dst)){
+        							k[indice]=i;
+        							l[indice]=j;
+        							indice++;
+        						}
+        					}
+        				}
+        				Animal.gameView.map.Area[k[0]][l[0]].EliminaporID(Animal.rejaVictima.get_id());
+        				Animal.gameView.map.Area[k[1]][l[1]].EliminaporID(Animal.rejaVictima.get_id());
+        				
+        						
         				Animal.rejaVictima=null;
+        				
         				System.out.println("la jaula ha caido!!!");
         				atacando=false;
         				return;
@@ -132,8 +218,8 @@ public class ActulizandoAnimales extends Thread{
     }
 	
 	public reja buscaRejaAtacar(){
-    	for(int i=0; i<Animal.origen.Get_Rejas().size(); i++){
-      	   if(Rect.intersects(Animal.get_dst(),Animal.origen.Get_Rejas().get(i).get_dst())){
+    	for(int i=0; i<Animal.gameView.Rejas.size(); i++){
+      	   if(Rect.intersects(Animal.get_dst(),Animal.gameView.Rejas.get(i).get_dst())){
       		   Log.i("Zoo", "reja encontrada para atacar");
       		   return Animal.gameView.Rejas.get(i);
       	   }

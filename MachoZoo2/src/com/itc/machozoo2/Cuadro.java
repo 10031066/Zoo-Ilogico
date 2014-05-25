@@ -25,6 +25,15 @@ public class Cuadro{
 		tipo1=BitmapFactory.decodeResource(GV.getResources(),R.drawable.tierra);
 		tipo2=usar=BitmapFactory.decodeResource(GV.getResources(),R.drawable.piso);
 	}
+	void EliminaporID(int id){
+		for(int i=0;i<rejas.length;i++){
+			if(rejas[i]!=null && rejas[i].get_id()==id){
+				rejas[i]=null;
+				return;
+			}
+		}
+	}
+	
 	void setArriba(reja temp){
 		rejas[0]=temp;
 	}

@@ -23,7 +23,7 @@ public class Visitante extends Sprite{
 		ySpeed = rnd.nextInt(10) - 5;
 		
 		GV.gold.cantidad+=20;
-		
+		this.tipo=8;
 		VisitanteCaminando Vis = new VisitanteCaminando(this);
 	}
 		

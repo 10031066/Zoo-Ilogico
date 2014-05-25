@@ -32,6 +32,7 @@ public class Animales extends Sprite{
     private boolean carne;
     reja rejaVictima;
     Jaula origen;
+    Animales AnimalVictima;
     
     public void crear(int indice,String nombre ,boolean salvaje, int salud, int ataque, int precio, boolean heno, boolean fruta, boolean pescado, boolean carne, Bitmap bmp) {
         this.indice = indice;

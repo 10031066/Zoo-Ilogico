@@ -33,6 +33,8 @@ public class GameView extends SurfaceView {
 	public List<Figura> Nochocan;
 	public List<Animales> Animales;
 	public List<Salvajes> salvaje;
+	public List<Dociles> dociles;
+	
 	public List<Jaula> Jaulas = new ArrayList<Jaula>();
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
@@ -52,7 +54,7 @@ public class GameView extends SurfaceView {
 	public Context ct;
 	Condiciones condicion;
 	public List<Visitante> ListaVisitantes;
-	
+	public int VisitantesComidos=0;
 	//contadores
 	public contador gold;
 	
@@ -71,6 +73,7 @@ public class GameView extends SurfaceView {
 		Animales = new CopyOnWriteArrayList<Animales>();
 
 		salvaje=new CopyOnWriteArrayList<Salvajes>();
+		dociles=new CopyOnWriteArrayList<Dociles>();
 
 
 		ListaVisitantes = new CopyOnWriteArrayList<Visitante>();
