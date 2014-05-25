@@ -5,10 +5,8 @@ import android.graphics.Bitmap;
 public class EntradasVisitantes extends Thread{
 	//esta clase se encarga de manejar la entrada de visitantes y crearlos
 	GameView GV;
-	Bitmap bmp;
-	public EntradasVisitantes(GameView GV,Bitmap bmp){
+	public EntradasVisitantes(GameView GV){
 		this.GV=GV;
-		this.bmp=bmp;
 		start();
 	}
 	
@@ -16,10 +14,11 @@ public class EntradasVisitantes extends Thread{
 	public void run(){
 		while(true){
 			try {
+				Visitante temp=new Visitante(GV);
+				GV.ListaVisitantes.add(temp);
+				GV.Figuras.add(temp);
 				
-				GV.ListaVisitantes.add(new Visitante(GV,bmp));
-				
-				sleep(30000-GV.ListaSalvajes.size()*2000);
+				sleep(30000-GV.Animales.size()*2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

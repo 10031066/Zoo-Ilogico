@@ -15,9 +15,9 @@ public class FoodSprite extends Figura{
     private boolean activar=false;
 	 private List<FoodSprite> temps;
 	
-	 public FoodSprite(GameView gameView, Bitmap bmp,List<FoodSprite> f, int id,int tipo) {
+	 public FoodSprite(GameView gameView, Bitmap bmp,List<FoodSprite> f, int id) {
 		    this.id=id;
-		    this.tipo=tipo;
+		    this.tipo=7;
 			this.gameView=gameView;
 			this.bmp = bmp;
 			this.width=bmp.getWidth();

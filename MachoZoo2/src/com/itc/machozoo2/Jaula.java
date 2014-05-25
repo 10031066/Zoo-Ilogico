@@ -34,6 +34,7 @@ public class Jaula {
     		 rejas.add(nuevaJaula.get(i));
     	 }
      }
+     
      System.out.println("Jaula Creada");
 }
 

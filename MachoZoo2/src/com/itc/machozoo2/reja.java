@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.graphics.Paint.Style;
 
 public class reja extends Figura{
-	int tipo;
     int Resistencia;
     int ResistenciaMax;
     int iniI,iniJ;
@@ -21,11 +20,12 @@ public class reja extends Figura{
     boolean Vertical;
     int i1,i2,j1,j2;
     		
-    public reja(int tipo, Rect dst,GameView gameView,boolean Vertical) {
+    public reja(Rect dst,GameView gameView,boolean Vertical) {
     	this.id=(int)(Math.random()*32000);
     	this.Vertical=Vertical;
     	this.GV=gameView;
-        this.tipo = tipo;
+        this.tipo = 6;//define en figura que es una reja
+        
         tipo1=BitmapFactory.decodeResource(GV.getResources(),R.drawable.hrejasmall);
         tipo2=BitmapFactory.decodeResource(GV.getResources(),R.drawable.rejasmall);
         broken1=BitmapFactory.decodeResource(GV.getResources(),R.drawable.hrejasmall);//rejas dañadas, se tendra que cambiar el icono
@@ -59,7 +59,6 @@ public class reja extends Figura{
     private boolean fija = false;
  
     public void onDraw(Canvas canvas) {
-		
 		/**p1.setARGB(255, 255, 0, 0);
 		p1.setStyle(Style.STROKE);
 		//System.out.println(dst.left +" "+dst.top+" "+dst.right+" "+dst.bottom);

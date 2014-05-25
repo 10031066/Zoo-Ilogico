@@ -2,16 +2,19 @@ package com.itc.machozoo2;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 public class Visitante extends Sprite{
 	//GameView GV;
-	
-	public Visitante(GameView GV, Bitmap bmp){
+	int salud=1;
+	public Visitante(GameView GV){
 		this.gameView=GV;
-		this.bmp=bmp;
+		this.bmp=gameView.bmp[16];
 		GV.Figuras.add(this);
 		this.BMP_ROWS=2;
 		this.BMP_COLUMNS=6;
+		this.width = (bmp.getWidth() / BMP_COLUMNS);// -67;
+		this.height = bmp.getHeight() / BMP_ROWS;
 		
 		this.x=850;
 		this.y=100;
@@ -20,35 +23,14 @@ public class Visitante extends Sprite{
 		ySpeed = rnd.nextInt(10) - 5;
 		
 		GV.gold.cantidad+=20;
-		
-		crear(0,"Visitante",false,1,0,0,false,false,false,false,gameView.bmp[16]);//hay que cambiar el bmp al del visitante
-		
-		ActulizandoAnimales Act = new ActulizandoAnimales(this);
-		start();
+		this.tipo=8;
+		VisitanteCaminando Vis = new VisitanteCaminando(this);
 	}
-	@Override
-	public void run(){
-		while(true){
-			try {
-				sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//agregar el src y el dst del visitante y su sprite
-			
-			
-		}
-	}
-	
+		
+		
 	@Override
 	public void onDraw(Canvas canvas) {
 		canvas.drawBitmap(bmp, src, dst, null);
-	}
-	
-	public void update(){
-		
 	}
 	
 	public boolean comiendo(){
