@@ -7,8 +7,8 @@ import android.graphics.Rect;
 import android.util.Log;
 
 public class Salvajes extends Sprite {
-	Jaula origen;
-      
+	
+	Jaula origen; 
     reja victima=null;
     ActulizandoAnimales Act;
     
