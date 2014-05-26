@@ -6,15 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 
-<<<<<<< HEAD
-public class Salvajes extends Sprite {
-	
-	Jaula origen; 
-    reja victima=null;
-=======
+
+
+
 public class Salvajes extends Animales {
 	//Jaula origen;
->>>>>>> c9794eb462bb4810dd32cad2013fe1be9e122cc3
+
     ActulizandoAnimales Act;
     
     

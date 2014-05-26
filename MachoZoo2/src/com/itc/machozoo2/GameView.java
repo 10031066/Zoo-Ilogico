@@ -25,7 +25,7 @@ public class GameView extends SurfaceView {
 			BitmapFactory.decodeResource(getResources(), R.drawable.checkbutton)/*4*/,BitmapFactory.decodeResource(getResources(), R.drawable.poste)/*5*/,BitmapFactory.decodeResource(getResources(), R.drawable.puerta)/*6*/,
 			BitmapFactory.decodeResource(getResources(), R.drawable.piso)/*7*/,BitmapFactory.decodeResource(getResources(), R.drawable.bcarne)/*8*/,
 			BitmapFactory.decodeResource(getResources(), R.drawable.carne)/*9*/,BitmapFactory.decodeResource(getResources(), R.drawable.bpico)/*10*/,BitmapFactory.decodeResource(getResources(), R.drawable.pico)/*11*/,BitmapFactory.decodeResource(getResources(), R.drawable.gold)/*12*/,
-			BitmapFactory.decodeResource(getResources(), R.drawable.btigre)/*13*/,BitmapFactory.decodeResource(getResources(), R.drawable.belefante)/*14*/,BitmapFactory.decodeResource(getResources(), R.drawable.bsuperreja)/*15*/,BitmapFactory.decodeResource(getResources(), R.drawable.visitante)/*16*/};
+			BitmapFactory.decodeResource(getResources(), R.drawable.btigre)/*13*/,BitmapFactory.decodeResource(getResources(), R.drawable.belefante)/*14*/,BitmapFactory.decodeResource(getResources(), R.drawable.bsuperreja)/*15*/,BitmapFactory.decodeResource(getResources(), R.drawable.visitante)/*16*/,BitmapFactory.decodeResource(getResources(), R.drawable.elephant2)/*17*/};
 			
 	private SurfaceHolder holder;
 	private GameLoopThread gameLoopThread;
@@ -39,11 +39,12 @@ public class GameView extends SurfaceView {
 	private List<FoodSprite> food = new ArrayList<FoodSprite>();
 	private ArrayList<reja> Rejastmp;
 	List<reja> Rejas;
-	boolean flag = false, flagF=false,FlagP=false,FlagS=false;
+	boolean flag = false, flagF=false,FlagP=false,FlagS=false,FlagE=false;
 	int id=6;
 	int id_jaulas = 0;
 	int id_carne=0;
 	int id_salvajes=1;
+	int id_dociles=1;
 	Canvas canvas;
 	int activa;
 	private Rect[][] Celdas;
@@ -196,6 +197,8 @@ public class GameView extends SurfaceView {
 			Figura aux = f.next();
 			aux.onDraw(canvas);
 		}
+	    
+	  
 	}
 
 	@SuppressLint("WrongCall")
@@ -288,7 +291,14 @@ public class GameView extends SurfaceView {
 									
 									if(aux.get_dst().contains(x, y) && aux.get_id() == 4){
 										Log.i("Zoo", "BOTON TIGRE");
-									    FlagS=true;flag=false;flagF = false;
+									    FlagS=true;flag=false;flagF = false;FlagE=false;
+									}else{
+										if(aux.get_dst().contains(x, y) && aux.get_id() == 5){
+											Log.i("Zoo", "BOTON Elefante");
+											dociles.add(new Dociles(1,bmp[17],GV,id_dociles++));
+											activa=id_dociles-1;
+											FlagE=true;FlagS=false;flag=false;flagF = false;
+										}
 									}
 									
 								}
@@ -325,6 +335,9 @@ public class GameView extends SurfaceView {
 
 					break;
 
+			}
+			if(FlagE){
+				dociles.get(activa-1).get_dst().set(x-(dociles.get(activa-1).get_dst().width())/2, y-(dociles.get(activa-1).get_dst().height())/2, x+(dociles.get(activa-1).get_dst().width())/2, y+(dociles.get(activa-1).get_dst().height())/2);
 			}
 			if(FlagS){//tigre
 				//salvaje.get(activa-1).get_dst().set(x,y, x, y);
@@ -389,7 +402,7 @@ public class GameView extends SurfaceView {
 		case MotionEvent.ACTION_UP://levantando el dedo
 			
 			if(FlagS){
-				salvaje.add(new Salvajes(8, x,y, null, GV, id++, food));
+				salvaje.add(new Salvajes(8, x,y, null, GV, id_salvajes++, food));
 				salvaje.get(id_salvajes-1).get_dst().set(x-(salvaje.get(id_salvajes-1).get_width()/2),y-(salvaje.get(id_salvajes-1).get_height()/2), x+(salvaje.get(id_salvajes-1).get_width()/2), y-(salvaje.get(id_salvajes-1).get_height()/2));
 			    activa=id_salvajes;
 			    FlagS=false;
