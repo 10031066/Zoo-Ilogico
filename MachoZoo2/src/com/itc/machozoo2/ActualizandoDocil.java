@@ -6,10 +6,11 @@ public class ActualizandoDocil extends Thread {
 	Dociles d;
 	int row;
 	int srcX,srcY;
+	boolean atacando;
 	public ActualizandoDocil(Dociles d) {
 		this.d=d;
 		d.dst = new Rect(d.x, d.y, d.x + d.width, d.y + d.height);
-	start();
+		start();
 	}
 	
 	public void run(){
@@ -22,14 +23,9 @@ public class ActualizandoDocil extends Thread {
 			}else{
 				row=0;
 			}
-			
-			
-			
 			d.src = new Rect(srcX, srcY, srcX + d.width, srcY + d.height);
 			
 			//System.out.println(Vis.x+" "+ Vis.y+" "+ (Vis.x + Vis.width)+" "+ (Vis.y + Vis.height));
-			
-			
 			
 			try {
 				Thread.sleep(200);
@@ -42,6 +38,25 @@ public class ActualizandoDocil extends Thread {
 			
 			
 		}
+	}
+	
+	private void atacandoSalvaje(Salvajes Vict){
+		while(atacando){
+			Vict.salud+=d.ataque; // los dociles aumentan la salud/desestrezan al animal
+			if(Vict.salud>=Vict.MaxSalud*.40){
+				Vict.atacar=false; //Dejara de buscar pelea
+				Vict.Act.atacando=false; //dejara de pelear
+				Vict=null;
+				atacando=false;
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

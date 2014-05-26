@@ -5,7 +5,7 @@ import android.util.Log;
 
 public class ActulizandoAnimales extends Thread{
 	Animales Animal;
-	private boolean atacando;
+	boolean atacando;
 	ActulizandoAnimales(Animales Animal){
 		this.Animal= Animal;
 		
@@ -33,9 +33,10 @@ public class ActulizandoAnimales extends Thread{
 					
 						if(Animal.atacar){//Si tiene hambre
 							Animal.flag = true;
+							Log.i("chocando",""+f.tipo);
 							switch(f.tipo){//es reja? animal docil? animal salvaje? visitante?
 								case 4://Docil
-									//Que empieze la batalla!!!
+									Log.i("ActualizandoAnimales","Que empieze la batalla!!!");
 									atacando=true;
 									Animal.AnimalVictima =BuscaDocilAtacar();
 									if(Animal.AnimalVictima==null){
@@ -105,6 +106,7 @@ public class ActulizandoAnimales extends Thread{
 			if(Vict.salud<=0){//Ha muerto la victima
 				Animal.gameView.dociles.remove(Vict);
 				Animal.gameView.Animales.remove(Vict);
+				Animal.gameView.Figuras.remove(Vict);
 				Vict=null;
 				atacando=false;
 			}
@@ -116,25 +118,6 @@ public class ActulizandoAnimales extends Thread{
 			}
 		}
 		Log.i("ActualizandoAnimales", "Ha muerto un docil");
-	}
-	
-	private void atacandoSalvaje(Salvajes Vict){
-		while(atacando){
-			Vict.salud+=Animal.ataque; // los dociles aumentan la salud/desestrezan al animal
-			if(Vict.salud>=Vict.MaxSalud*.40){
-				Vict.atacar=false; //Dejara de buscar pelea
-				Vict.Act.atacando=false; //dejara de pelear
-				Vict=null;
-				atacando=false;
-			}
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
 	}
 	
  	private Dociles BuscaDocilAtacar() {

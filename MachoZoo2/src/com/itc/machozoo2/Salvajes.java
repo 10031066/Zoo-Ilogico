@@ -6,9 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 
-
-
-
 public class Salvajes extends Animales {
 	//Jaula origen;
 
