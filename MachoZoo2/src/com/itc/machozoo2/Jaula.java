@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Jaula {
  private int id_jaula;
- private ArrayList <RejaSprite> rejas;
+ public ArrayList <RejaSprite> rejas;
  private int ancho=0,alto=0;//numero de rejas que forman el ancho y el alto 
  //como guardo los indices?
  public Jaula (int id,ArrayList<RejaSprite> R){

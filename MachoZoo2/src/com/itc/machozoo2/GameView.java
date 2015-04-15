@@ -77,11 +77,8 @@ public class GameView extends SurfaceView {
 				// Animales tipo:1, rejas tipo:2, botones tipo:3
 				
 				//Figuras.add(new RejaSprite(GV, bmp2, id++, 2));
-<<<<<<< HEAD
-				Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1));//tigre
-=======
+				Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));//tigre
 				Figuras.add(new Sprite(GV, bmp, Figuras, id++, 1,food));
->>>>>>> ceca0f1e5cf0af17ee7cee758442a66bc016f360
 				Figuras.add(new Boton(GV, bmp3, id++, 3));
 				Figuras.add(new Boton(GV, bmp4, id++, 3));
 				Figuras.get(id - 1).get_dst().set(250, 250, 350, 350);
@@ -145,7 +142,7 @@ public class GameView extends SurfaceView {
 				case 3:// accion de los botones
 					if (aux.get_dst().contains(x, y) && aux.get_id() == 1) {// boton
 																			// para
-																			// añadir
+																			// aï¿½adir
 																			// rejas
 
 						Figuras.add(new RejaSprite(GV, bmp2, id++, 2));
@@ -167,9 +164,9 @@ public class GameView extends SurfaceView {
 								if (aux1.get_tipo() == 2) {
 									if(CheckId(aux1.get_id())){
 									Rejas.add((RejaSprite) aux1);
-									Log.i("zoo", "reja añadida");
+									Log.i("zoo", "reja aï¿½adida");
 									}else{
-										Log.i("zoo","no se añadio reja");
+										Log.i("zoo","no se aï¿½adio reja");
 									}
 									// Jaulas.add(new Jaula(id_jaulas++));
 								}
@@ -184,7 +181,7 @@ public class GameView extends SurfaceView {
 							}
 
 						}else{
-							if (aux.get_dst().contains(x, y) && aux.get_id() == 3) {//añadir carne
+							if (aux.get_dst().contains(x, y) && aux.get_id() == 3) {//aï¿½adir carne
 								Log.i("zoo", "presionaste carne");
 								
 								id_carne=food.size();
